@@ -1,0 +1,15 @@
+SET(SOURCES screens/ui_Screen1.c
+    screens/ui_Screen3.c
+    screens/ui_ScreenSetting.c
+    ui.c
+    components/ui_comp_hook.c
+    ui_helpers.c
+    ui_events.c
+    images/ui_img_iconunlock_png.c
+    images/ui_img_iconsetting_png.c
+    images/ui_img_iconpassword_png.c
+    images/ui_img_iconfinger_png.c
+    images/ui_img_iconcard_png.c
+    images/ui_img_iconhome_png.c)
+
+add_library(ui ${SOURCES})
