@@ -64,10 +64,10 @@ void callFuncCheckPW(lv_event_t *e)
 
 void callFuncAddFP(lv_event_t * e)
 {
-	if(myFingerPrint.enroll())
-    {
-        lv_textarea_set_text(ui_AreaAddFP, setIdFP);
-        _ui_flag_modify(ui_AreaAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-    }
+	// if(myFingerPrint.enroll())
+    // {
+    //     lv_textarea_set_text(ui_AreaAddFP, setIdFP);
+    //     _ui_flag_modify(ui_AreaAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    // }
 
 }
