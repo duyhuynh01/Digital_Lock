@@ -32,55 +32,57 @@ void setup()
 void loop()
 {
     lv_timer_handler(); 
-    delay(5);
-    int id = 0;
-    //run when task = -1
     myFingerPrint.scanFinger();
-    myRFID.scanRFID();
-    delay(50);
+    delay(5);
+    // int id = 0;
+    //run when task = -1
+    // myFingerPrint.scanFinger();
+    // myRFID.scanRFID();
+    // delay(10);
 
-    task = readNumber();
-    switch (task)
-    {
-    case 1: 
-        myFingerPrint.enroll();
-        task = -1;
-        break;
-    case 2: 
-        Log("Enter ID of your fingerprint to unenroll: ");
-        while(id == 0){
-        id = readNumber();
-        }
-        myFingerPrint.unEnroll(id);
-        task = -1;
-        break;
-    case 3:
-        myFingerPrint.restore();
-        task = -1;
-        break;
-    case 4: 
-        Log("Scan your RFID card to add new");
-        myRFID.addCard();
-        task = -1;
-        break;
-    case 5: 
-        Log("Scan your RFID card which you want to remove");
-        myRFID.removeCard();
-        task = -1;
-        break;
-    case 6: 
-        myRFID.printCardList();
-        task = -1;
-        break;
-    case 7:
-        myRFID.restore();
-        task = -1;
-        break;
-    case 8:
-        eeprom.readAll();
-        task = -1;
-        break;
-    }
+    // task = readNumber();
+    // switch (task)
+    // {
+    // case 1: 
+    //     myFingerPrint.enroll();
+    //     task = -1;
+    //     break;
+    // case 2: 
+    //     Log("Enter ID of your fingerprint to unenroll: ");
+    //     while(id == 0){
+    //     id = readNumber();
+    //     }
+    //     myFingerPrint.unEnroll(id);
+    //     task = -1;
+    //     break;
+    // case 3:
+    //     myFingerPrint.restore();
+    //     task = -1;
+    //     break;
+    // case 4: 
+    //     Log("Scan your RFID card to add new");
+    //     myRFID.addCard();
+    //     task = -1;
+    //     break;
+    // case 5: 
+    //     Log("Scan your RFID card which you want to remove");
+    //     myRFID.removeCard();
+    //     task = -1;
+    //     break;
+    // case 6: 
+    //     myRFID.printCardList();
+    //     task = -1;
+    //     break;
+    // case 7:
+    //     myRFID.restore();
+    //     task = -1;
+    //     break;
+    // case 8:
+    //     eeprom.readAll();
+    //     task = -1;
+    //     break;
+    // }
+    
 
 }
 

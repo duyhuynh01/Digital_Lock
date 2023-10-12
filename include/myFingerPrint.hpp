@@ -8,8 +8,8 @@
 #include <ui.h>
 
 #define ScanTimeoutMillis 5000u
-#define StartAddrSaveFP 1  //Which each address will be used to save a FP ID. Range of ID value (1 to TotalFP)
-#define TotalFP 20
+#define StartAddrSaveFP 30  //Which each address will be used to save a FP ID. Range of ID value (1 to TotalFP)
+#define TotalFP (20 + StartAddrSaveFP)
 extern uint8_t errorCount;
 extern bool isDoorOpen;
 // const char *setIdFP;

@@ -5,6 +5,7 @@
 #include "Password.hpp"
 #define TimeOpenDoor 5000
 void callFuncCheckPW(lv_event_t *e);
+void callFuncDeleteCard(lv_event_t * e);
 extern const char *PasswordUnlock;
 
 #endif

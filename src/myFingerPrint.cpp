@@ -80,7 +80,7 @@ bool FingerPrint::enroll(){
   int id = 0;
   // temp stage to get ID
   std::vector<int> FPInUse = getFPInUsed();
-  for (int idx = 1; idx < TotalFP + 1; idx++){
+  for (int idx = StartAddrSaveFP; idx < TotalFP + 1; idx++){
     if (FPInUse[idx] == 0){
       id = idx;
       break;
@@ -198,9 +198,9 @@ bool FingerPrint::enroll(){
   // fourth stage: save id into EEPROM
   
   eeprom.write(id, id);
-  char buffer[] = "";
-  sprintf(buffer, "%d", id);
-  const char *setIdFP = buffer;
+  // char buffer[] = "";
+  // sprintf(buffer, "%d", id);
+  // const char *setIdFP = buffer;
   // check if num of id in eeprom not match with 
 
   return true;
@@ -235,7 +235,7 @@ void FingerPrint::diagFingerPrint(){
 
 bool FingerPrint::restore(){
   //This method is used to delete all template (both eeprom and sensor)
-  for (int i = 1; i<TotalFP+1;i++){
+  for (int i = StartAddrSaveFP; i<TotalFP+1;i++){
     eeprom.write(i,0);
   }
   Serial.println("Successfully delete all template");
@@ -249,7 +249,7 @@ void FingerPrint::queryFinger(){
 std::vector<int> FingerPrint::getFPInUsed(){
   // This method is used to get the current FP in use
   std::vector<int> FPIndex(TotalFP + 1);
-  for (int i = 1; i < TotalFP; i++){
+  for (int i = StartAddrSaveFP; i < TotalFP; i++){
     if (eeprom.read(i) != 0){
       FPIndex[i]=eeprom.read(i);
     }

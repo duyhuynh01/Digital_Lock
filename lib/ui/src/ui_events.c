@@ -40,10 +40,10 @@ void callFuncAddCard(lv_event_t * e)
 	// Your code here
 }
 
-void callFuncDeleteCard(lv_event_t * e)
-{
-	// Your code here
-}
+// void callFuncDeleteCard(lv_event_t * e)
+// {
+// 	// Your code here
+// }
 
 void callFuncShowListCard(lv_event_t * e)
 {
