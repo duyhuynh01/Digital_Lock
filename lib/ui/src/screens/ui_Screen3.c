@@ -466,6 +466,7 @@ lv_obj_set_style_pad_left(ui_AreaPopupSetting, 0, LV_PART_MAIN| LV_STATE_DEFAULT
 lv_obj_set_style_pad_right(ui_AreaPopupSetting, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_AreaPopupSetting, 30, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_AreaPopupSetting, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_add_flag( ui_AreaPopupSetting, LV_OBJ_FLAG_HIDDEN );
 
 
 
