@@ -1,8 +1,9 @@
 #ifndef MYRFID_HPP
 #define MYRFID_HPP
 
-#define SS_PIN_HSPI 5
+#define SS_PIN_HSPI 27
 #define RST_PIN_HSPI 22
+#define SCK_PIN_HSPI 14
 #define cardTimeout 5000u
 #define StartAddrSaveCard 100
 #define CardCodeLen 8

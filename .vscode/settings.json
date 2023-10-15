@@ -5,6 +5,8 @@
         "istream": "cpp",
         "ostream": "cpp",
         "*.tcc": "cpp",
-        "lv_btnmatrix.h": "c"
+        "lv_btnmatrix.h": "c",
+        "funcui.hpp": "c",
+        "myfingerprint.hpp": "c"
     }
 }

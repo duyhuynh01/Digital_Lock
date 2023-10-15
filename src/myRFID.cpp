@@ -2,6 +2,7 @@
 #include "myEEPROM.hpp"
 extern myEEPROM eeprom;
 extern bool doorStatus;
+extern SPIClass SPI2;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
 {
     numCards = 0;
@@ -11,7 +12,8 @@ RFID::~RFID(){}
 /*-------------Init RFID-------------*/
 void RFID::begin()
 {
-    SPI.begin(14, 12, 13, SS_PIN_HSPI);
+    // SPI.begin(14, 12, 13);
+    SPI2.begin(14,12,13,27);
     mfrc522.PCD_Init();
     Serial.println("RFID Started");
     Serial.println(mfrc522.uid.size);

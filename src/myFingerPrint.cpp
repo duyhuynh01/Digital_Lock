@@ -1,6 +1,5 @@
 #include "myFingerPrint.hpp"
 extern myEEPROM eeprom;
-const char *setIdFP;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
 

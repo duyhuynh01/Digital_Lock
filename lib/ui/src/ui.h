@@ -39,6 +39,9 @@ extern lv_obj_t *ui_Label5;
 extern lv_obj_t *ui_AreaPopup;
 extern lv_obj_t *ui_KeyboardPWHome;
 void ui_event_PressedOkPW( lv_event_t *e);
+
+
+
 // SCREEN: ui_Screen3
 void ui_Screen3_screen_init(void);
 extern lv_obj_t *ui_Screen3;

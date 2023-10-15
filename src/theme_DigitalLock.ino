@@ -10,13 +10,14 @@
 FingerPrint myFingerPrint;
 myEEPROM eeprom;
 RFID myRFID;
+Password myPassword;
 int8_t task = -1;
 void setup()
 {
     Serial.begin(115200);
-    if (!passwordExists())
+    if (!myPassword.passwordExists())
     {
-        createPasswords();
+        myPassword.createPasswords();
         Serial.println("--Created password!---");
     }
     else
@@ -24,7 +25,7 @@ void setup()
         Serial.println("Created password!");
     }
     myFingerPrint.begin(57600);
-  // myRFID.begin();
+  myRFID.begin();
     eeprom.begin();
     TFT_init();
 }
@@ -32,13 +33,14 @@ void setup()
 void loop()
 {
     lv_timer_handler(); 
-    myFingerPrint.scanFinger();
+    // myFingerPrint.scanFinger();
     delay(5);
+    // myRFID.scanRFID();
     // int id = 0;
     //run when task = -1
-    // myFingerPrint.scanFinger();
-    // myRFID.scanRFID();
-    // delay(10);
+    myFingerPrint.scanFinger();
+    myRFID.scanRFID();
+    delay(10);
 
     // task = readNumber();
     // switch (task)

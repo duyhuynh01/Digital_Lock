@@ -4,20 +4,24 @@
 #include <EEPROM.h>
 #include "funcUi.hpp"
 #define ADMIN_PASSWORD_ADDRESS 0
-#define USER_PASSWORD_ADDRESS 10
 #define PASSWORD_SIZE 6
+#define INITIALIZE_ADMIN_PASSWORD "123456"
+class Password
+{
+private:
+    char adminPassword[PASSWORD_SIZE + 1];
+    char userPassword[PASSWORD_SIZE + 1];
+    char InputAdminPassword[PASSWORD_SIZE + 1];
+    char InputUserPassword[PASSWORD_SIZE + 1];
 
-extern char InputAdminPassword[];
-extern char InputUserPassword[];
-extern char adminPassword[];
-extern char userPassword[];
+public:
+    Password();
+    void createPasswords();
+    bool checkAdminPassword();
+    bool passwordExists();
+    void readPasswordFromEEPROM();
+    void updateAdminPasswordInEEPROM(char *newPassword);
+    const char *getAdminPassword() const;
+};
 
-void createPasswords();
-bool checkPasswordUnlock();
-bool checkUserPassword();
-bool checkAdminPassword();
-bool passwordExists();
-void readPasswordFromEEPROM();
-void updateAdminPasswordInEEPROM(char *newPassword);
-void updateUserPasswordInEEPROM(char *newPassword);
 #endif
