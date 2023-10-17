@@ -40,7 +40,50 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
         // Serial.println( touchY );
     }
 }
+// bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data) {
+//     uint16_t touchX = 0, touchY = 0;
 
+//     bool touched = tft.getTouch(&touchX, &touchY, 600);
+
+//     if (!touched) {
+//         return false;
+//     } else {
+
+//         return true;
+//     }
+// }
+
+bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data) {
+    uint16_t touchX = 0, touchY = 0;
+
+    bool touched = tft.getTouch(&touchX, &touchY, 600);
+
+    if (!touched) {
+        return false;
+    } else {
+        data.point.x = touchX;
+        data.point.y = touchY;
+        return true;
+    }
+}
+
+void controlScreen() {
+    unsigned long currentTime = millis();
+    bool touched = check_touch(my_indev_driver, my_data);
+
+    if (touched) {
+        if (!screenIsOn) {
+            digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+            screenIsOn = true;
+        }
+        lastTouchTime = currentTime;
+    } else {
+        if (screenIsOn && (currentTime - lastTouchTime >= screenOffTimeout)) {
+            digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
+            screenIsOn = false;
+        }
+    }
+}
 void TFT_init()
 {
     lv_init();
