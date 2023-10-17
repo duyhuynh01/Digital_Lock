@@ -7,10 +7,6 @@
 #include "myEEPROM.hpp"
 #include "myFingerPrint.hpp"
 #include "myRFID.hpp"
-TaskHandle_t Task1;
-TaskHandle_t Task2;
-void Task1Code(void *pvParameters);
-void Task2Code(void *pvParameters);
 FingerPrint myFingerPrint;
 myEEPROM eeprom;
 RFID myRFID;
@@ -37,50 +33,85 @@ void setup()
     myRFID.begin();
     eeprom.begin();
     TFT_init();
-    xTaskCreatePinnedToCore(
-                    Task1Code,  /* Task function*/
-                    "Task1",    /* Task name */
-                    10000,      /* Stack size of task*/
-                    NULL,       /* Parameter of the task*/
-                    1,          /* Priority of the task*/
-                    &Task1,     /* Task handler to keep track created task*/
-                    0);         /* Pin task to core 0*/
-
-    delay(500);
-    xTaskCreatePinnedToCore(
-                        Task2Code,  /* Task function*/
-                        "Task2",    /* Task name */
-                        10000,      /* Stack size of task*/
-                        NULL,       /* Parameter of the task*/
-                        1,          /* Priority of the task*/
-                        &Task2,     /* Task handler to keep track created task*/
-                        1);         /* Pin task to core 0*/
-
-    delay(500);
-}
-void Task1Code(void * pvParameters){
-    for(;;){
-        myFingerPrint.scanFinger();
-        myRFID.scanRFID();
-        controlScreen();
-        delay(50);
-        //Serial.println("Task 1 running");
-    }
- 
-}
-void Task2Code(void * pvParameters){
-    for(;;){
-        lv_timer_handler();
-        delay(5);
-        //Serial.println("Task 2 running");
-    }
 }
 
 void loop()
 {
-    vTaskDelete(NULL);
-}
+    controlScreen();
+    // unsigned long currentTime = millis();
+    // bool touched = check_touch(my_indev_driver, my_data);
+    // if (touched)
+    // {
+    //     if (!screenIsOn)
+    //     {
+    //         digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+    //         screenIsOn = true;
+    //     }
+    //     lastTouchTime = currentTime;
+    // }
+    // else
+    // {
+    //     if (screenIsOn && (currentTime - lastTouchTime >= screenOffTimeout))
+    //     {
+    //         digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
+    //         screenIsOn = false;
+    //     }
+    // }
 
+    // myFingerPrint.scanFinger();
+
+    // myRFID.scanRFID();
+    // int id = 0;
+    // run when task = -1
+    lv_timer_handler();
+    delay(5);
+    myFingerPrint.scanFinger();
+    myRFID.scanRFID();
+    delay(10);
+
+    // task = readNumber();
+    // switch (task)
+    // {
+    // case 1:
+    //     myFingerPrint.enroll();
+    //     task = -1;
+    //     break;
+    // case 2:
+    //     Log("Enter ID of your fingerprint to unenroll: ");
+    //     while(id == 0){
+    //     id = readNumber();
+    //     }
+    //     myFingerPrint.unEnroll(id);
+    //     task = -1;
+    //     break;
+    // case 3:
+    //     myFingerPrint.restore();
+    //     task = -1;
+    //     break;
+    // case 4:
+    //     Log("Scan your RFID card to add new");
+    //     myRFID.addCard();
+    //     task = -1;
+    //     break;
+    // case 5:
+    //     Log("Scan your RFID card which you want to remove");
+    //     myRFID.removeCard();
+    //     task = -1;
+    //     break;
+    // case 6:
+    //     myRFID.printCardList();
+    //     task = -1;
+    //     break;
+    // case 7:
+    //     myRFID.restore();
+    //     task = -1;
+    //     break;
+    // case 8:
+    //     eeprom.readAll();
+    //     task = -1;
+    //     break;
+    // }
+}
 
 void Log(String log)
 {
