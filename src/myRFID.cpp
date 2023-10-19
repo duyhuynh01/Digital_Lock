@@ -164,5 +164,5 @@ void RFID::printCardList()
 bool RFID::restore(){
     // This method used to delete all registed RFID card
     Serial.println("Successfully delete all you RFID card");
-
+    return true;
 }

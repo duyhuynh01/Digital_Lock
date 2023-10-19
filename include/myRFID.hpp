@@ -5,7 +5,7 @@
 #define RST_PIN_HSPI 22
 #define SCK_PIN_HSPI 14
 #define cardTimeout 5000u
-#define StartAddrSaveCard 100
+#define StartAddrSaveCard 300
 #define CardCodeLen 8
 #define maxNumCard 10
 
