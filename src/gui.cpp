@@ -89,11 +89,13 @@ void TFT_init()
     lv_init();
 
     tft.begin();          /* TFT init */
-    
+        
 tft.setRotation( 0 ); /* Landscape orientation, flipped */
-    uint16_t calData[15];
-    tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
-
+    uint16_t calData[5] = {429, 3210, 325, 3281, 2};
+    // uint16_t calData[15];
+    tft.setTouch(calData);
+    // tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
+   
     lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * screenHeight / 10 );
 
     /*Initialize the display*/
@@ -116,5 +118,9 @@ tft.setRotation( 0 ); /* Landscape orientation, flipped */
 
     ui_init();
 
-    Serial.println( "Setup done" );
-}
+    // Serial.println( "Setup done" );
+    // for(int i = 0; i < 15; i++)
+    // {
+    //     Serial.println(calData[i]);
+    // }
+    }
