@@ -1,14 +1,19 @@
 #include "myFingerPrint.hpp"
-extern myEEPROM eeprom;
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
-int16_t fingerprintCount = 0;
-uint16_t nextFingerprintID = 1;
+// int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
 }
 
 FingerPrint::~FingerPrint()
 {
+  }
+
+
+int16_t FingerPrint::getFingerprintCount()
+{
+  readFingerprintFromEEPROM();
+  return fingerprintCount;
 }
 
 void FingerPrint::begin(uint16_t baudRate)
@@ -114,7 +119,7 @@ bool FingerPrint::deleteFingerprintByName(const char *nameToDelete, uint16_t *id
     *id = fingerprintData[position].id;
     fingerprintData[position].id = 65534;
     strcpy(fingerprintData[position].name, "");
-
+  
     return true;
   }
   else
@@ -163,6 +168,7 @@ bool FingerPrint::saveFingerprintToEEPROM()
     }
   }
   EEPROM.commit();
+  readFingerprintFromEEPROM();
   return true;
 }
 
@@ -177,19 +183,19 @@ void FingerPrint::readFingerprintFromEEPROM()
     EEPROM.get(i, fingerprintData[countList]);
     countList++;
   }
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  {
-    Serial.println(fingerprintData[i].id);
-    if (fingerprintData[i].id != 65535)
-    {
-      // Serial.println(fingerprintData[i].id);
-      fingerprintCount++;
-    }
+  // for (int i = 0; i < FINGERPRINT_COUNT; i++)
+  // {
+  //   Serial.println(fingerprintData[i].id);
+  //   if (fingerprintData[i].id != 65535)
+  //   {
+  //     // Serial.println(fingerprintData[i].id);
+  //     fingerprintCount++;
+  //   }
 
-  }
-  Serial.print("fingeradd: ");
-  Serial.println(fingerprintCount);
-  fingerprintCount = 0;
+  // }
+  // Serial.print("fingeradd: ");
+  // Serial.println(fingerprintCount);
+  // fingerprintCount = 0;
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
     // Serial.println(fingerprintData[i].id);
@@ -205,7 +211,7 @@ void FingerPrint::readFingerprintFromEEPROM()
 
 
 /*----------------Padding name---------------------*/
-void padNameWithSpaces(char *name)
+void FingerPrint::padNameWithSpaces(char *name)
 {
   int nameLength = strlen(name);
   if (nameLength < 7)
@@ -344,10 +350,10 @@ bool FingerPrint::enrollFingerprint()
   }
   uint16_t id = 1000;
   char name[8];
-  int position = findDeletedPosition();
+  int8_t position = findDeletedPosition();
+  id = position + 1;
   if (position >= 0)
   {
-    id = position + 1;
     if(id == 1)
     {
       strcpy(name, "Admin");
@@ -363,11 +369,7 @@ bool FingerPrint::enrollFingerprint()
   }
   else
   {
-    do
-    {
-      id = nextFingerprintID;
-      nextFingerprintID = (nextFingerprintID % 20) + 1;
-    } while (isIDUsed(id));
+    id = fingerprintCount + 1;
     if(id == 1)
     {
       strcpy(name, "Admin");
@@ -387,10 +389,6 @@ bool FingerPrint::enrollFingerprint()
   {
     saveFingerprintToEEPROM();
   }
-  else
-  {
-    nextFingerprintID--;
-  }
   Serial.println("saved succcessfull!");
   return true;
 }
@@ -402,10 +400,6 @@ bool FingerPrint::unEnroll(const char* admin)
   char name[8];
   strcpy(name, getName);
   padNameWithSpaces(name);
-  uint8_t length = strlen(name);
-  Serial.print("chuoi name: ");
-  Serial.println(length);
-  Serial.println("------");
   uint16_t ID;
   if (deleteFingerprintByName(name, &ID))
   {
@@ -465,7 +459,6 @@ void FingerPrint::restore()
     EEPROM.put(i, emptyFingerprint);
   }
   fingerprintCount = 0;
-  nextFingerprintID = 1;
   EEPROM.commit();
   finger.emptyDatabase();
   Serial.println("Successfully delete all template");

@@ -17,7 +17,7 @@ unsigned long lastTouchTime = 0;
 const unsigned long screenOffTimeout = 10000; // 10 seconds
 void setup()
 {
-    EEPROM.begin(768);
+    EEPROM.begin(512);
     Serial.begin(115200);
     if (!myPassword.passwordExists())
     {
@@ -29,16 +29,14 @@ void setup()
         Serial.println("Created password!");
     }
     myFingerPrint.begin(57600);
-    myRFID.begin();
+    // myRFID.begin();
     // eeprom.begin();
-    TFT_init();
-    myFingerPrint.readFingerprintFromEEPROM();
-    myRFID.readCardFromEEPROM();
+    // TFT_init();
 }
 
 void loop()
 {
-    controlScreen();
+    // controlScreen();
 
     // unsigned long currentTime = millis();
     // bool touched = check_touch(my_indev_driver, my_data);
@@ -66,10 +64,10 @@ void loop()
     int id = 0;
     // run when task = -1
     task = -1;
-    lv_timer_handler();
+    // lv_timer_handler();
     delay(5);
     myFingerPrint.scanFinger();
-    myRFID.scanCard();
+    // myRFID.scanRFID();
     delay(10);
 
     task = readNumber();
@@ -96,36 +94,32 @@ void loop()
         myFingerPrint.changeFingerprintAdmin();
         task = -1;
         break;
-    // case 6:
-    //     Serial.println(myFingerPrint.getFingerprintCount());
-    //     task = -1;
-    //     break;
-    case 6:
-        Log("Scan your RFID card to add new");
-        myRFID.enrollCard();
+    case 6: 
+        Serial.println(myFingerPrint.getFingerprintCount());
         task = -1;
         break;
-    case 7:
-        Log("Scan your RFID card which you want to remove");
-        myRFID.unenrollCard("User3");
-        task = -1;
-        break;
-    case 8:
-        myRFID.showList();
-        task = -1;
-        break;
-    case 9:
-        myRFID.restore();
-        task = -1;
-        break;
+        // case 4:
+        //     Log("Scan your RFID card to add new");
+        //     myRFID.addCard();
+        //     task = -1;
+        //     break;
+        // case 5:
+        //     Log("Scan your RFID card which you want to remove");
+        //     myRFID.removeCard();
+        //     task = -1;
+        //     break;
+        // case 6:
+        //     myRFID.printCardList();
+        //     task = -1;
+        //     break;
+        // case 7:
+        //     myRFID.restore();
+        //     task = -1;
+        //     break;
         // case 8:
         //     eeprom.readAll();
         //     task = -1;
         //     break;
-    // case 2:
-    //     myRFID.readCardFromEEPROM();
-    //     task = -1;
-    //     break;
     }
 }
 

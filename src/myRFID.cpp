@@ -1,168 +1,297 @@
 #include "MyRFID.hpp"
-#include "myEEPROM.hpp"
-extern myEEPROM eeprom;
 extern bool doorStatus;
 extern SPIClass SPI2;
+extern FingerPrint myFingerPrint;
+CardData cardRegisteredData[CARD_COUNT];
+int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
 {
-    numCards = 0;
 }
 
-RFID::~RFID(){}
+RFID::~RFID() {}
 /*-------------Init RFID-------------*/
 void RFID::begin()
 {
     // SPI.begin(14, 12, 13);
-    SPI2.begin(14,12,13,27);
+    SPI2.begin(14, 12, 13, 27);
     mfrc522.PCD_Init();
     Serial.println("RFID Started");
     Serial.println(mfrc522.uid.size);
 }
 
-/*------------Check RFID-------------*/
-void RFID::scanRFID()
+bool RFID::restore()
 {
-    //Thiếu check khi chưa có thẻ
-    if (cardList == 0){
-
-    }
-    
-    if (isCardPresent())
+    for (int i = 0; i < CARD_COUNT; i++)
     {
-        if (isCardRegistered())
+        strcpy(cardRegisteredData[i].id, "xxx");
+        strcpy(cardRegisteredData[i].name, "zzz");
+    }
+    for (int i = CARD_START_ADDRESS; i < CARD_END_ADDRESS; i += sizeof(CardData))
+    {
+        CardData emptyCard;
+        strcpy(emptyCard.id, "xxx");
+        strcpy(emptyCard.name, "zzz");
+        EEPROM.put(i, emptyCard);
+    }
+    cardCount = 0;
+    EEPROM.commit();
+    Serial.println("Restored!");
+    Serial.println(cardRegisteredData[19].id);
+    Serial.println(cardRegisteredData[19].name);
+    return true;
+}
+
+/*----------------------Save Card-----------------*/
+bool RFID::saveCard()
+{
+    for (int i = CARD_START_ADDRESS; i <= CARD_END_ADDRESS; i += sizeof(CardData))
+    {
+        uint8_t index = (i - CARD_START_ADDRESS) / sizeof(CardData);
+        if (index < cardCount)
         {
-            Serial.println("Card is registered");
+            EEPROM.put(i, cardRegisteredData[index]);
         }
         else
         {
-            Serial.println("Card is not registered");
+            CardData emptyCard;
+            strcpy(emptyCard.id, "xxx");
+            strcpy(emptyCard.name, "zzz");
+            EEPROM.put(i, emptyCard);
         }
     }
+    EEPROM.commit();
+    return true;
 }
 
-/*----------Detect card--------------*/
-bool RFID::isCardPresent()
+/*-----------------Read card from EEPROM------------*/
+
+bool RFID::readCardFromEEPROM()
+{
+    uint8_t countList = 0;
+    cardCount = 0;
+    for (int i = CARD_START_ADDRESS; i < CARD_END_ADDRESS; i += sizeof(CardData))
+    {
+        EEPROM.get(i, cardRegisteredData[countList]);
+        countList++;
+    }
+    for (int i = 0; i < CARD_COUNT; i++)
+    {
+        if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
+        {
+            cardCount++;
+        }
+    }
+    // Serial.print("Card count: ");
+    // Serial.println(cardCount);
+    return true;
+}
+
+/*----------------Check card is existed------------*/
+void RFID::scanCard()
 {
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
     {
-        // Serial.println("Card detected");
-        return true;
+        String cardUID = "";
+        const char *cardID = NULL;
+
+        for (byte i = 0; i < mfrc522.uid.size; i++)
+        {
+            cardUID += String(mfrc522.uid.uidByte[i], HEX);
+        }
+        cardUID.toUpperCase();
+        cardID = cardUID.c_str();
+
+        bool validCard = false;
+
+        for (int i = 0; i < cardCount; i++)
+        {
+            if (strcmp(cardRegisteredData[i].id, cardID) == 0)
+            {
+                validCard = true;
+                break;
+            }
+        }
+
+        if (validCard)
+        {
+            Serial.println("Valid Card");
+            // Xử lý thẻ hợp lệ ở đây
+        }
+        else
+        {
+            Serial.println("Invalid Card");
+            // Xử lý thẻ không hợp lệ ở đây
+        }
     }
-    return false;
+
+    mfrc522.PICC_HaltA();
 }
 
-/*-----------Check card exist---------------*/
-bool RFID::isCardRegistered()
-{
-    String cardUID = "";
-    for (byte i = 0; i < mfrc522.uid.size; i++)
-    {
-        cardUID += String(mfrc522.uid.uidByte[i], HEX);
-    }
-    cardUID.toUpperCase();
 
-    for (int i = 0; i < numCards; i++)
+// function find deleted card position
+int8_t findDeletedCardPosition()
+{
+    for (int i = 0; i < CARD_COUNT; i++)
     {
-        if (cardUID == cardList[i])
+        if (strcmp(cardRegisteredData[i].id, "yyy") == 0)
         {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/*-------------------Add card--------------------*/
+bool RFID::enrollCard()
+{
+    readCardFromEEPROM();
+    if (cardCount >= CARD_COUNT)
+    {
+        Serial.println("Card list is fulled");
+        // behavior for full card
+        return false;
+    }
+    unsigned long startTime = millis();
+    bool cardDetected = false;
+
+    while (millis() - startTime <= cardTimeout)
+    {
+        if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
+        {
+            cardDetected = true;
+            break; 
+        }
+    }
+    if (cardDetected)
+    {
+        String cardUID = "";
+        for (byte i = 0; i < mfrc522.uid.size; i++)
+        {
+            cardUID += String(mfrc522.uid.uidByte[i], HEX);
+        }
+        cardUID.toUpperCase();
+        mfrc522.PICC_HaltA();
+        // Serial.print("Card add is: ");
+        Serial.println(cardUID);
+        const char *cardID = cardUID.c_str();
+        int8_t position = findDeletedCardPosition();
+        int8_t userId;
+        char name[8];
+        if (position >= 0)
+        {
+            userId = position + 1;
+            snprintf(name, sizeof(name), "User%d", userId);
+            myFingerPrint.padNameWithSpaces(name);
+            strcpy(cardRegisteredData[position].id, cardID);
+            strcpy(cardRegisteredData[position].name, name);
+            cardCount++;
+        }
+        else
+        {
+            userId = cardCount + 1;
+            snprintf(name, sizeof(name), "User%d", userId);
+            myFingerPrint.padNameWithSpaces(name);
+            int8_t lastPosition = cardCount;
+            strcpy(cardRegisteredData[lastPosition].id, cardID);
+            strcpy(cardRegisteredData[lastPosition].name, name);
+            cardCount++;
+            // Serial.print("Card count after add: ");
+            // Serial.println(cardCount);
+        }
+        if (saveCard())
+        {
+            Serial.println("Successfully add new card");
+            readCardFromEEPROM();
             return true;
         }
-    }
-    return false;
-}
-/*-----------Add card-----------------*/
-bool RFID::addCard()
-{
-    if (numCards < maxNumCard)
-    {
-        // Serial.println("Present your card");
-        unsigned long startTime = millis();
-
-        while (millis() - startTime <= cardTimeout)
+        else
         {
-            if (isCardPresent())
-            {
-                String cardUID = "";
-                for (byte i = 0; i < mfrc522.uid.size; i++)
-                {
-                    cardUID += String(mfrc522.uid.uidByte[i], HEX);
-                }
-                cardUID.toUpperCase();
-                cardList[numCards] = cardUID;
-                numCards++;
-                Serial.println("Successfully add your new card");
-                return true; 
-            }
+            Serial.println("Failed to save a new card. Please try again!");
+            // behavior for fail
+            return false;
         }
-
-        Serial.println("Timeout: No card detected");
     }
     else
     {
-        Serial.println("Failed to add card. Card list has fulled");
+        Serial.println("Time out for enroll card!");
+        return false;
     }
-
-    return false; 
+    return true;
 }
 
-/*-------------Remove card------------*/
-bool RFID::removeCard()
+// function find card by name
+int8_t RFID::findCardByName(const char *name)
 {
-    if (numCards > 0)
+    for (int i = 0; i < cardCount; i++)
     {
-        Serial.println("Present your card");
-        unsigned long startTime = millis();
-        while (millis() - startTime <= cardTimeout)
+        if (strcmp(cardRegisteredData[i].name, name) == 0)
         {
-            if (isCardPresent())
-            {
-                String cardUID = "";
-                for (byte i = 0; i < mfrc522.uid.size; i++)
-                {
-                    cardUID += String(mfrc522.uid.uidByte[i], HEX);
-                }
-                cardUID.toUpperCase();
-
-                for (int i = 0; i < numCards; i++)
-                {
-                    if (cardUID == cardList[i])
-                    {
-                        for (int j = i; j < numCards - 1; j++)
-                        {
-                            cardList[j] = cardList[j + 1];
-                        }
-                        numCards--;
-                        Serial.println("Card removed from the list");
-                        return true; 
-                    }
-                }
-                Serial.println("Card not found in the list");
-            }
+            return i;
         }
-        Serial.println("Timeout: No card detected");
+    }
+    return -1;
+}
+
+// function delete card by name
+bool RFID::deleteCardByName(const char *nameToDelete)
+{
+    int8_t position = findCardByName(nameToDelete);
+
+    if (position >= 0)
+    {
+        strcpy(cardRegisteredData[position].id, "yyy");
+        strcpy(cardRegisteredData[position].name, "");
+        return true;
     }
     else
+        return false;
+}
+/*--------------------Delete card--------------------*/
+bool RFID::unenrollCard(const char *user)
+{
+    if (cardCount <= 0)
     {
         Serial.println("Card list is empty");
     }
-
-    return false; 
+    unsigned long startTime = millis();
+    while (millis() - startTime <= cardTimeout)
+    {
+        const char *getName = user;
+        char name[8];
+        strcpy(name, getName);
+        myFingerPrint.padNameWithSpaces(name);
+        if (deleteCardByName(name))
+        {
+            Serial.print("Deleting card: ");
+            Serial.println(name);
+        }
+        else
+        {
+            Serial.println("Name not found!");
+            return false;
+        }
+        saveCard();
+        readCardFromEEPROM();
+        Serial.print("Deleted card: ");
+        Serial.println(name);
+        return true;
+    }
+    return true;
 }
-
 
 /*------------Print list card----------*/
-void RFID::printCardList()
+void RFID::showList()
 {
-    Serial.println("Registered Cards:");
-    for (int i = 0; i < numCards; i++)
+    readCardFromEEPROM();
+    Serial.print("Registered Cards: ");
+    Serial.println(cardCount);
+    for (int i = 0; i < CARD_COUNT; i++)
     {
-        Serial.print(i);Serial.print(": ");Serial.println(cardList[i]);
+        if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
+        {
+            Serial.print(cardRegisteredData[i].id);
+            Serial.print(" : ");
+            Serial.println(cardRegisteredData[i].name);
+        }
     }
-}
-
-
-bool RFID::restore(){
-    // This method used to delete all registed RFID card
-    Serial.println("Successfully delete all you RFID card");
-    return true;
 }

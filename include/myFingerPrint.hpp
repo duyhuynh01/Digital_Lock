@@ -4,7 +4,6 @@
 // #define debugMode
 #include <Adafruit_Fingerprint.h>
 #include "myEEPROM.hpp"
-#include <vector>
 #include <ui.h>
 
 #define ScanTimeoutMillis 5000u
@@ -43,6 +42,7 @@ public:
     bool enroll(uint16_t &id);
     bool enrollFingerprint();
     bool unEnroll(const char* admin);
+    void padNameWithSpaces(char *name);
     void getLog();
     bool debugFinger();
     void diagFingerPrint();
@@ -54,9 +54,9 @@ public:
     bool saveFingerprintToEEPROM();
     void showList();
     void changeFingerprintAdmin();
-    // std::vector<int> getFPInUsed();
+    int16_t getFingerprintCount();
     ~FingerPrint();
+private:
+    int16_t fingerprintCount;
 };
-
-
 #endif
