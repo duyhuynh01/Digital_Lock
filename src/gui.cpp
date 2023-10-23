@@ -118,9 +118,5 @@ tft.setRotation( 0 ); /* Landscape orientation, flipped */
 
     ui_init();
 
-    // Serial.println( "Setup done" );
-    // for(int i = 0; i < 15; i++)
-    // {
-    //     Serial.println(calData[i]);
-    // }
-    }
+    Serial.println( "Setup done" );
+        }

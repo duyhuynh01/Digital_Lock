@@ -43,10 +43,16 @@ void Password::readPasswordFromEEPROM()
 /*hàm kiểm tra mật khẩu admin*/
 bool Password::checkAdminPassword()
 {
-  if (strcmp(adminPassword, PasswordUnlock) == 0)
-    return true;
-  else
-    return false;
+  uint8_t passwordLength = strlen(adminPassword);
+  uint8_t inputPasswordLength = strlen(PasswordUnlock);
+  for(int i = 0; i <= inputPasswordLength - passwordLength; i ++)
+  {
+    if(strncmp(PasswordUnlock + i, adminPassword, passwordLength) == 0)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 /*hàm cập nhật mật khẩu admin mới vào EEPROM*/
