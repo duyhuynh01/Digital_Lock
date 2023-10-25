@@ -5,8 +5,9 @@
 #include <Adafruit_Fingerprint.h>
 #include "myEEPROM.hpp"
 #include <ui.h>
+#include "funcUi.hpp"
 
-#define ScanTimeoutMillis 5000u
+#define ScanTimeoutMillis 7000u
 
 #define FINGERPRINT_COUNT 20
 // #define TotalFP (20 + StartAddrSaveFP)

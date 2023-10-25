@@ -14,6 +14,7 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data );
 void TFT_init();
 bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data);
 void controlScreen();
+void turnLCD();
 extern lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 extern lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
 extern bool screenIsOn;

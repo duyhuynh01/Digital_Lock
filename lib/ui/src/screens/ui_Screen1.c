@@ -25,7 +25,7 @@ lv_obj_set_height( ui_AreaPWHome, LV_SIZE_CONTENT);   /// 60
 lv_obj_set_x( ui_AreaPWHome, 0 );
 lv_obj_set_y( ui_AreaPWHome, 5 );
 lv_obj_set_align( ui_AreaPWHome, LV_ALIGN_TOP_MID );
-lv_textarea_set_max_length(ui_AreaPWHome,12);
+lv_textarea_set_max_length(ui_AreaPWHome,10);
 lv_textarea_set_placeholder_text(ui_AreaPWHome,"Enter password");
 lv_textarea_set_one_line(ui_AreaPWHome,true);
 lv_textarea_set_password_mode(ui_AreaPWHome, true);
@@ -87,25 +87,28 @@ lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xFAF4F4), LV_PART_MAIN | LV
 lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_AreaPopup = lv_textarea_create(ui_rootpanel);
-lv_obj_set_height( ui_AreaPopup, 70);
-lv_obj_set_width( ui_AreaPopup, lv_pct(90));
-lv_obj_set_align( ui_AreaPopup, LV_ALIGN_CENTER );
-lv_textarea_set_max_length(ui_AreaPopup,50);
+lv_obj_set_height( ui_AreaPopup, 80);
+lv_obj_set_width( ui_AreaPopup, lv_pct(100));
+lv_obj_set_x( ui_AreaPopup, 0 );
 lv_obj_set_y( ui_AreaPopup, -3 );
-lv_textarea_set_placeholder_text(ui_AreaPopup,"Enter password");
+lv_obj_set_align( ui_AreaPopup, LV_ALIGN_CENTER );
+lv_textarea_set_max_length(ui_AreaPopup,100);
 lv_obj_add_flag( ui_AreaPopup, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_AreaPopup, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_bg_color(ui_AreaPopup, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_bg_opa(ui_AreaPopup, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_AreaPopup, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_AreaPopup, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_top(ui_AreaPopup, 23, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_pad_top(ui_AreaPopup, 27, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-
 
 
 
 ui_KeyboardPWHome = lv_keyboard_create(ui_Screen1);
 lv_keyboard_set_mode(ui_KeyboardPWHome,LV_KEYBOARD_MODE_NUMBER);
-lv_obj_set_height( ui_KeyboardPWHome, 220);
+lv_obj_set_height( ui_KeyboardPWHome, 200);
 lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
 lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
 lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags

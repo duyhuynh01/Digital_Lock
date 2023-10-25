@@ -1,6 +1,5 @@
 #include "funcUi.hpp"
 
-
 extern FingerPrint myFingerPrint;
 extern myEEPROM eeprom;
 extern Password myPassword;
@@ -15,7 +14,6 @@ void hidePopupAreaHome(lv_timer_t *timer)
 void callFuncCheckPW(lv_event_t *e)
 {
 
-    
     PasswordUnlock = lv_textarea_get_text(ui_AreaPWHome);
     Serial.println(PasswordUnlock);
     uint8_t size_char;
@@ -27,45 +25,51 @@ void callFuncCheckPW(lv_event_t *e)
 
     if (myPassword.checkAdminPassword() == true)
     {
-        notifyCheckPWHome(ui_AreaPopup, ui_AreaPWHome, "Unlock successfull!", 5000);
+        notifyPopup(ui_AreaPopup, "Unlock successfull!", 7000);
     }
     else
     {
-        notifyCheckPWHome(ui_AreaPopup, ui_AreaPWHome, "Unlock failed!", 5000);
+        notifyPopup(ui_AreaPopup, "Unlock failed!", 7000);
     }
+    lv_textarea_set_text(ui_AreaPWHome, "");
 }
 
 void callFuncAddFP(lv_event_t *e)
 {
-    // if (myFingerPrint.enroll())
-    // {
-    //     // lv_textarea_set_text(ui_AreaAddFP, setIdFP);
-    //     // _ui_flag_modify(ui_AreaAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-    // }
+    // _ui_flag_modify(ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    myFingerPrint.enrollFingerprint();
 }
 
 void callFuncDeleteCard(lv_event_t *e)
 {
-   myFingerPrint.restore();
+    myFingerPrint.restore();
 }
 
-
-
 /*---------Function support-----------*/
-void notifyCheckPWHome(lv_obj_t *popup, lv_obj_t *resetAreatext, const char *notify, uint32_t timerDuration) {
-    // Cập nhật nội dung và hiển thị ui_AreaPopup
+void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
+{
+    lv_textarea_set_text(popup, notify);
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    if (hidePopupTimer)
+    {
+        lv_timer_del(hidePopupTimer);
+    }
+    hidePopupTimer = lv_timer_create(hidePopupAreaHome, timerDuration, NULL);
+}
+
+void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration) {
     lv_textarea_set_text(popup, notify);
     _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
 
-    // Xóa hẹn giờ cũ (nếu có)
-    if (hidePopupTimer) {
-        lv_timer_del(hidePopupTimer);
-    }
-
-    // Tạo hoặc đặt lại hẹn giờ hidePopupTimer với thời gian mới
-    hidePopupTimer = lv_timer_create(hidePopupAreaHome, timerDuration, NULL);
-
-    // Xóa nội dung của ui_AreaPWHome
-    lv_textarea_set_text(resetAreatext, "");
+    // Tạo một timer để tự động ẩn thông báo sau một khoảng thời gian
+    lv_timer_t *hidePopup= lv_timer_create(hidePopupArea, timerDuration, popup);
 }
 
+void hidePopup(lv_obj_t *popup) {
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+}
+
+void hidePopupArea(lv_timer_t *timer) {
+    lv_obj_t *popup = (lv_obj_t *)timer->user_data;
+    hidePopup(popup);
+}

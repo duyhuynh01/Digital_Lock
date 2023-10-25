@@ -23,7 +23,7 @@ lv_imgbtn_set_src(ui_HomeOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_icon
 lv_obj_set_width( ui_HomeOptionbtn, 50);
 lv_obj_set_height( ui_HomeOptionbtn, 50);
 lv_obj_set_x( ui_HomeOptionbtn, -50 );
-lv_obj_set_y( ui_HomeOptionbtn, 55 );
+lv_obj_set_y( ui_HomeOptionbtn, 54 );
 lv_obj_set_align( ui_HomeOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_PWOptionbtn = lv_imgbtn_create(ui_Panel1);
@@ -31,7 +31,7 @@ lv_imgbtn_set_src(ui_PWOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconpa
 lv_obj_set_width( ui_PWOptionbtn, 50);
 lv_obj_set_height( ui_PWOptionbtn, 50);
 lv_obj_set_x( ui_PWOptionbtn, 50 );
-lv_obj_set_y( ui_PWOptionbtn, 55 );
+lv_obj_set_y( ui_PWOptionbtn, 54 );
 lv_obj_set_align( ui_PWOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_FPOptionbtn = lv_imgbtn_create(ui_Panel1);
@@ -39,7 +39,7 @@ lv_imgbtn_set_src(ui_FPOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconfi
 lv_obj_set_width( ui_FPOptionbtn, 50);
 lv_obj_set_height( ui_FPOptionbtn, 50);
 lv_obj_set_x( ui_FPOptionbtn, -50 );
-lv_obj_set_y( ui_FPOptionbtn, 170 );
+lv_obj_set_y( ui_FPOptionbtn, 169 );
 lv_obj_set_align( ui_FPOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_CardOptionbtn = lv_imgbtn_create(ui_Panel1);
@@ -47,7 +47,7 @@ lv_imgbtn_set_src(ui_CardOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_icon
 lv_obj_set_width( ui_CardOptionbtn, 50);
 lv_obj_set_height( ui_CardOptionbtn, 50);
 lv_obj_set_x( ui_CardOptionbtn, 50 );
-lv_obj_set_y( ui_CardOptionbtn, 170 );
+lv_obj_set_y( ui_CardOptionbtn, 169 );
 lv_obj_set_align( ui_CardOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_Label3 = lv_label_create(ui_Panel1);
@@ -74,7 +74,7 @@ ui_Label10 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label10, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label10, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_x( ui_Label10, 50 );
-lv_obj_set_y( ui_Label10, 224 );
+lv_obj_set_y( ui_Label10, 222 );
 lv_obj_set_align( ui_Label10, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label10,"Card");
 lv_obj_set_style_text_color(ui_Label10, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
@@ -84,7 +84,7 @@ ui_Label11 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label11, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label11, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_x( ui_Label11, -50 );
-lv_obj_set_y( ui_Label11, 224 );
+lv_obj_set_y( ui_Label11, 222 );
 lv_obj_set_align( ui_Label11, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label11,"Fingerprint");
 lv_obj_set_style_text_color(ui_Label11, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );

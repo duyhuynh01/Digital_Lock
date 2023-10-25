@@ -10,8 +10,13 @@
     void callFuncCheckPW(lv_event_t *e);
     void callFuncAddFP(lv_event_t *e);
     void callFuncDeleteCard(lv_event_t *e);
-    void notifyCheckPWHome(lv_obj_t *popup, lv_obj_t *resetAreatext, const char *notify, uint32_t timerDuration);
+    void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration);
+    void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration);
+    
+    // void hidePopup(lv_obj_t *popup);
+    void hidePopupArea(lv_timer_t *timer);
 extern const char *PasswordUnlock;
+
 
 
 #endif

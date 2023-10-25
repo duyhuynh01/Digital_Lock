@@ -1,4 +1,9 @@
 #include "gui.hpp"
+
+bool screenIsOn = true;
+unsigned long lastTouchTime = 0;
+const unsigned long screenOffTimeout = 15000; // 10 seconds
+
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight);
 /* Display flushing */
 void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
@@ -66,7 +71,12 @@ bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data) {
         return true;
     }
 }
-
+void turnLCD()
+{
+    screenIsOn = true;
+    lastTouchTime = millis();
+    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+}
 void controlScreen() {
     unsigned long currentTime = millis();
     bool touched = check_touch(my_indev_driver, my_data);

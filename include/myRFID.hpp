@@ -14,6 +14,7 @@
 #include <SPI.h>
 #include <EEPROM.h>
 #include "myFingerPrint.hpp"
+#include "gui.hpp"
 class RFID
 {
 public:

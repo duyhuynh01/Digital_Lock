@@ -1,7 +1,10 @@
 #include "MyRFID.hpp"
 extern bool doorStatus;
-extern SPIClass SPI2;
+extern SPIClass SPI12;
 extern FingerPrint myFingerPrint;
+extern bool screenIsOn;
+extern unsigned long lastTouchTime;
+extern void turnLCD();
 CardData cardRegisteredData[CARD_COUNT];
 int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
@@ -10,10 +13,11 @@ RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
 
 RFID::~RFID() {}
 /*-------------Init RFID-------------*/
+
 void RFID::begin()
 {
     // SPI.begin(14, 12, 13);
-    SPI2.begin(14, 12, 13, 27);
+    SPI12.begin(14, 12, 13, 27);
     mfrc522.PCD_Init();
     Serial.println("RFID Started");
     Serial.println(mfrc522.uid.size);
@@ -81,14 +85,15 @@ bool RFID::readCardFromEEPROM()
             cardCount++;
         }
     }
-    // Serial.print("Card count: ");
-    // Serial.println(cardCount);
+    Serial.print("Card count: ");
+    Serial.println(cardCount);
     return true;
 }
 
 /*----------------Check card is existed------------*/
 void RFID::scanCard()
 {
+    const char* printName;
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
     {
         String cardUID = "";
@@ -108,6 +113,7 @@ void RFID::scanCard()
             if (strcmp(cardRegisteredData[i].id, cardID) == 0)
             {
                 validCard = true;
+                printName = cardRegisteredData[i].name;
                 break;
             }
         }
@@ -116,17 +122,26 @@ void RFID::scanCard()
         {
             Serial.println("Valid Card");
             // Xử lý thẻ hợp lệ ở đây
+            turnLCD();
+            const char *mess = "Hello Card ";
+            uint8_t totalMess = strlen(mess) + strlen(printName) + 1;
+            char notify[totalMess];
+            strcpy(notify, mess);
+            strcat(notify, printName);
+            notifyPopup(ui_AreaPopup, notify, 7000);
+
         }
         else
         {
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
+            turnLCD();
+            notifyPopup(ui_AreaPopup, "Unlock Failed!", 7000);
         }
     }
 
     mfrc522.PICC_HaltA();
 }
-
 
 // function find deleted card position
 int8_t findDeletedCardPosition()
@@ -159,7 +174,7 @@ bool RFID::enrollCard()
         if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
         {
             cardDetected = true;
-            break; 
+            break;
         }
     }
     if (cardDetected)

@@ -11,15 +11,17 @@ extern "C" {
 #endif
 
 void isSettingMode(lv_event_t * e);
-void callFuncChangeAdminPW(lv_event_t * e);
-void callFuncChangeUserPW(lv_event_t * e);
-void callFuncAddFP(lv_event_t * e);
 void callFuncDeleteFP(lv_event_t * e);
-void callFuncShowListFP(lv_event_t * e);
-void callFuncAddCard(lv_event_t * e);
+void callFuncAddFP(lv_event_t * e);
+void callFuncRestoreFP(lv_event_t * e);
+void callFuncShowFP(lv_event_t * e);
 void callFuncDeleteCard(lv_event_t * e);
-void callFuncShowListCard(lv_event_t * e);
+void callFuncAddCard(lv_event_t * e);
+void callFuncRestoreCard(lv_event_t * e);
+void callFuncShowCard(lv_event_t * e);
+void callFuncChangePW(lv_event_t * e);
 void callFuncCheckPW(lv_event_t *e);
+// void addFingerprint(lv_event_t *e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

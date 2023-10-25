@@ -39,89 +39,6 @@ extern lv_obj_t *ui_Label5;
 extern lv_obj_t *ui_AreaPopup;
 extern lv_obj_t *ui_KeyboardPWHome;
 void ui_event_PressedOkPW( lv_event_t *e);
-
-
-
-// SCREEN: ui_Screen3
-void ui_Screen3_screen_init(void);
-extern lv_obj_t *ui_Screen3;
-void ui_event_panelSetting( lv_event_t * e);
-extern lv_obj_t *ui_panelSetting;
-void ui_event_PasswordbtnSetting( lv_event_t * e);
-extern lv_obj_t *ui_PasswordbtnSetting;
-void ui_event_FPbtnSetting( lv_event_t * e);
-extern lv_obj_t *ui_FPbtnSetting;
-void ui_event_CardbtnSetting( lv_event_t * e);
-extern lv_obj_t *ui_CardbtnSetting;
-extern lv_obj_t *ui_Label6;
-extern lv_obj_t *ui_Label7;
-extern lv_obj_t *ui_Label8;
-void ui_event_HomebtnSetting( lv_event_t * e);
-extern lv_obj_t *ui_HomebtnSetting;
-extern lv_obj_t *ui_Label15;
-extern lv_obj_t *ui_OptionPassword;
-void ui_event_Admin( lv_event_t * e);
-extern lv_obj_t *ui_Admin;
-void ui_event_AreaCurrentAdmin( lv_event_t * e);
-extern lv_obj_t *ui_AreaCurrentAdmin;
-void ui_event_AreaNewAdmin( lv_event_t * e);
-extern lv_obj_t *ui_AreaNewAdmin;
-void ui_event_AreaConfirmAdmin( lv_event_t * e);
-extern lv_obj_t *ui_AreaConfirmAdmin;
-void ui_event_btnChangebtn( lv_event_t * e);
-extern lv_obj_t *ui_btnChangebtn;
-extern lv_obj_t *ui_Label1;
-void ui_event_User( lv_event_t * e);
-extern lv_obj_t *ui_User;
-void ui_event_AreaCurrentUser( lv_event_t * e);
-extern lv_obj_t *ui_AreaCurrentUser;
-void ui_event_AreaNewUser( lv_event_t * e);
-extern lv_obj_t *ui_AreaNewUser;
-void ui_event_AreaConfirmUser( lv_event_t * e);
-extern lv_obj_t *ui_AreaConfirmUser;
-void ui_event_btnChangeUser( lv_event_t * e);
-extern lv_obj_t *ui_btnChangeUser;
-extern lv_obj_t *ui_Label2;
-extern lv_obj_t *ui_OptionFP;
-void ui_event_Add( lv_event_t * e);
-extern lv_obj_t *ui_Add;
-void ui_event_AreaAddFP( lv_event_t * e);
-extern lv_obj_t *ui_AreaAddFP;
-void ui_event_btnAddFP( lv_event_t * e);
-extern lv_obj_t *ui_btnAddFP;
-extern lv_obj_t *ui_label3;
-void ui_event_Delete( lv_event_t * e);
-extern lv_obj_t *ui_Delete;
-void ui_event_AreaDeleteFP( lv_event_t * e);
-extern lv_obj_t *ui_AreaDeleteFP;
-void ui_event_btnDeleteFP( lv_event_t * e);
-extern lv_obj_t *ui_btnDeleteFP;
-extern lv_obj_t *ui_label1;
-void ui_event_ShowListFP( lv_event_t * e);
-extern lv_obj_t *ui_ShowListFP;
-extern lv_obj_t *ui_AreaShowListFP;
-void ui_event_OptionCard( lv_event_t * e);
-extern lv_obj_t *ui_OptionCard;
-void ui_event_AddCard( lv_event_t * e);
-extern lv_obj_t *ui_AddCard;
-void ui_event_AreaAddCard( lv_event_t * e);
-extern lv_obj_t *ui_AreaAddCard;
-void ui_event_btnAddCard( lv_event_t * e);
-extern lv_obj_t *ui_btnAddCard;
-extern lv_obj_t *ui_label2;
-void ui_event_DeleteCard( lv_event_t * e);
-extern lv_obj_t *ui_DeleteCard;
-void ui_event_AreaDeleteCardd( lv_event_t * e);
-extern lv_obj_t *ui_AreaDeleteCardd;
-void ui_event_btnDeleteCard( lv_event_t * e);
-extern lv_obj_t *ui_btnDeleteCard;
-extern lv_obj_t *ui_label4;
-void ui_event_ShowListCard( lv_event_t * e);
-extern lv_obj_t *ui_ShowListCard;
-extern lv_obj_t *ui_AreaShowListCard;
-extern lv_obj_t *ui_KeyboardDisplay;
-extern lv_obj_t *ui_AreaDisplay;
-extern lv_obj_t *ui_AreaPopupSetting;
 // SCREEN: ui_ScreenSetting
 void ui_ScreenSetting_screen_init(void);
 extern lv_obj_t *ui_ScreenSetting;
@@ -138,16 +55,197 @@ extern lv_obj_t *ui_Label3;
 extern lv_obj_t *ui_Label9;
 extern lv_obj_t *ui_Label10;
 extern lv_obj_t *ui_Label11;
+// SCREEN: ui_SceenFinger
+void ui_SceenFinger_screen_init(void);
+extern lv_obj_t *ui_SceenFinger;
+extern lv_obj_t *ui_PanelFinger;
+void ui_event_PressDeleteFinger( lv_event_t * e);
+extern lv_obj_t *ui_PressDeleteFinger;
+void ui_event_PressAddFinger( lv_event_t * e);
+extern lv_obj_t *ui_PressAddFinger;
+void ui_event_PressRestoreFinger( lv_event_t * e);
+extern lv_obj_t *ui_PressRestoreFinger;
+void ui_event_PressShowFinger( lv_event_t * e);
+extern lv_obj_t *ui_PressShowFinger;
+extern lv_obj_t *ui_Label14;
+extern lv_obj_t *ui_Label16;
+extern lv_obj_t *ui_Label17;
+extern lv_obj_t *ui_Label18;
+extern lv_obj_t *ui_Label12;
+void ui_event_btnBackFinger( lv_event_t * e);
+extern lv_obj_t *ui_btnBackFinger;
+extern lv_obj_t *ui_BackFinger;
+extern lv_obj_t *ui_areaPopupFP;
+// SCREEN: ui_screenFingerAdd
+
+void ui_screenFingerAdd_screen_init(void);
+extern lv_obj_t *ui_screenFingerAdd;
+void ui_event_PanelFingerAdd( lv_event_t * e);
+extern lv_obj_t *ui_PanelFingerAdd;
+extern lv_obj_t *ui_Label24;
+void ui_event_panelAddfinger( lv_event_t * e);
+extern lv_obj_t *ui_panelAddfinger;
+extern lv_obj_t *ui_Label13;
+void ui_event_areaEnterNameFP( lv_event_t * e);
+extern lv_obj_t *ui_areaEnterNameFP;
+extern lv_obj_t *ui_btnAddFinger;
+extern lv_obj_t *ui_Label19;
+void ui_event_btnBackAddFP( lv_event_t * e);
+extern lv_obj_t *ui_btnBackAddFP;
+extern lv_obj_t *ui_BackFinger1;
+void ui_event_btnHomeAddFP( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeAddFP;
+extern lv_obj_t *ui_BackHomeAddFinger;
+extern lv_obj_t *ui_areaNotyfyAddFP;
+extern lv_obj_t *ui_KeyboardFingerAdd;
+void ui_event_btnAddFinger( lv_event_t * e);
+void ui_event_PressedOkAddFP( lv_event_t *e);
+
+// SCREEN: ui_screenFingerDelete
+void ui_screenFingerDelete_screen_init(void);
+extern lv_obj_t *ui_screenFingerDelete;
+void ui_event_PanelFingerDelete( lv_event_t * e);
+extern lv_obj_t *ui_PanelFingerDelete;
+extern lv_obj_t *ui_Label20;
+void ui_event_panelDeleteFinger( lv_event_t * e);
+extern lv_obj_t *ui_panelDeleteFinger;
+extern lv_obj_t *ui_Label21;
+void ui_event_areaEnterNameFP1( lv_event_t * e);
+extern lv_obj_t *ui_areaEnterNameFP1;
+extern lv_obj_t *ui_btnDeleteFinger;
+extern lv_obj_t *ui_Label22;
+void ui_event_btnBackFingerDelete( lv_event_t * e);
+extern lv_obj_t *ui_btnBackFingerDelete;
+extern lv_obj_t *ui_BackFinger2;
+void ui_event_btnHomeFingerDelete( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeFingerDelete;
+extern lv_obj_t *ui_BackHomeAddFinger1;
+extern lv_obj_t *ui_areaNotyfyDeleteFP;
+extern lv_obj_t *ui_KeyboardFingerDelete;
+// SCREEN: ui_screenFingerShow
+void ui_screenFingerShow_screen_init(void);
+extern lv_obj_t *ui_screenFingerShow;
+extern lv_obj_t *ui_PanelFingerShow;
+extern lv_obj_t *ui_Label23;
+extern lv_obj_t *ui_panelShowFP;
+void ui_event_btnBackShowFP( lv_event_t * e);
+extern lv_obj_t *ui_btnBackShowFP;
+extern lv_obj_t *ui_BackFinger3;
+void ui_event_btnHomeShowFP( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeShowFP;
+extern lv_obj_t *ui_BackHomeAddFinger2;
+extern lv_obj_t *ui_areaShowFP;
+// SCREEN: ui_SceenCard
+void ui_SceenCard_screen_init(void);
+extern lv_obj_t *ui_SceenCard;
+extern lv_obj_t *ui_PanelCard;
+void ui_event_PressDeleteCard( lv_event_t * e);
+extern lv_obj_t *ui_PressDeleteCard;
+void ui_event_PressAddCard( lv_event_t * e);
+extern lv_obj_t *ui_PressAddCard;
+void ui_event_PressRestoreCard( lv_event_t * e);
+extern lv_obj_t *ui_PressRestoreCard;
+void ui_event_PressShowCard( lv_event_t * e);
+extern lv_obj_t *ui_PressShowCard;
+extern lv_obj_t *ui_Label25;
+extern lv_obj_t *ui_Label26;
+extern lv_obj_t *ui_Label27;
+extern lv_obj_t *ui_Label28;
+extern lv_obj_t *ui_Label29;
+void ui_event_btnBackCard( lv_event_t * e);
+extern lv_obj_t *ui_btnBackCard;
+extern lv_obj_t *ui_BackFinger4;
+extern lv_obj_t *ui_areaPopupCard;
+// SCREEN: ui_screenCardAdd
+void ui_screenCardAdd_screen_init(void);
+extern lv_obj_t *ui_screenCardAdd;
+void ui_event_PanelCardAdd( lv_event_t * e);
+extern lv_obj_t *ui_PanelCardAdd;
+extern lv_obj_t *ui_Label30;
+void ui_event_panelCardAdd( lv_event_t * e);
+extern lv_obj_t *ui_panelCardAdd;
+extern lv_obj_t *ui_Label31;
+void ui_event_areaEnterNameFP2( lv_event_t * e);
+extern lv_obj_t *ui_areaEnterNameFP2;
+extern lv_obj_t *ui_btnAddFinger2;
+extern lv_obj_t *ui_Label32;
+void ui_event_btnBackAddCard( lv_event_t * e);
+extern lv_obj_t *ui_btnBackAddCard;
+extern lv_obj_t *ui_BackFinger5;
+void ui_event_btnHomeAddCard( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeAddCard;
+void ui_event_BackHomeAddFinger3( lv_event_t * e);
+extern lv_obj_t *ui_BackHomeAddFinger3;
+extern lv_obj_t *ui_areaNotyfyAddCard;
+extern lv_obj_t *ui_KeyboardAddCard;
+// SCREEN: ui_screenCardDelete
+void ui_screenCardDelete_screen_init(void);
+extern lv_obj_t *ui_screenCardDelete;
+void ui_event_PanelCardDelete( lv_event_t * e);
+extern lv_obj_t *ui_PanelCardDelete;
+extern lv_obj_t *ui_Label33;
+void ui_event_panelDeleteCard( lv_event_t * e);
+extern lv_obj_t *ui_panelDeleteCard;
+extern lv_obj_t *ui_Label34;
+void ui_event_areaEnterNameDeleteCard( lv_event_t * e);
+extern lv_obj_t *ui_areaEnterNameDeleteCard;
+extern lv_obj_t *ui_btnDeleteCard1;
+extern lv_obj_t *ui_Label35;
+void ui_event_btnBackCardDelete( lv_event_t * e);
+extern lv_obj_t *ui_btnBackCardDelete;
+extern lv_obj_t *ui_BackFinger6;
+void ui_event_btnHomeCardDelete( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeCardDelete;
+extern lv_obj_t *ui_BackHomeAddFinger4;
+extern lv_obj_t *ui_areaNotyfyDeleteCard;
+extern lv_obj_t *ui_KeyboardCardDelete;
+// SCREEN: ui_screenCardShow
+void ui_screenCardShow_screen_init(void);
+extern lv_obj_t *ui_screenCardShow;
+extern lv_obj_t *ui_PanelCardShow;
+extern lv_obj_t *ui_Label36;
+extern lv_obj_t *ui_panelShowCard;
+void ui_event_btnBackShowCard( lv_event_t * e);
+extern lv_obj_t *ui_btnBackShowCard;
+extern lv_obj_t *ui_BackFinger7;
+void ui_event_btnHomeShowCard( lv_event_t * e);
+extern lv_obj_t *ui_btnHomeShowCard;
+extern lv_obj_t *ui_BackHomeAddFinger5;
+extern lv_obj_t *ui_areaShowCard;
+// SCREEN: ui_SceenPassword
+void ui_SceenPassword_screen_init(void);
+extern lv_obj_t *ui_SceenPassword;
+void ui_event_PanelPassword( lv_event_t * e);
+extern lv_obj_t *ui_PanelPassword;
+extern lv_obj_t *ui_Label41;
+void ui_event_areaPWCurrent( lv_event_t * e);
+extern lv_obj_t *ui_areaPWCurrent;
+void ui_event_areaPWNew( lv_event_t * e);
+extern lv_obj_t *ui_areaPWNew;
+void ui_event_areaPWConfirm( lv_event_t * e);
+extern lv_obj_t *ui_areaPWConfirm;
+extern lv_obj_t *ui_areaPWPadding;
+void ui_event_btnBackPW( lv_event_t * e);
+extern lv_obj_t *ui_btnBackPW;
+extern lv_obj_t *ui_BackFinger8;
+extern lv_obj_t *ui_Label37;
+void ui_event_btnChangePW( lv_event_t * e);
+extern lv_obj_t *ui_btnChangePW;
+extern lv_obj_t *ui_Label38;
+extern lv_obj_t *ui_KeyboardChangePW;
+extern lv_obj_t *ui_areaNotifyChangePW;
 extern lv_obj_t *ui____initial_actions0;
 
 LV_IMG_DECLARE( ui_img_iconunlock_png);   // assets\iconUnlock.png
 LV_IMG_DECLARE( ui_img_iconsetting_png);   // assets\iconSetting.png
+LV_IMG_DECLARE( ui_img_iconhome_png);   // assets\iconHome.png
 LV_IMG_DECLARE( ui_img_iconpassword_png);   // assets\iconPassword.png
 LV_IMG_DECLARE( ui_img_iconfinger_png);   // assets\iconFinger.png
 LV_IMG_DECLARE( ui_img_iconcard_png);   // assets\iconCard.png
-LV_IMG_DECLARE( ui_img_iconhome_png);   // assets\iconHome.png
 
+//Screen Add fingerprint
 
+extern bool addFinger;
 
 void ui_init(void);
 

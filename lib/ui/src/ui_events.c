@@ -10,12 +10,7 @@ void isSettingMode(lv_event_t * e)
 	// Your code here
 }
 
-void callFuncChangeAdminPW(lv_event_t * e)
-{
-	// Your code here
-}
-
-void callFuncChangeUserPW(lv_event_t * e)
+void callFuncDeleteFP(lv_event_t * e)
 {
 	// Your code here
 }
@@ -25,17 +20,12 @@ void callFuncChangeUserPW(lv_event_t * e)
 // 	// Your code here
 // }
 
-void callFuncDeleteFP(lv_event_t * e)
+void callFuncRestoreFP(lv_event_t * e)
 {
 	// Your code here
 }
 
-void callFuncShowListFP(lv_event_t * e)
-{
-	// Your code here
-}
-
-void callFuncAddCard(lv_event_t * e)
+void callFuncShowFP(lv_event_t * e)
 {
 	// Your code here
 }
@@ -45,7 +35,22 @@ void callFuncAddCard(lv_event_t * e)
 // 	// Your code here
 // }
 
-void callFuncShowListCard(lv_event_t * e)
+void callFuncAddCard(lv_event_t * e)
+{
+	// Your code here
+}
+
+void callFuncRestoreCard(lv_event_t * e)
+{
+	// Your code here
+}
+
+void callFuncShowCard(lv_event_t * e)
+{
+	// Your code here
+}
+
+void callFuncChangePW(lv_event_t * e)
 {
 	// Your code here
 }

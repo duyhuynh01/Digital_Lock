@@ -1,5 +1,10 @@
 #include "myFingerPrint.hpp"
+#include <TFT_eSPI.h>
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
+extern bool screenIsOn;
+extern unsigned long lastTouchTime;
+extern void turnLCD();
+extern bool addFinger;
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
@@ -7,8 +12,7 @@ FingerPrint::FingerPrint() : finger(&Serial2)
 
 FingerPrint::~FingerPrint()
 {
-  }
-
+}
 
 int16_t FingerPrint::getFingerprintCount()
 {
@@ -86,6 +90,8 @@ void FingerPrint::scanFinger()
   if (status == FINGERPRINT_NOTFOUND)
   {
     Serial.println("Did not find a match");
+    turnLCD();
+    notifyPopup(ui_AreaPopup, "Unlock Failed!", 7000);
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -94,6 +100,21 @@ void FingerPrint::scanFinger()
     Serial.print(finger.fingerID);
     Serial.print(" with confidence of ");
     Serial.println(finger.confidence);
+    const char *printName;
+    for (int8_t i = 0; i < fingerprintCount; i++)
+    {
+      if (fingerprintData[i].id == finger.fingerID)
+      {
+        printName = fingerprintData[i].name;
+      }
+    }
+    turnLCD();
+    const char *mess = "Hello Fingerprint ";
+    uint8_t totalMess = strlen(mess) + strlen(printName) + 1;
+    char notify[totalMess];
+    strcpy(notify, mess);
+    strcat(notify, printName);
+    notifyPopup(ui_AreaPopup, notify, 7000);
     return;
   }
 }
@@ -119,7 +140,7 @@ bool FingerPrint::deleteFingerprintByName(const char *nameToDelete, uint16_t *id
     *id = fingerprintData[position].id;
     fingerprintData[position].id = 65534;
     strcpy(fingerprintData[position].name, "");
-  
+
     return true;
   }
   else
@@ -172,7 +193,6 @@ bool FingerPrint::saveFingerprintToEEPROM()
   return true;
 }
 
-
 /*------------------Load data from EEPROM---------------------*/
 void FingerPrint::readFingerprintFromEEPROM()
 {
@@ -199,6 +219,8 @@ void FingerPrint::readFingerprintFromEEPROM()
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
     // Serial.println(fingerprintData[i].id);
+    // Serial.println(fingerprintData[i].id);
+    // Serial.println(fingerprintData[i].name);
     if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
     {
       fingerprintCount++;
@@ -207,8 +229,6 @@ void FingerPrint::readFingerprintFromEEPROM()
   Serial.print("fingecount: ");
   Serial.println(fingerprintCount);
 }
-
-
 
 /*----------------Padding name---------------------*/
 void FingerPrint::padNameWithSpaces(char *name)
@@ -229,6 +249,8 @@ bool FingerPrint::enroll(uint16_t &id)
   // first stage: get image
   unsigned int startTime = millis();
   Serial.println("Place your finger on sensor");
+  lv_textarea_set_text(ui_areaNotyfyAddFP, "Place finger on sensor");
+  lv_refr_now(NULL);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -251,6 +273,8 @@ bool FingerPrint::enroll(uint16_t &id)
   if (status == FINGERPRINT_NOFINGER)
   {
     Serial.println("Timeout to scan fingerprint");
+    // showPopup(ui_areaNotyfyAddFP, "Timeout to scan fingerprint", 4000);
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Timeout to scan fingerprint");
     return false;
   }
 
@@ -268,6 +292,8 @@ bool FingerPrint::enroll(uint16_t &id)
   while (status != FINGERPRINT_NOFINGER)
   {
     Serial.println("Remove your finger");
+    lv_textarea_set_text(ui_areaNotyfyAddFP, "Remove your finger");
+    lv_refr_now(NULL);
     status = finger.getImage();
   }
   delay(1000);
@@ -275,6 +301,8 @@ bool FingerPrint::enroll(uint16_t &id)
   // second stage: get image
   startTime = millis();
   Serial.println("Place your same finger on sensor again");
+  lv_textarea_set_text(ui_areaNotyfyAddFP, "Place finger on sensor again");
+  lv_refr_now(NULL);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -297,6 +325,8 @@ bool FingerPrint::enroll(uint16_t &id)
   if (status == FINGERPRINT_NOFINGER)
   {
     Serial.println("Timeout to scan fingerprint");
+    // showPopup(ui_areaNotyfyAddFP, "Timeout to scan fingerprint", 4000);
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Timeout to scan fingerprint");
     return false;
   }
 
@@ -312,11 +342,13 @@ bool FingerPrint::enroll(uint16_t &id)
   // third stage:create model
 
   Serial.print("Creating model for #");
+  // lv_textarea_set_text(ui_areaEnterNameFP, "Creating model...");
   Serial.println(id);
   status = finger.createModel();
   if (status == FINGERPRINT_ENROLLMISMATCH)
   {
     Serial.println("Failed to add new finger because your two fingers do not match");
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Failed, two fingers do not match");
     return false;
   }
   else if (status != FINGERPRINT_OK)
@@ -328,6 +360,7 @@ bool FingerPrint::enroll(uint16_t &id)
 
   // third stage: save model
   Serial.print("Saving model for #");
+  // lv_textarea_set_text(ui_areaEnterNameFP, "Saving model...");
   Serial.println(id);
   status = finger.storeModel(id);
   if (status != FINGERPRINT_OK)
@@ -341,26 +374,33 @@ bool FingerPrint::enroll(uint16_t &id)
 /*--------------------Enroll Fingerprint-----------------*/
 bool FingerPrint::enrollFingerprint()
 {
-
   readFingerprintFromEEPROM();
   if (fingerprintCount >= FINGERPRINT_COUNT)
   {
-    Serial.println("FingerPrint list is fulled");
+    Serial.println("Fingerprint list is full.");
+    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", 4000);
+    _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
+    lv_refr_now(NULL);
     return false;
   }
   uint16_t id = 1000;
   char name[8];
+  const char *getName = lv_textarea_get_text(ui_areaEnterNameFP);
   int8_t position = findDeletedPosition();
   id = position + 1;
   if (position >= 0)
   {
-    if(id == 1)
+    if (id == 1)
     {
       strcpy(name, "Admin");
     }
     else
     {
       snprintf(name, sizeof(name), "User%d", id);
+    }
+    if (strcmp(getName, "") != 0)
+    {
+      strcpy(name, getName);
     }
     padNameWithSpaces(name);
     fingerprintData[position].id = id;
@@ -370,13 +410,17 @@ bool FingerPrint::enrollFingerprint()
   else
   {
     id = fingerprintCount + 1;
-    if(id == 1)
+    if (id == 1)
     {
       strcpy(name, "Admin");
     }
     else
     {
       snprintf(name, sizeof(name), "User%d", id);
+    }
+    if (strcmp(getName, "") != 0)
+    {
+      strcpy(name, getName);
     }
     padNameWithSpaces(name);
     // fourth stage: save id into EEPROM
@@ -385,16 +429,30 @@ bool FingerPrint::enrollFingerprint()
     strcpy(fingerprintData[lastPosition].name, name);
     fingerprintCount++;
   }
+
   if (enroll(id))
   {
     saveFingerprintToEEPROM();
+    const char *mess = "Added fingerprint ";
+    char notify[30];
+    strcpy(notify, mess);
+    strcat(notify, name);
+    showPopup(ui_areaNotyfyAddFP, notify, 4000);
+    lv_refr_now(NULL);
+    Serial.println("saved succcessfull!");
   }
-  Serial.println("saved succcessfull!");
+  else
+  {
+    // notifyPopup(ui_areaNotyfyAddFP, "Adding fingerprint failed", 4000);
+    showPopup(ui_areaNotyfyAddFP,"Adding fingerprint failed", 4000);
+  }
+  lv_refr_now(NULL);
+  lv_textarea_set_text(ui_areaEnterNameFP, "");
   return true;
 }
 
 /*-------------------Delete Fingerprint-----------------*/
-bool FingerPrint::unEnroll(const char* admin)
+bool FingerPrint::unEnroll(const char *admin)
 {
   const char *getName = admin;
   char name[8];
