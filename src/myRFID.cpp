@@ -128,7 +128,7 @@ void RFID::scanCard()
             char notify[totalMess];
             strcpy(notify, mess);
             strcat(notify, printName);
-            notifyPopup(ui_AreaPopup, notify, 7000);
+            showPopup(ui_AreaPopup, notify, 7000);
 
         }
         else
@@ -136,7 +136,7 @@ void RFID::scanCard()
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
             turnLCD();
-            notifyPopup(ui_AreaPopup, "Unlock Failed!", 7000);
+            showPopup(ui_AreaPopup, "Unlock Failed!", 7000);
         }
     }
 

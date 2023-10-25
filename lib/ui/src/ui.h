@@ -122,6 +122,9 @@ extern lv_obj_t *ui_btnHomeFingerDelete;
 extern lv_obj_t *ui_BackHomeAddFinger1;
 extern lv_obj_t *ui_areaNotyfyDeleteFP;
 extern lv_obj_t *ui_KeyboardFingerDelete;
+void ui_event_btnDeleteFinger( lv_event_t * e);
+
+
 // SCREEN: ui_screenFingerShow
 void ui_screenFingerShow_screen_init(void);
 extern lv_obj_t *ui_screenFingerShow;

@@ -91,7 +91,7 @@ void FingerPrint::scanFinger()
   {
     Serial.println("Did not find a match");
     turnLCD();
-    notifyPopup(ui_AreaPopup, "Unlock Failed!", 7000);
+    showPopup(ui_AreaPopup, "Unlock Failed!", 7000);
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -114,7 +114,7 @@ void FingerPrint::scanFinger()
     char notify[totalMess];
     strcpy(notify, mess);
     strcat(notify, printName);
-    notifyPopup(ui_AreaPopup, notify, 7000);
+    showPopup(ui_AreaPopup, notify, 7000);
     return;
   }
 }
@@ -378,7 +378,7 @@ bool FingerPrint::enrollFingerprint()
   if (fingerprintCount >= FINGERPRINT_COUNT)
   {
     Serial.println("Fingerprint list is full.");
-    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", 4000);
+    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", TIME_POPUP);
     _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
     lv_refr_now(NULL);
     return false;
@@ -433,20 +433,21 @@ bool FingerPrint::enrollFingerprint()
   if (enroll(id))
   {
     saveFingerprintToEEPROM();
-    const char *mess = "Added fingerprint ";
-    char notify[30];
-    strcpy(notify, mess);
-    strcat(notify, name);
-    showPopup(ui_areaNotyfyAddFP, notify, 4000);
+    // const char *mess = "Added fingerprint ";
+    // char notify[30];
+    // strcpy(notify, mess);
+    // strcat(notify, name);
+    const char *notify = createNotification("Added fingerprint ", name);
+    showPopup(ui_areaNotyfyAddFP, notify, TIME_POPUP);
     lv_refr_now(NULL);
     Serial.println("saved succcessfull!");
   }
   else
   {
-    // notifyPopup(ui_areaNotyfyAddFP, "Adding fingerprint failed", 4000);
-    showPopup(ui_areaNotyfyAddFP,"Adding fingerprint failed", 4000);
+    showPopup(ui_areaNotyfyAddFP, "Adding fingerprint failed", TIME_POPUP);
+    lv_refr_now(NULL);
   }
-  lv_refr_now(NULL);
+  
   lv_textarea_set_text(ui_areaEnterNameFP, "");
   return true;
 }
@@ -477,13 +478,23 @@ bool FingerPrint::unEnroll(const char *admin)
     Serial.print("Model # ");
     Serial.print(id);
     Serial.println(" has been deleted");
+    const char *notify = createNotification("Deleted fingerprint ", getName);
+    showPopup(ui_areaNotyfyDeleteFP, notify, TIME_POPUP);
+    lv_timer_handler();
+    lv_refr_now(NULL);
   }
   else
   {
+    showPopup(ui_areaNotyfyDeleteFP, "Name not found!", TIME_POPUP);
+    lv_timer_handler();
+    lv_refr_now(NULL);
+  
     Serial.println("Name not found!");
     return false;
   }
+
   saveFingerprintToEEPROM();
+  lv_textarea_set_text(ui_areaEnterNameFP1, "");
 
   return true;
 }
@@ -526,10 +537,18 @@ void FingerPrint::showList()
 {
   readFingerprintFromEEPROM();
   // Serial.println(fingerprintCount);
+  lv_textarea_set_text(ui_areaShowFP, "");
+  lv_textarea_add_text(ui_areaShowFP, "Fingerprint count: ");
+  convertNum(ui_areaShowFP, fingerprintCount);
+  lv_textarea_add_text(ui_areaShowFP, "\n");
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
-    if (fingerprintData[i].id != 65535)
+    if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
     {
+      convertNum(ui_areaShowFP, fingerprintData[i].id);
+      lv_textarea_add_text(ui_areaShowFP, " : ");
+      lv_textarea_add_text(ui_areaShowFP, fingerprintData[i].name);
+      lv_textarea_add_text(ui_areaShowFP, "\n");
       Serial.print(fingerprintData[i].id);
       Serial.print(" :");
       Serial.println(fingerprintData[i].name);

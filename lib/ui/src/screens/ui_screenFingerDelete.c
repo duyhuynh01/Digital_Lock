@@ -130,12 +130,12 @@ lv_textarea_set_placeholder_text(ui_areaNotyfyDeleteFP,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyDeleteFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotyfyDeleteFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotyfyDeleteFP, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_areaNotyfyDeleteFP, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(ui_areaNotyfyDeleteFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_border_color(ui_areaNotyfyDeleteFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_border_opa(ui_areaNotyfyDeleteFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_width(ui_areaNotyfyDeleteFP, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_spread(ui_areaNotyfyDeleteFP, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_bg_color(ui_areaNotyfyDeleteFP, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_bg_opa(ui_areaNotyfyDeleteFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_border_color(ui_areaNotyfyDeleteFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_border_opa(ui_areaNotyfyDeleteFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_areaNotyfyDeleteFP, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_areaNotyfyDeleteFP, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_areaNotyfyDeleteFP, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_areaNotyfyDeleteFP, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaNotyfyDeleteFP, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -155,5 +155,6 @@ lv_obj_add_event_cb(ui_panelDeleteFinger, ui_event_panelDeleteFinger, LV_EVENT_A
 lv_obj_add_event_cb(ui_btnBackFingerDelete, ui_event_btnBackFingerDelete, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnHomeFingerDelete, ui_event_btnHomeFingerDelete, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardFingerDelete,ui_areaEnterNameFP1);
+lv_obj_add_event_cb(ui_btnDeleteFinger, ui_event_btnDeleteFinger, LV_EVENT_PRESSED, NULL );
 
 }

@@ -112,6 +112,7 @@ lv_obj_t *ui_btnHomeFingerDelete;
 lv_obj_t *ui_BackHomeAddFinger1;
 lv_obj_t *ui_areaNotyfyDeleteFP;
 lv_obj_t *ui_KeyboardFingerDelete;
+void ui_event_btnDeleteFinger(lv_event_t * e);
 
 
 // SCREEN: ui_screenFingerShow
@@ -298,7 +299,7 @@ void ui_event_PressDeleteFinger( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
 if ( event_code == LV_EVENT_PRESSED) {
       _ui_screen_change( &ui_screenFingerDelete, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_screenFingerDelete_screen_init);
-      callFuncDeleteFP( e );
+    
 }
 }
 void ui_event_PressAddFinger( lv_event_t * e) {
@@ -338,6 +339,7 @@ void ui_event_panelAddfinger( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
 if ( event_code == LV_EVENT_PRESSED) {
       _ui_flag_modify( ui_KeyboardFingerAdd, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 }
 }
 void ui_event_areaEnterNameFP( lv_event_t * e) {
@@ -368,6 +370,7 @@ void ui_event_panelDeleteFinger( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
 if ( event_code == LV_EVENT_PRESSED) {
       _ui_flag_modify( ui_KeyboardFingerDelete, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( ui_areaNotyfyDeleteFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 }
 }
 void ui_event_areaEnterNameFP1( lv_event_t * e) {
@@ -576,7 +579,19 @@ void ui_event_PressedOkAddFP( lv_event_t *e)
 
     }
 }
-/*----------------------------------------------------*/
+
+/*--------------Screen delete fingerprint-------------------*/
+void ui_event_btnDeleteFinger(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_PRESSED)
+    {
+        // addFinger = true;
+        _ui_flag_modify( ui_areaNotyfyDeleteFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        lv_refr_now(NULL);
+        callFuncDeleteFP(e);
+    }
+}
 
 /*-------------------------------------*/
 

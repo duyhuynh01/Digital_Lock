@@ -11,6 +11,7 @@ void hidePopupAreaHome(lv_timer_t *timer)
     _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 }
 
+
 void callFuncCheckPW(lv_event_t *e)
 {
 
@@ -25,11 +26,11 @@ void callFuncCheckPW(lv_event_t *e)
 
     if (myPassword.checkAdminPassword() == true)
     {
-        notifyPopup(ui_AreaPopup, "Unlock successfull!", 7000);
+        showPopup(ui_AreaPopup, "Unlock successfull!", TIME_POPUP);
     }
     else
     {
-        notifyPopup(ui_AreaPopup, "Unlock failed!", 7000);
+        showPopup(ui_AreaPopup, "Unlock failed!", TIME_POPUP);
     }
     lv_textarea_set_text(ui_AreaPWHome, "");
 }
@@ -40,36 +41,83 @@ void callFuncAddFP(lv_event_t *e)
     myFingerPrint.enrollFingerprint();
 }
 
-void callFuncDeleteCard(lv_event_t *e)
+void callFuncDeleteFP(lv_event_t *e)
+{
+    const char *getDelete = lv_textarea_get_text(ui_areaEnterNameFP1);
+    if (strcmp(getDelete, "") != 0)
+    {
+        myFingerPrint.unEnroll(getDelete);
+    }
+    else
+    {
+        showPopup(ui_areaNotyfyDeleteFP, "Please enter a name.", TIME_POPUP);
+    }
+    lv_refr_now(NULL);
+}
+
+void callFuncShowFP(lv_event_t * e)
+{
+    myFingerPrint.showList();
+}
+
+void callFuncRestoreFP(lv_event_t * e)
 {
     myFingerPrint.restore();
+    showPopup(ui_areaPopupFP, "Reset the fingerprint successfully.", TIME_POPUP);
+    
+}
+
+
+void callFuncDeleteCard(lv_event_t *e)
+{
+    // myFingerPrint.restore();
 }
 
 /*---------Function support-----------*/
-void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
+// void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
+// {
+//     lv_textarea_set_text(popup, notify);
+//     _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+//     if (hidePopupTimer)
+//     {
+//         lv_timer_del(hidePopupTimer);
+//     }
+//     hidePopupTimer = lv_timer_create(hidePopupAreaHome, timerDuration, NULL);
+// }
+
+void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
 {
     lv_textarea_set_text(popup, notify);
     _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-    if (hidePopupTimer)
+     if (hidePopupTimer)
     {
         lv_timer_del(hidePopupTimer);
     }
-    hidePopupTimer = lv_timer_create(hidePopupAreaHome, timerDuration, NULL);
-}
-
-void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration) {
-    lv_textarea_set_text(popup, notify);
-    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-
     // Tạo một timer để tự động ẩn thông báo sau một khoảng thời gian
-    lv_timer_t *hidePopup= lv_timer_create(hidePopupArea, timerDuration, popup);
+    hidePopupTimer = lv_timer_create(hidePopupArea, timerDuration, popup);
 }
 
-void hidePopup(lv_obj_t *popup) {
+void hidePopup(lv_obj_t *popup)
+{
     _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 }
 
-void hidePopupArea(lv_timer_t *timer) {
+void hidePopupArea(lv_timer_t *timer)
+{
     lv_obj_t *popup = (lv_obj_t *)timer->user_data;
     hidePopup(popup);
 }
+
+const char *createNotification(const char *mess, const char *name) {
+    char *buffer = new char[strlen(mess) + strlen(name) + 1];
+    strcpy(buffer, mess);
+    strcat(buffer, name);
+    return buffer;
+}
+
+void convertNum(lv_obj_t *textarea, uint16_t value) {
+    char buffer[5]; 
+    snprintf(buffer, sizeof(buffer), "%d", value);
+    lv_textarea_add_text(textarea, buffer);
+}
+

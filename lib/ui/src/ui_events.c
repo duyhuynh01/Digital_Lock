@@ -10,25 +10,21 @@ void isSettingMode(lv_event_t * e)
 	// Your code here
 }
 
-void callFuncDeleteFP(lv_event_t * e)
-{
-	// Your code here
-}
 
 // void callFuncAddFP(lv_event_t * e)
 // {
 // 	// Your code here
 // }
 
-void callFuncRestoreFP(lv_event_t * e)
-{
-	// Your code here
-}
+// void callFuncRestoreFP(lv_event_t * e)
+// {
+// 	// Your code here
+// }
 
-void callFuncShowFP(lv_event_t * e)
-{
-	// Your code here
-}
+// void callFuncShowFP(lv_event_t * e)
+// {
+// 	// Your code here
+// }
 
 // void callFuncDeleteCard(lv_event_t * e)
 // {
