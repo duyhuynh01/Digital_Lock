@@ -86,9 +86,17 @@ lv_label_set_text(ui_Label5,"Setting");
 lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xFAF4F4), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_AreaPopup = lv_textarea_create(ui_rootpanel);
+
+ui_KeyboardPWHome = lv_keyboard_create(ui_Screen1);
+lv_keyboard_set_mode(ui_KeyboardPWHome,LV_KEYBOARD_MODE_NUMBER);
+lv_obj_set_height( ui_KeyboardPWHome, 200);
+lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
+lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
+lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
+
+ui_AreaPopup = lv_textarea_create(ui_Screen1);
 lv_obj_set_height( ui_AreaPopup, 80);
-lv_obj_set_width( ui_AreaPopup, lv_pct(100));
+lv_obj_set_width( ui_AreaPopup, lv_pct(90));
 lv_obj_set_x( ui_AreaPopup, 0 );
 lv_obj_set_y( ui_AreaPopup, -3 );
 lv_obj_set_align( ui_AreaPopup, LV_ALIGN_CENTER );
@@ -103,15 +111,6 @@ lv_obj_set_style_pad_left(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_AreaPopup, 27, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-
-
-
-ui_KeyboardPWHome = lv_keyboard_create(ui_Screen1);
-lv_keyboard_set_mode(ui_KeyboardPWHome,LV_KEYBOARD_MODE_NUMBER);
-lv_obj_set_height( ui_KeyboardPWHome, 200);
-lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
-lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
-lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
 
 ui_btnPassSetting = lv_btn_create(ui_Screen1);
 lv_obj_set_width( ui_btnPassSetting, 120);

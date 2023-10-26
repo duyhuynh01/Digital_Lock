@@ -33,6 +33,7 @@ void loop()
     delay(5);
     myFingerPrint.scanFinger();
     myRFID.scanCard();
+    checkbtnSetting();
 }
 
 void Log(String log)

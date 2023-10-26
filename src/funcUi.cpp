@@ -129,31 +129,46 @@ void callFuncCheckSetting(lv_event_t *e)
 {
     unsigned long startTime = millis();
     PasswordUnlock = lv_textarea_get_text(ui_AreaPWHome);
-        if (myPassword.checkAdminPassword() == true)
-        {
-            _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 300, 0, &ui_ScreenSetting_screen_init);
-        }
-        else
-        {
-            showPopup(ui_AreaPopup, "Incorrect password", TIME_POPUP);
-        }
-        lv_textarea_set_text(ui_AreaPWHome, "");
+    if (myPassword.checkAdminPassword() == true)
+    {
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+    }
+    else
+    {
+        showPopup(ui_AreaPopup, "Incorrect password", TIME_POPUP);
+    }
+    lv_textarea_set_text(ui_AreaPWHome, "");
 }
 
 void isSettingMode(lv_event_t *e)
 {
     unsigned long startTime = millis();
-    while(millis() - startTime <= TIMEOUT)
+    while (millis() - startTime <= TIMEOUT)
     {
         myFingerPrint.scanFinger();
-        if(flagModeSetting)
+        if (flagModeSetting)
         {
-            _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 300, 0, &ui_ScreenSetting_screen_init);
+            _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
             flagModeSetting = false;
             break;
         }
         lv_timer_handler();
         lv_refr_now(NULL);
+    }
+}
+
+extern bool flagSetting;
+extern bool flagModeSetting;
+void checkbtnSetting()
+{
+    if (flagSetting && flagModeSetting)
+    {
+        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        delay(2000);
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        flagSetting = false;
+        flagModeSetting = false;
 
     }
 }
@@ -209,18 +224,24 @@ void convertNum(lv_obj_t *textarea, uint16_t value)
     lv_textarea_add_text(textarea, buffer);
 }
 
-void controlScreen() {
+void controlScreen()
+{
     unsigned long currentTime = millis();
     bool touched = check_touch(my_indev_driver, my_data);
 
-    if (touched) {
-        if (!screenIsOn) {
+    if (touched)
+    {
+        if (!screenIsOn)
+        {
             digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
             screenIsOn = true;
         }
         lastTouchTime = currentTime;
-    } else {
-        if (screenIsOn && (currentTime - lastTouchTime >= TIMEOUT)) {
+    }
+    else
+    {
+        if (screenIsOn && (currentTime - lastTouchTime >= TIMEOUT))
+        {
             digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
             _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
             screenIsOn = false;
