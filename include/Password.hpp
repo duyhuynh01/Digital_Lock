@@ -16,12 +16,14 @@ private:
 
 public:
     Password();
-    void createPasswords();
+    void begin();
+    void createPasswords(const char* newPassword);
     bool checkAdminPassword();
     bool passwordExists();
     void readPasswordFromEEPROM();
     void updateAdminPasswordInEEPROM(char *newPassword);
     const char *getAdminPassword() const;
+    void changePassword(const char *currentPassword, const char *newPassword, const char *confirmPassword);
 };
 
 #endif

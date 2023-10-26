@@ -126,17 +126,17 @@ lv_obj_set_width( ui_areaNotyfyAddCard, lv_pct(80));
 lv_obj_set_x( ui_areaNotyfyAddCard, 0 );
 lv_obj_set_y( ui_areaNotyfyAddCard, -5 );
 lv_obj_set_align( ui_areaNotyfyAddCard, LV_ALIGN_CENTER );
-lv_textarea_set_text(ui_areaNotyfyAddCard,"Timeout to scan fingerprint\n");
-lv_textarea_set_placeholder_text(ui_areaNotyfyAddCard,"Placeholder...");
+// lv_textarea_set_text(ui_areaNotyfyAddCard,"Timeout to scan fingerprint\n");
+// lv_textarea_set_placeholder_text(ui_areaNotyfyAddCard,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyAddCard, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotyfyAddCard, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotyfyAddCard, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_areaNotyfyAddCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(ui_areaNotyfyAddCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_border_color(ui_areaNotyfyAddCard, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_border_opa(ui_areaNotyfyAddCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_width(ui_areaNotyfyAddCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_spread(ui_areaNotyfyAddCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_bg_color(ui_areaNotyfyAddCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_bg_opa(ui_areaNotyfyAddCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_border_color(ui_areaNotyfyAddCard, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_border_opa(ui_areaNotyfyAddCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_areaNotyfyAddCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_areaNotyfyAddCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_areaNotyfyAddCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_areaNotyfyAddCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaNotyfyAddCard, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -157,5 +157,6 @@ lv_obj_add_event_cb(ui_btnBackAddCard, ui_event_btnBackAddCard, LV_EVENT_ALL, NU
 lv_obj_add_event_cb(ui_BackHomeAddFinger3, ui_event_BackHomeAddFinger3, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnHomeAddCard, ui_event_btnHomeAddCard, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardAddCard,ui_areaEnterNameFP2);
-
+lv_obj_add_event_cb(ui_btnAddFinger2, ui_event_btnCardAdd, LV_EVENT_PRESSED, NULL);
+lv_obj_add_event_cb(ui_KeyboardAddCard, ui_event_PressedOkAddCard, LV_EVENT_PRESSED, NULL);
 }

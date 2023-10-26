@@ -115,10 +115,10 @@ lv_obj_set_style_text_font(ui_BackFinger8, &lv_font_montserrat_16, LV_PART_MAIN|
 ui_Label37 = lv_label_create(ui_SceenPassword);
 lv_obj_set_width( ui_Label37, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label37, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label37, -15 );
+// lv_obj_set_x( ui_Label37, 0 );
 lv_obj_set_y( ui_Label37, -33 );
 lv_obj_set_align( ui_Label37, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label37,"Contain six to ten digits");
+lv_label_set_text(ui_Label37,"Please enter a 6-digit password");
 lv_obj_set_style_text_color(ui_Label37, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label37, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_Label37, &lv_font_montserrat_10, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -155,8 +155,8 @@ lv_textarea_set_placeholder_text(ui_areaNotifyChangePW,"Placeholder...");
 lv_obj_add_flag( ui_areaNotifyChangePW, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotifyChangePW, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotifyChangePW, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_width(ui_areaNotifyChangePW, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_spread(ui_areaNotifyChangePW, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_areaNotifyChangePW, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_areaNotifyChangePW, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_areaNotifyChangePW, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_areaNotifyChangePW, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaNotifyChangePW, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -171,5 +171,6 @@ lv_obj_add_event_cb(ui_PanelPassword, ui_event_PanelPassword, LV_EVENT_ALL, NULL
 lv_obj_add_event_cb(ui_btnBackPW, ui_event_btnBackPW, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnChangePW, ui_event_btnChangePW, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardChangePW,ui_areaPWPadding);
+lv_obj_add_event_cb(ui_KeyboardChangePW, ui_event_KeyboardChangePWOk, LV_EVENT_PRESSED, NULL);
 
 }

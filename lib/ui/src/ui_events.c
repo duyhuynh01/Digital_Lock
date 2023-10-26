@@ -5,10 +5,7 @@
 
 #include "ui.h"
 
-void isSettingMode(lv_event_t * e)
-{
-	// Your code here
-}
+
 
 
 // void callFuncAddFP(lv_event_t * e)
@@ -31,22 +28,9 @@ void isSettingMode(lv_event_t * e)
 // 	// Your code here
 // }
 
-void callFuncAddCard(lv_event_t * e)
-{
-	// Your code here
-}
 
-void callFuncRestoreCard(lv_event_t * e)
-{
-	// Your code here
-}
 
-void callFuncShowCard(lv_event_t * e)
-{
-	// Your code here
-}
 
-void callFuncChangePW(lv_event_t * e)
-{
-	// Your code here
-}
+
+
+

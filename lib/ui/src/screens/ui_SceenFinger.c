@@ -152,5 +152,6 @@ lv_obj_add_event_cb(ui_PressAddFinger, ui_event_PressAddFinger, LV_EVENT_ALL, NU
 lv_obj_add_event_cb(ui_PressRestoreFinger, ui_event_PressRestoreFinger, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressShowFinger, ui_event_PressShowFinger, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackFinger, ui_event_btnBackFinger, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_PanelFinger, ui_event_PanelFinger, LV_EVENT_ALL, NULL);
 
 }

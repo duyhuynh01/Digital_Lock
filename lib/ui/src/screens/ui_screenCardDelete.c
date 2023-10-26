@@ -125,17 +125,17 @@ lv_obj_set_width( ui_areaNotyfyDeleteCard, lv_pct(80));
 lv_obj_set_x( ui_areaNotyfyDeleteCard, 0 );
 lv_obj_set_y( ui_areaNotyfyDeleteCard, -5 );
 lv_obj_set_align( ui_areaNotyfyDeleteCard, LV_ALIGN_CENTER );
-lv_textarea_set_text(ui_areaNotyfyDeleteCard,"Timeout to scan fingerprint\n");
+// lv_textarea_set_text(ui_areaNotyfyDeleteCard,"Timeout to scan fingerprint\n");
 lv_textarea_set_placeholder_text(ui_areaNotyfyDeleteCard,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyDeleteCard, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotyfyDeleteCard, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotyfyDeleteCard, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_areaNotyfyDeleteCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(ui_areaNotyfyDeleteCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_border_color(ui_areaNotyfyDeleteCard, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_border_opa(ui_areaNotyfyDeleteCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_width(ui_areaNotyfyDeleteCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_spread(ui_areaNotyfyDeleteCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_bg_color(ui_areaNotyfyDeleteCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_bg_opa(ui_areaNotyfyDeleteCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_border_color(ui_areaNotyfyDeleteCard, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_border_opa(ui_areaNotyfyDeleteCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_areaNotyfyDeleteCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_areaNotyfyDeleteCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_areaNotyfyDeleteCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_areaNotyfyDeleteCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaNotyfyDeleteCard, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -155,5 +155,7 @@ lv_obj_add_event_cb(ui_panelDeleteCard, ui_event_panelDeleteCard, LV_EVENT_ALL, 
 lv_obj_add_event_cb(ui_btnBackCardDelete, ui_event_btnBackCardDelete, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnHomeCardDelete, ui_event_btnHomeCardDelete, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardCardDelete,ui_areaEnterNameDeleteCard);
+lv_obj_add_event_cb(ui_btnDeleteCard1, ui_event_btnDeleteCard, LV_EVENT_PRESSED, NULL);
+lv_obj_add_event_cb(ui_KeyboardCardDelete, ui_event_PressedOkDeleteCard, LV_EVENT_PRESSED, NULL);
 
 }

@@ -5,13 +5,25 @@ Password::Password()
 {
 }
 
+void Password::begin()
+{
+   if (!passwordExists())
+    {
+        createPasswords(INITIALIZE_ADMIN_PASSWORD);
+        Serial.println("--Created password!---");
+    }
+    else
+    {
+        Serial.println("Created password!");
+    }
+}
 const char *Password::getAdminPassword() const
 {
   return adminPassword;
 }
-void Password::createPasswords()
+void Password::createPasswords(const char* newPassword)
 {
-  strcpy(adminPassword, INITIALIZE_ADMIN_PASSWORD);
+  strcpy(adminPassword, newPassword);
   for (int i = 0; i < PASSWORD_SIZE; i++)
   {
     EEPROM.write(ADMIN_PASSWORD_ADDRESS + i, adminPassword[i]);
@@ -64,4 +76,30 @@ void Password::updateAdminPasswordInEEPROM(char *newPassword)
   }
   strcpy(adminPassword, newPassword);
   EEPROM.commit();
+}
+
+
+void Password::changePassword(const char *currentPassword, const char *newPassword, const char *confirmPassword)
+{
+  if(strcmp(currentPassword, adminPassword) == 0)
+  {
+    if(strcmp(newPassword, confirmPassword) == 0)
+    {
+      strcpy(adminPassword, confirmPassword);
+      createPasswords(adminPassword);
+      showPopup(ui_areaNotifyChangePW, "Changed password successfully", TIME_POPUP);
+      Serial.println("Changed password successfully");
+    }
+    else
+    {
+      showPopup(ui_areaNotifyChangePW, "New password and confirm password do not match", TIME_POPUP);
+      Serial.println("New password and confirm password do not match");
+    }
+  }
+  else
+  {
+    showPopup(ui_areaNotifyChangePW, "Incorrect current password", TIME_POPUP);
+    Serial.println("Incorrect current password");
+  }
+
 }

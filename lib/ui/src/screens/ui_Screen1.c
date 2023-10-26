@@ -113,6 +113,19 @@ lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
 lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
 lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
 
+ui_btnPassSetting = lv_btn_create(ui_Screen1);
+lv_obj_set_width( ui_btnPassSetting, 120);
+lv_obj_set_height( ui_btnPassSetting, 35);
+lv_obj_set_y( ui_btnPassSetting, -2 );
+lv_obj_set_align( ui_btnPassSetting, LV_ALIGN_BOTTOM_MID );
+lv_obj_add_flag( ui_btnPassSetting, LV_OBJ_FLAG_HIDDEN );   /// Flags
+
+ui_labelPassSetting = lv_label_create(ui_btnPassSetting);
+lv_obj_set_width( ui_labelPassSetting, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelPassSetting, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelPassSetting, LV_ALIGN_CENTER );
+lv_label_set_text(ui_labelPassSetting,"Enter password");
+
 lv_obj_add_event_cb(ui_Unlockbtn, ui_event_Unlockbtn, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_Settingbtn, ui_event_Settingbtn, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_rootpanel, ui_event_rootpanel, LV_EVENT_ALL, NULL);
@@ -120,5 +133,9 @@ lv_keyboard_set_textarea(ui_KeyboardPWHome,ui_AreaPWHome);
 lv_obj_add_event_cb(ui_KeyboardPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 lv_obj_add_event_cb(ui_AreaPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 lv_obj_add_event_cb(ui_AreaPopup, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
+lv_obj_add_event_cb(ui_btnPassSetting, ui_event_btnPassSetting, LV_EVENT_PRESSED, NULL);
+
+
+
 
 }

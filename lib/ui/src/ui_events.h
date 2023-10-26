@@ -21,6 +21,7 @@ void callFuncRestoreCard(lv_event_t * e);
 void callFuncShowCard(lv_event_t * e);
 void callFuncChangePW(lv_event_t * e);
 void callFuncCheckPW(lv_event_t *e);
+void callFuncCheckSetting(lv_event_t *e);
 // void addFingerprint(lv_event_t *e);
 
 #ifdef __cplusplus

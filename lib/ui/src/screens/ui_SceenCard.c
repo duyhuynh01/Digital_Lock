@@ -134,12 +134,12 @@ lv_textarea_set_text(ui_areaPopupCard,"Restored Card successfull!");
 lv_obj_add_flag( ui_areaPopupCard, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaPopupCard, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaPopupCard, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_areaPopupCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(ui_areaPopupCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_width(ui_areaPopupCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_shadow_spread(ui_areaPopupCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_left(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_right(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_bg_color(ui_areaPopupCard, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_bg_opa(ui_areaPopupCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_width(ui_areaPopupCard, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_shadow_spread(ui_areaPopupCard, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_pad_left(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_pad_right(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaPopupCard, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 
@@ -150,5 +150,6 @@ lv_obj_add_event_cb(ui_PressAddCard, ui_event_PressAddCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressRestoreCard, ui_event_PressRestoreCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressShowCard, ui_event_PressShowCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackCard, ui_event_btnBackCard, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_PanelCard, ui_event_PanelCard, LV_EVENT_ALL, NULL);
 
 }

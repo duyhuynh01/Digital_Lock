@@ -156,5 +156,6 @@ lv_obj_add_event_cb(ui_btnBackFingerDelete, ui_event_btnBackFingerDelete, LV_EVE
 lv_obj_add_event_cb(ui_btnHomeFingerDelete, ui_event_btnHomeFingerDelete, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardFingerDelete,ui_areaEnterNameFP1);
 lv_obj_add_event_cb(ui_btnDeleteFinger, ui_event_btnDeleteFinger, LV_EVENT_PRESSED, NULL );
+lv_obj_add_event_cb(ui_KeyboardFingerDelete, ui_event_PressedOkDeleteFP, LV_EVENT_PRESSED, NULL);
 
 }

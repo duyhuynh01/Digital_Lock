@@ -21,6 +21,7 @@ void RFID::begin()
     mfrc522.PCD_Init();
     Serial.println("RFID Started");
     Serial.println(mfrc522.uid.size);
+    readCardFromEEPROM();
 }
 
 bool RFID::restore()
@@ -93,7 +94,7 @@ bool RFID::readCardFromEEPROM()
 /*----------------Check card is existed------------*/
 void RFID::scanCard()
 {
-    const char* printName;
+    const char *printName;
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
     {
         String cardUID = "";
@@ -129,7 +130,6 @@ void RFID::scanCard()
             strcpy(notify, mess);
             strcat(notify, printName);
             showPopup(ui_AreaPopup, notify, 7000);
-
         }
         else
         {
@@ -162,8 +162,10 @@ bool RFID::enrollCard()
     readCardFromEEPROM();
     if (cardCount >= CARD_COUNT)
     {
-        Serial.println("Card list is fulled");
-        // behavior for full card
+        Serial.println("Card list is full");
+        lv_textarea_set_text(ui_areaNotyfyAddCard, "Card list is full.");
+        _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
+        lv_refr_now(NULL);
         return false;
     }
     unsigned long startTime = millis();
@@ -171,6 +173,9 @@ bool RFID::enrollCard()
 
     while (millis() - startTime <= cardTimeout)
     {
+        _ui_flag_modify(ui_areaNotyfyAddCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        lv_textarea_set_text(ui_areaNotyfyAddCard, "Place card on sensor");
+        lv_refr_now(NULL);
         if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
         {
             cardDetected = true;
@@ -192,10 +197,15 @@ bool RFID::enrollCard()
         int8_t position = findDeletedCardPosition();
         int8_t userId;
         char name[8];
+        const char *getName = lv_textarea_get_text(ui_areaEnterNameFP2);
         if (position >= 0)
         {
             userId = position + 1;
             snprintf(name, sizeof(name), "User%d", userId);
+            if (strcmp(getName, "") != 0)
+            {
+                strcpy(name, getName);
+            }
             myFingerPrint.padNameWithSpaces(name);
             strcpy(cardRegisteredData[position].id, cardID);
             strcpy(cardRegisteredData[position].name, name);
@@ -205,16 +215,20 @@ bool RFID::enrollCard()
         {
             userId = cardCount + 1;
             snprintf(name, sizeof(name), "User%d", userId);
+            if (strcmp(getName, "") != 0)
+            {
+                strcpy(name, getName);
+            }
             myFingerPrint.padNameWithSpaces(name);
             int8_t lastPosition = cardCount;
             strcpy(cardRegisteredData[lastPosition].id, cardID);
             strcpy(cardRegisteredData[lastPosition].name, name);
             cardCount++;
-            // Serial.print("Card count after add: ");
-            // Serial.println(cardCount);
         }
         if (saveCard())
         {
+            const char *notify = createNotification("Added card ", name);
+            showPopup(ui_areaNotyfyAddCard, notify, TIME_POPUP);
             Serial.println("Successfully add new card");
             readCardFromEEPROM();
             return true;
@@ -222,6 +236,7 @@ bool RFID::enrollCard()
         else
         {
             Serial.println("Failed to save a new card. Please try again!");
+            showPopup(ui_areaNotyfyAddCard, "Adding card failed", TIME_POPUP);
             // behavior for fail
             return false;
         }
@@ -229,6 +244,7 @@ bool RFID::enrollCard()
     else
     {
         Serial.println("Time out for enroll card!");
+        showPopup(ui_areaNotyfyAddCard, "Time out for enroll card", TIME_POPUP);
         return false;
     }
     return true;
@@ -264,10 +280,10 @@ bool RFID::deleteCardByName(const char *nameToDelete)
 /*--------------------Delete card--------------------*/
 bool RFID::unenrollCard(const char *user)
 {
-    if (cardCount <= 0)
-    {
-        Serial.println("Card list is empty");
-    }
+    // if (cardCount <= 0)
+    // {
+    //     Serial.println("Card list is empty");
+    // }
     unsigned long startTime = millis();
     while (millis() - startTime <= cardTimeout)
     {
@@ -283,12 +299,15 @@ bool RFID::unenrollCard(const char *user)
         else
         {
             Serial.println("Name not found!");
+            showPopup(ui_areaNotyfyDeleteCard, "Name not found!", TIME_POPUP);
             return false;
         }
         saveCard();
         readCardFromEEPROM();
         Serial.print("Deleted card: ");
         Serial.println(name);
+        const char *notify = createNotification("Deleted card ", getName);
+        showPopup(ui_areaNotyfyDeleteCard, notify, TIME_POPUP);
         return true;
     }
     return true;
@@ -298,6 +317,10 @@ bool RFID::unenrollCard(const char *user)
 void RFID::showList()
 {
     readCardFromEEPROM();
+    lv_textarea_set_text(ui_areaShowCard, "");
+    lv_textarea_add_text(ui_areaShowCard, "Card count: ");
+    convertNum(ui_areaShowCard, cardCount);
+    lv_textarea_add_text(ui_areaShowCard, "\n");
     Serial.print("Registered Cards: ");
     Serial.println(cardCount);
     for (int i = 0; i < CARD_COUNT; i++)
@@ -307,6 +330,10 @@ void RFID::showList()
             Serial.print(cardRegisteredData[i].id);
             Serial.print(" : ");
             Serial.println(cardRegisteredData[i].name);
+            lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].id);
+            lv_textarea_add_text(ui_areaShowCard, " : ");
+            lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].name);
+            lv_textarea_add_text(ui_areaShowCard, "\n");
         }
     }
 }

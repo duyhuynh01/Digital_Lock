@@ -1,6 +1,7 @@
 #include "myFingerPrint.hpp"
 #include <TFT_eSPI.h>
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
+bool flagModeSetting = false;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
 extern void turnLCD();
@@ -36,6 +37,8 @@ void FingerPrint::begin(uint16_t baudRate)
       delay(1);
     }
   }
+  //update database
+  readFingerprintFromEEPROM();
 
   Serial.println(F("Reading sensor parameters"));
   finger.getParameters();
@@ -107,6 +110,11 @@ void FingerPrint::scanFinger()
       {
         printName = fingerprintData[i].name;
       }
+      if(finger.fingerID == 1)
+      {
+        flagModeSetting = true;
+      }
+      
     }
     turnLCD();
     const char *mess = "Hello Fingerprint ";
@@ -383,7 +391,7 @@ bool FingerPrint::enrollFingerprint()
     lv_refr_now(NULL);
     return false;
   }
-  uint16_t id = 1000;
+  uint16_t id;
   char name[8];
   const char *getName = lv_textarea_get_text(ui_areaEnterNameFP);
   int8_t position = findDeletedPosition();
@@ -448,7 +456,7 @@ bool FingerPrint::enrollFingerprint()
     lv_refr_now(NULL);
   }
   
-  lv_textarea_set_text(ui_areaEnterNameFP, "");
+  
   return true;
 }
 
@@ -494,7 +502,7 @@ bool FingerPrint::unEnroll(const char *admin)
   }
 
   saveFingerprintToEEPROM();
-  lv_textarea_set_text(ui_areaEnterNameFP1, "");
+  
 
   return true;
 }

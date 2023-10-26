@@ -38,7 +38,10 @@ extern lv_obj_t *ui_Label4;
 extern lv_obj_t *ui_Label5;
 extern lv_obj_t *ui_AreaPopup;
 extern lv_obj_t *ui_KeyboardPWHome;
+extern lv_obj_t *ui_btnPassSetting;
+extern lv_obj_t *ui_labelPassSetting;
 void ui_event_PressedOkPW( lv_event_t *e);
+void ui_event_btnPassSetting( lv_event_t *e);
 // SCREEN: ui_ScreenSetting
 void ui_ScreenSetting_screen_init(void);
 extern lv_obj_t *ui_ScreenSetting;
@@ -76,6 +79,8 @@ void ui_event_btnBackFinger( lv_event_t * e);
 extern lv_obj_t *ui_btnBackFinger;
 extern lv_obj_t *ui_BackFinger;
 extern lv_obj_t *ui_areaPopupFP;
+void ui_event_PanelFinger( lv_event_t * e);
+
 // SCREEN: ui_screenFingerAdd
 
 void ui_screenFingerAdd_screen_init(void);
@@ -123,6 +128,7 @@ extern lv_obj_t *ui_BackHomeAddFinger1;
 extern lv_obj_t *ui_areaNotyfyDeleteFP;
 extern lv_obj_t *ui_KeyboardFingerDelete;
 void ui_event_btnDeleteFinger( lv_event_t * e);
+void ui_event_PressedOkDeleteFP( lv_event_t * e);
 
 
 // SCREEN: ui_screenFingerShow
@@ -159,6 +165,9 @@ void ui_event_btnBackCard( lv_event_t * e);
 extern lv_obj_t *ui_btnBackCard;
 extern lv_obj_t *ui_BackFinger4;
 extern lv_obj_t *ui_areaPopupCard;
+void ui_event_PanelCard( lv_event_t * e);
+
+
 // SCREEN: ui_screenCardAdd
 void ui_screenCardAdd_screen_init(void);
 extern lv_obj_t *ui_screenCardAdd;
@@ -181,6 +190,8 @@ void ui_event_BackHomeAddFinger3( lv_event_t * e);
 extern lv_obj_t *ui_BackHomeAddFinger3;
 extern lv_obj_t *ui_areaNotyfyAddCard;
 extern lv_obj_t *ui_KeyboardAddCard;
+void ui_event_btnCardAdd( lv_event_t *e);
+void ui_event_PressedOkAddCard( lv_event_t *e);
 // SCREEN: ui_screenCardDelete
 void ui_screenCardDelete_screen_init(void);
 extern lv_obj_t *ui_screenCardDelete;
@@ -202,6 +213,9 @@ extern lv_obj_t *ui_btnHomeCardDelete;
 extern lv_obj_t *ui_BackHomeAddFinger4;
 extern lv_obj_t *ui_areaNotyfyDeleteCard;
 extern lv_obj_t *ui_KeyboardCardDelete;
+void ui_event_btnDeleteCard( lv_event_t *e);
+void ui_event_PressedOkDeleteCard( lv_event_t *e);
+
 // SCREEN: ui_screenCardShow
 void ui_screenCardShow_screen_init(void);
 extern lv_obj_t *ui_screenCardShow;
@@ -238,6 +252,8 @@ extern lv_obj_t *ui_Label38;
 extern lv_obj_t *ui_KeyboardChangePW;
 extern lv_obj_t *ui_areaNotifyChangePW;
 extern lv_obj_t *ui____initial_actions0;
+void ui_event_KeyboardChangePWOk( lv_event_t * e);
+
 
 LV_IMG_DECLARE( ui_img_iconunlock_png);   // assets\iconUnlock.png
 LV_IMG_DECLARE( ui_img_iconsetting_png);   // assets\iconSetting.png

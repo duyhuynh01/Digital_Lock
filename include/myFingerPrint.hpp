@@ -13,7 +13,7 @@
 // #define TotalFP (20 + StartAddrSaveFP)
 extern uint8_t errorCount;
 extern bool isDoorOpen;
-
+extern bool flagModeSetting;
 
 
 enum fingerLocalStatus{
@@ -44,7 +44,6 @@ public:
     bool enrollFingerprint();
     bool unEnroll(const char* admin);
     void padNameWithSpaces(char *name);
-    void getLog();
     bool debugFinger();
     void diagFingerPrint();
     void restore();

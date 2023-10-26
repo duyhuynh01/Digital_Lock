@@ -4,7 +4,7 @@
 #define SS_PIN_HSPI 27
 #define RST_PIN_HSPI 22
 #define SCK_PIN_HSPI 14
-#define cardTimeout 5000u
+#define cardTimeout 7000u
 #define CARD_COUNT 20
 #define CARD_START_ADDRESS 300 
 #define CARD_END_ADDRESS 639
