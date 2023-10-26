@@ -136,7 +136,7 @@ void RFID::scanCard()
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
             turnLCD();
-            showPopup(ui_AreaPopup, "Unlock Failed!", 7000);
+            showPopup(ui_AreaPopup, "Unknown card", 7000);
         }
     }
 
@@ -201,7 +201,7 @@ bool RFID::enrollCard()
         if (position >= 0)
         {
             userId = position + 1;
-            snprintf(name, sizeof(name), "User%d", userId);
+            snprintf(name, sizeof(name), "user%d", userId);
             if (strcmp(getName, "") != 0)
             {
                 strcpy(name, getName);
@@ -214,7 +214,7 @@ bool RFID::enrollCard()
         else
         {
             userId = cardCount + 1;
-            snprintf(name, sizeof(name), "User%d", userId);
+            snprintf(name, sizeof(name), "user%d", userId);
             if (strcmp(getName, "") != 0)
             {
                 strcpy(name, getName);
@@ -227,7 +227,7 @@ bool RFID::enrollCard()
         }
         if (saveCard())
         {
-            const char *notify = createNotification("Added card ", name);
+            const char *notify = createNotification("Successfully add card ", name);
             showPopup(ui_areaNotyfyAddCard, notify, TIME_POPUP);
             Serial.println("Successfully add new card");
             readCardFromEEPROM();
@@ -236,15 +236,15 @@ bool RFID::enrollCard()
         else
         {
             Serial.println("Failed to save a new card. Please try again!");
-            showPopup(ui_areaNotyfyAddCard, "Adding card failed", TIME_POPUP);
+            showPopup(ui_areaNotyfyAddCard, "Failed to add new card", TIME_POPUP);
             // behavior for fail
             return false;
         }
     }
     else
     {
-        Serial.println("Time out for enroll card!");
-        showPopup(ui_areaNotyfyAddCard, "Time out for enroll card", TIME_POPUP);
+        Serial.println("No card detected!");
+        showPopup(ui_areaNotyfyAddCard, "No card detected!", TIME_POPUP);
         return false;
     }
     return true;
@@ -299,14 +299,15 @@ bool RFID::unenrollCard(const char *user)
         else
         {
             Serial.println("Name not found!");
-            showPopup(ui_areaNotyfyDeleteCard, "Name not found!", TIME_POPUP);
+             const char *notify = createNotification("Not found user ", getName);
+            showPopup(ui_areaNotyfyDeleteCard, notify, TIME_POPUP);
             return false;
         }
         saveCard();
         readCardFromEEPROM();
         Serial.print("Deleted card: ");
         Serial.println(name);
-        const char *notify = createNotification("Deleted card ", getName);
+        const char *notify = createNotification("Successlly delete card ", getName);
         showPopup(ui_areaNotyfyDeleteCard, notify, TIME_POPUP);
         return true;
     }
@@ -318,9 +319,9 @@ void RFID::showList()
 {
     readCardFromEEPROM();
     lv_textarea_set_text(ui_areaShowCard, "");
-    lv_textarea_add_text(ui_areaShowCard, "Card count: ");
+    lv_textarea_add_text(ui_areaShowCard, "Total card is ");
     convertNum(ui_areaShowCard, cardCount);
-    lv_textarea_add_text(ui_areaShowCard, "\n");
+    lv_textarea_add_text(ui_areaShowCard, "\n\n");
     Serial.print("Registered Cards: ");
     Serial.println(cardCount);
     for (int i = 0; i < CARD_COUNT; i++)

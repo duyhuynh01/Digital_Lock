@@ -1,5 +1,5 @@
 #include "funcUi.hpp"
-
+extern bool flagModeSetting;
 extern FingerPrint myFingerPrint;
 extern myEEPROM eeprom;
 extern Password myPassword;
@@ -29,11 +29,11 @@ void callFuncCheckPW(lv_event_t *e)
 
     if (myPassword.checkAdminPassword() == true)
     {
-        showPopup(ui_AreaPopup, "Unlock successfull!", TIME_POPUP);
+        showPopup(ui_AreaPopup, "Unlock!", TIME_POPUP);
     }
     else
     {
-        showPopup(ui_AreaPopup, "Unlock failed!", TIME_POPUP);
+        showPopup(ui_AreaPopup, "Incorrect passcode", TIME_POPUP);
     }
     lv_textarea_set_text(ui_AreaPWHome, "");
 }
@@ -69,7 +69,7 @@ void callFuncShowFP(lv_event_t *e)
 void callFuncRestoreFP(lv_event_t *e)
 {
     myFingerPrint.restore();
-    showPopup(ui_areaPopupFP, "Reset the fingerprint successfully.", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Successlly delete all fingerprints.", TIME_POPUP);
 }
 
 void callFuncAddCard(lv_event_t *e)
@@ -102,7 +102,7 @@ void callFuncShowCard(lv_event_t *e)
 void callFuncRestoreCard(lv_event_t *e)
 {
     myRFID.restore();
-    showPopup(ui_areaPopupCard, "Reset the card successfully.", TIME_POPUP);
+    showPopup(ui_areaPopupCard, "Successlly delete all cards.", TIME_POPUP);
 }
 
 void callFuncChangePW(lv_event_t *e)
@@ -112,8 +112,8 @@ void callFuncChangePW(lv_event_t *e)
     const char *getConfirmPW = lv_textarea_get_text(ui_areaPWConfirm);
     if (strlen(getNewPW) != 6 || strlen(getConfirmPW) != 6)
     {
-        Serial.println("Please enter a 6-digit password.");
-        showPopup(ui_areaNotifyChangePW, "Please enter a 6-digit password.", TIME_POPUP);
+        Serial.println("Please enter a 6-digit passcode.");
+        showPopup(ui_areaNotifyChangePW, "The passcode must be 6-digit", TIME_POPUP);
     }
     else
     {
@@ -222,8 +222,7 @@ void controlScreen() {
     } else {
         if (screenIsOn && (currentTime - lastTouchTime >= TIMEOUT)) {
             digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
-            ui_Screen1_screen_init();
-            _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 300, 0, &ui_ScreenSetting_screen_init);
+            _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
             screenIsOn = false;
         }
     }

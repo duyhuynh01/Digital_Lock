@@ -22,7 +22,7 @@ ui_Label20 = lv_label_create(ui_PanelFingerDelete);
 lv_obj_set_width( ui_Label20, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label20, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( ui_Label20, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label20,"Fingerprint Delete");
+lv_label_set_text(ui_Label20,"Delete fingerprint");
 lv_obj_set_style_text_color(ui_Label20, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label20, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_Label20, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -42,7 +42,7 @@ lv_obj_set_height( ui_Label21, 24);
 lv_obj_set_x( ui_Label21, 0 );
 lv_obj_set_y( ui_Label21, 100 );
 lv_obj_set_align( ui_Label21, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label21,"Enter a name user.\n(maximum 7 characters)\n");
+lv_label_set_text(ui_Label21,"Enter a user that you want to delete\n");
 lv_obj_set_style_text_color(ui_Label21, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label21, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_Label21, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);

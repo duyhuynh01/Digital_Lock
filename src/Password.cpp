@@ -87,18 +87,18 @@ void Password::changePassword(const char *currentPassword, const char *newPasswo
     {
       strcpy(adminPassword, confirmPassword);
       createPasswords(adminPassword);
-      showPopup(ui_areaNotifyChangePW, "Changed password successfully", TIME_POPUP);
+      showPopup(ui_areaNotifyChangePW, "Changed passcode successfully", TIME_POPUP);
       Serial.println("Changed password successfully");
     }
     else
     {
-      showPopup(ui_areaNotifyChangePW, "New password and confirm password do not match", TIME_POPUP);
+      showPopup(ui_areaNotifyChangePW, "New passcodes do not match", TIME_POPUP);
       Serial.println("New password and confirm password do not match");
     }
   }
   else
   {
-    showPopup(ui_areaNotifyChangePW, "Incorrect current password", TIME_POPUP);
+    showPopup(ui_areaNotifyChangePW, "Incorrect old passcode", TIME_POPUP);
     Serial.println("Incorrect current password");
   }
 

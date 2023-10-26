@@ -19,6 +19,7 @@ void setup()
     Serial.begin(115200);
     myFingerPrint.begin(57600);
     myRFID.begin();
+    myPassword.begin();
     TFT_init();
 }
 

@@ -37,7 +37,7 @@ void FingerPrint::begin(uint16_t baudRate)
       delay(1);
     }
   }
-  //update database
+  // update database
   readFingerprintFromEEPROM();
 
   Serial.println(F("Reading sensor parameters"));
@@ -94,7 +94,7 @@ void FingerPrint::scanFinger()
   {
     Serial.println("Did not find a match");
     turnLCD();
-    showPopup(ui_AreaPopup, "Unlock Failed!", 7000);
+    showPopup(ui_AreaPopup, "Unknown fingerprint!", 7000);
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -110,11 +110,10 @@ void FingerPrint::scanFinger()
       {
         printName = fingerprintData[i].name;
       }
-      if(finger.fingerID == 1)
+      if (finger.fingerID == 1)
       {
         flagModeSetting = true;
       }
-      
     }
     turnLCD();
     const char *mess = "Hello Fingerprint ";
@@ -257,8 +256,9 @@ bool FingerPrint::enroll(uint16_t &id)
   // first stage: get image
   unsigned int startTime = millis();
   Serial.println("Place your finger on sensor");
-  lv_textarea_set_text(ui_areaNotyfyAddFP, "Place finger on sensor");
-  lv_refr_now(NULL);
+  // lv_textarea_set_text(ui_areaNotyfyAddFP, "Place your finger on sensor");
+  // lv_refr_now(NULL);
+  showPopup(ui_areaNotyfyAddFP, "Place your finger on sensor", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -274,15 +274,21 @@ bool FingerPrint::enroll(uint16_t &id)
     {
       Serial.print("Your FingerPrint module has an issue at first stage of enroll (get image) , issue code: 0x0");
       Serial.println(status);
-      return 0;
+      // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
+      // lv_refr_now(NULL);
+      showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+      // delay(2000);
+      return false;
     }
   }
   // check if timeout
   if (status == FINGERPRINT_NOFINGER)
   {
     Serial.println("Timeout to scan fingerprint");
-    // showPopup(ui_areaNotyfyAddFP, "Timeout to scan fingerprint", 4000);
-    // lv_textarea_set_text(ui_areaEnterNameFP, "Timeout to scan fingerprint");
+    // lv_textarea_set_text(ui_areaNotyfyAddFP, "No fingerprint detected");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "No fingerprint detected", TIME_POPUP);
     return false;
   }
 
@@ -292,6 +298,10 @@ bool FingerPrint::enroll(uint16_t &id)
   {
     Serial.print("Your FingerPrint module has an issue at first stage of enroll (convert image) , issue code: 0x0");
     Serial.println(status);
+    // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -300,8 +310,9 @@ bool FingerPrint::enroll(uint16_t &id)
   while (status != FINGERPRINT_NOFINGER)
   {
     Serial.println("Remove your finger");
-    lv_textarea_set_text(ui_areaNotyfyAddFP, "Remove your finger");
-    lv_refr_now(NULL);
+    // lv_textarea_set_text(ui_areaNotyfyAddFP, "Remove your finger");
+    // lv_refr_now(NULL);
+    showPopup(ui_areaNotyfyAddFP, "Remove your finger", TIME_POPUP);
     status = finger.getImage();
   }
   delay(1000);
@@ -309,8 +320,9 @@ bool FingerPrint::enroll(uint16_t &id)
   // second stage: get image
   startTime = millis();
   Serial.println("Place your same finger on sensor again");
-  lv_textarea_set_text(ui_areaNotyfyAddFP, "Place finger on sensor again");
-  lv_refr_now(NULL);
+  // lv_textarea_set_text(ui_areaNotyfyAddFP, "Place your same finger on sensor again");
+  // lv_refr_now(NULL);
+  showPopup(ui_areaNotyfyAddFP, "Place your same finger on sensor again", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -333,8 +345,10 @@ bool FingerPrint::enroll(uint16_t &id)
   if (status == FINGERPRINT_NOFINGER)
   {
     Serial.println("Timeout to scan fingerprint");
-    // showPopup(ui_areaNotyfyAddFP, "Timeout to scan fingerprint", 4000);
-    // lv_textarea_set_text(ui_areaEnterNameFP, "Timeout to scan fingerprint");
+    // lv_textarea_set_text(ui_areaNotyfyAddFP, "No fingerprint detected");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "No fingerprint detected", TIME_POPUP);
     return false;
   }
 
@@ -344,6 +358,10 @@ bool FingerPrint::enroll(uint16_t &id)
   {
     Serial.print("Your FingerPrint module has an issue at second stage of enroll (convert image) , issue code: 0x0");
     Serial.println(status);
+    // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -356,13 +374,20 @@ bool FingerPrint::enroll(uint16_t &id)
   if (status == FINGERPRINT_ENROLLMISMATCH)
   {
     Serial.println("Failed to add new finger because your two fingers do not match");
-    // lv_textarea_set_text(ui_areaEnterNameFP, "Failed, two fingers do not match");
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to your two fingerprints do not match");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to your two fingerprints do not match", TIME_POPUP);
     return false;
   }
   else if (status != FINGERPRINT_OK)
   {
     Serial.print("Your FingerPrint module has an issue at third stage of enroll (create model) , issue code: 0x0");
     Serial.println(status);
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to issues");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -375,6 +400,10 @@ bool FingerPrint::enroll(uint16_t &id)
   {
     Serial.print("Your FingerPrint module has an issue at third stage of enroll (save model) , issue code: 0x0");
     Serial.println(status);
+    // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to issues");
+    // lv_refr_now(NULL);
+    // delay(2000);
+    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
   return true;
@@ -400,11 +429,11 @@ bool FingerPrint::enrollFingerprint()
   {
     if (id == 1)
     {
-      strcpy(name, "Admin");
+      strcpy(name, "admin");
     }
     else
     {
-      snprintf(name, sizeof(name), "User%d", id);
+      snprintf(name, sizeof(name), "user%d", id);
     }
     if (strcmp(getName, "") != 0)
     {
@@ -420,11 +449,11 @@ bool FingerPrint::enrollFingerprint()
     id = fingerprintCount + 1;
     if (id == 1)
     {
-      strcpy(name, "Admin");
+      strcpy(name, "admin");
     }
     else
     {
-      snprintf(name, sizeof(name), "User%d", id);
+      snprintf(name, sizeof(name), "user%d", id);
     }
     if (strcmp(getName, "") != 0)
     {
@@ -445,18 +474,15 @@ bool FingerPrint::enrollFingerprint()
     // char notify[30];
     // strcpy(notify, mess);
     // strcat(notify, name);
-    const char *notify = createNotification("Added fingerprint ", name);
+    const char *notify = createNotification("Successfully add ", name);
     showPopup(ui_areaNotyfyAddFP, notify, TIME_POPUP);
-    lv_refr_now(NULL);
     Serial.println("saved succcessfull!");
   }
-  else
-  {
-    showPopup(ui_areaNotyfyAddFP, "Adding fingerprint failed", TIME_POPUP);
-    lv_refr_now(NULL);
-  }
-  
-  
+  // else{
+  //   showPopup(ui_areaNotyfyAddFP, " ", 10);
+  //   lv_refr_now(NULL);
+  // }
+
   return true;
 }
 
@@ -496,13 +522,12 @@ bool FingerPrint::unEnroll(const char *admin)
     showPopup(ui_areaNotyfyDeleteFP, "Name not found!", TIME_POPUP);
     lv_timer_handler();
     lv_refr_now(NULL);
-  
+
     Serial.println("Name not found!");
     return false;
   }
 
   saveFingerprintToEEPROM();
-  
 
   return true;
 }
@@ -546,9 +571,9 @@ void FingerPrint::showList()
   readFingerprintFromEEPROM();
   // Serial.println(fingerprintCount);
   lv_textarea_set_text(ui_areaShowFP, "");
-  lv_textarea_add_text(ui_areaShowFP, "Fingerprint count: ");
+  lv_textarea_add_text(ui_areaShowFP, "Total fingerprint is ");
   convertNum(ui_areaShowFP, fingerprintCount);
-  lv_textarea_add_text(ui_areaShowFP, "\n");
+  lv_textarea_add_text(ui_areaShowFP, "\n\n");
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
     if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
@@ -566,7 +591,7 @@ void FingerPrint::showList()
 
 void FingerPrint::changeFingerprintAdmin()
 {
-  unEnroll("Admin");
+  unEnroll("admin");
   enrollFingerprint();
 }
 

@@ -26,11 +26,11 @@ lv_obj_set_x( ui_AreaPWHome, 0 );
 lv_obj_set_y( ui_AreaPWHome, 5 );
 lv_obj_set_align( ui_AreaPWHome, LV_ALIGN_TOP_MID );
 lv_textarea_set_max_length(ui_AreaPWHome,10);
-lv_textarea_set_placeholder_text(ui_AreaPWHome,"Enter password");
+lv_textarea_set_placeholder_text(ui_AreaPWHome,"Enter passcode");
 lv_textarea_set_one_line(ui_AreaPWHome,true);
 lv_textarea_set_password_mode(ui_AreaPWHome, true);
 lv_obj_add_flag( ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
-lv_obj_set_style_text_letter_space(ui_AreaPWHome, 4, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_letter_space(ui_AreaPWHome, 1, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_line_space(ui_AreaPWHome, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_AreaPWHome, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_AreaPWHome, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -131,8 +131,8 @@ lv_obj_add_event_cb(ui_Settingbtn, ui_event_Settingbtn, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_rootpanel, ui_event_rootpanel, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardPWHome,ui_AreaPWHome);
 lv_obj_add_event_cb(ui_KeyboardPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
-lv_obj_add_event_cb(ui_AreaPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
-lv_obj_add_event_cb(ui_AreaPopup, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
+// lv_obj_add_event_cb(ui_AreaPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
+// lv_obj_add_event_cb(ui_AreaPopup, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 lv_obj_add_event_cb(ui_btnPassSetting, ui_event_btnPassSetting, LV_EVENT_PRESSED, NULL);
 
 

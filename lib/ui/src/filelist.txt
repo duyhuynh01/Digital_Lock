@@ -19,3 +19,4 @@ images/ui_img_iconhome_png.c
 images/ui_img_iconpassword_png.c
 images/ui_img_iconfinger_png.c
 images/ui_img_iconcard_png.c
+

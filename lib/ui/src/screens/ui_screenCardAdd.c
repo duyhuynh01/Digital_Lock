@@ -22,7 +22,7 @@ ui_Label30 = lv_label_create(ui_PanelCardAdd);
 lv_obj_set_width( ui_Label30, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label30, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( ui_Label30, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label30,"Card  Add");
+lv_label_set_text(ui_Label30,"Add Card");
 lv_obj_set_style_text_color(ui_Label30, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label30, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_Label30, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -42,7 +42,7 @@ lv_obj_set_height( ui_Label31, 24);
 lv_obj_set_x( ui_Label31, 0 );
 lv_obj_set_y( ui_Label31, 100 );
 lv_obj_set_align( ui_Label31, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label31,"Enter a name, if necessary.\n(maximum 7 characters)\n");
+lv_label_set_text(ui_Label31,"(Optional) Enter a name\n(maximum 7 character)");
 lv_obj_set_style_text_color(ui_Label31, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label31, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_Label31, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);

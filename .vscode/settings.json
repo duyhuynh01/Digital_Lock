@@ -52,6 +52,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "gui.hpp": "c",
+        "myrfid.hpp": "c",
+        "tft_espi.h": "c"
     }
 }

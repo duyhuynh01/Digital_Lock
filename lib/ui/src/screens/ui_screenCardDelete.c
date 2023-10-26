@@ -22,7 +22,7 @@ ui_Label33 = lv_label_create(ui_PanelCardDelete);
 lv_obj_set_width( ui_Label33, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label33, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( ui_Label33, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label33,"Card Delete");
+lv_label_set_text(ui_Label33,"Delete Card");
 lv_obj_set_style_text_color(ui_Label33, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label33, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_Label33, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -42,7 +42,7 @@ lv_obj_set_height( ui_Label34, 24);
 lv_obj_set_x( ui_Label34, 0 );
 lv_obj_set_y( ui_Label34, 100 );
 lv_obj_set_align( ui_Label34, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label34,"Enter a name user.\n(maximum 7 characters)\n");
+lv_label_set_text(ui_Label34,"Enter a user that you want to delete\n");
 lv_obj_set_style_text_color(ui_Label34, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label34, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_Label34, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
