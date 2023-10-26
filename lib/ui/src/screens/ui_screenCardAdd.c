@@ -154,7 +154,7 @@ lv_obj_add_event_cb(ui_PanelCardAdd, ui_event_PanelCardAdd, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_areaEnterNameFP2, ui_event_areaEnterNameFP2, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_panelCardAdd, ui_event_panelCardAdd, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackAddCard, ui_event_btnBackAddCard, LV_EVENT_ALL, NULL);
-lv_obj_add_event_cb(ui_BackHomeAddFinger3, ui_event_BackHomeAddFinger3, LV_EVENT_ALL, NULL);
+// lv_obj_add_event_cb(ui_BackHomeAddFinger3, ui_event_BackHomeAddFinger3, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnHomeAddCard, ui_event_btnHomeAddCard, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardAddCard,ui_areaEnterNameFP2);
 lv_obj_add_event_cb(ui_btnAddFinger2, ui_event_btnCardAdd, LV_EVENT_PRESSED, NULL);

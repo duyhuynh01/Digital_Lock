@@ -132,6 +132,7 @@ void callFuncCheckSetting(lv_event_t *e)
     if (myPassword.checkAdminPassword() == true)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete( &ui_Screen1);
     }
     else
     {
@@ -167,6 +168,7 @@ void checkbtnSetting()
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         delay(2000);
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete( &ui_Screen1);
         flagSetting = false;
         flagModeSetting = false;
 

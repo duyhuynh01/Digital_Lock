@@ -307,6 +307,7 @@ void ui_event_HomeOptionbtn(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_ScreenSetting);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -319,6 +320,7 @@ void ui_event_PWOptionbtn(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenPassword, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_SceenPassword_screen_init);
+        _ui_screen_delete(&ui_ScreenSetting);
     }
 }
 void ui_event_FPOptionbtn(lv_event_t *e)
@@ -328,6 +330,7 @@ void ui_event_FPOptionbtn(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_SceenFinger_screen_init);
+        _ui_screen_delete(&ui_ScreenSetting);
     }
 }
 void ui_event_CardOptionbtn(lv_event_t *e)
@@ -337,6 +340,7 @@ void ui_event_CardOptionbtn(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_SceenCard_screen_init);
+        _ui_screen_delete(&ui_ScreenSetting);
     }
 }
 void ui_event_PressDeleteFinger(lv_event_t *e)
@@ -346,6 +350,7 @@ void ui_event_PressDeleteFinger(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_screenFingerDelete, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenFingerDelete_screen_init);
+        _ui_screen_delete(&ui_SceenFinger);
     }
 }
 void ui_event_PressAddFinger(lv_event_t *e)
@@ -356,6 +361,7 @@ void ui_event_PressAddFinger(lv_event_t *e)
     {
         _ui_screen_change(&ui_screenFingerAdd, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenFingerAdd_screen_init);
         _ui_flag_modify(ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_screen_delete(&ui_SceenFinger);
         //   callFuncAddFP( e );
     }
 }
@@ -375,6 +381,7 @@ void ui_event_PressShowFinger(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_screenFingerShow, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenFingerShow_screen_init);
+        _ui_screen_delete(&ui_SceenFinger);
         callFuncShowFP(e);
     }
 }
@@ -394,6 +401,7 @@ void ui_event_btnBackFinger(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete(&ui_SceenFinger);
     }
 }
 void ui_event_PanelFingerAdd(lv_event_t *e)
@@ -432,6 +440,7 @@ void ui_event_btnBackAddFP(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenFinger_screen_init);
+        _ui_screen_delete(&ui_screenFingerAdd);
     }
 }
 void ui_event_btnHomeAddFP(lv_event_t *e)
@@ -441,6 +450,7 @@ void ui_event_btnHomeAddFP(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenFingerAdd);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -481,6 +491,7 @@ void ui_event_btnBackFingerDelete(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenFinger_screen_init);
+        _ui_screen_delete(&ui_screenFingerDelete);
     }
 }
 void ui_event_btnHomeFingerDelete(lv_event_t *e)
@@ -490,6 +501,7 @@ void ui_event_btnHomeFingerDelete(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenFingerDelete);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -502,6 +514,7 @@ void ui_event_btnBackShowFP(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenFinger_screen_init);
+        _ui_screen_delete(&ui_screenFingerShow);
     }
 }
 void ui_event_btnHomeShowFP(lv_event_t *e)
@@ -511,6 +524,7 @@ void ui_event_btnHomeShowFP(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenFingerShow);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -523,6 +537,7 @@ void ui_event_PressDeleteCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_screenCardDelete, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenFingerDelete_screen_init);
+        _ui_screen_delete(&ui_SceenCard);
     }
 }
 void ui_event_PressAddCard(lv_event_t *e)
@@ -532,6 +547,7 @@ void ui_event_PressAddCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_screenCardAdd, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenCardAdd_screen_init);
+        _ui_screen_delete(&ui_SceenCard);
     }
 }
 void ui_event_PressRestoreCard(lv_event_t *e)
@@ -550,6 +566,7 @@ void ui_event_PressShowCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_screenCardShow, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenCardShow_screen_init);
+        _ui_screen_delete(&ui_SceenCard);
         callFuncShowCard(e);
     }
 }
@@ -560,6 +577,7 @@ void ui_event_btnBackCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete(&ui_SceenCard);
     }
 }
 void ui_event_PanelCard(lv_event_t *e)
@@ -606,6 +624,7 @@ void ui_event_btnBackAddCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenCard_screen_init);
+        _ui_screen_delete(&ui_screenCardAdd);
     }
 }
 void ui_event_btnHomeAddCard(lv_event_t *e)
@@ -615,6 +634,7 @@ void ui_event_btnHomeAddCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenCardAdd);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -627,6 +647,7 @@ void ui_event_BackHomeAddFinger3(lv_event_t *e)
     if (event_code == LV_EVENT_CLICKED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenCardAdd);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
@@ -667,6 +688,7 @@ void ui_event_btnBackCardDelete(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenCard_screen_init);
+        _ui_screen_delete(&ui_screenCardDelete);
     }
 }
 void ui_event_btnHomeCardDelete(lv_event_t *e)
@@ -676,6 +698,7 @@ void ui_event_btnHomeCardDelete(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenCardDelete);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -688,6 +711,7 @@ void ui_event_btnBackShowCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenCard_screen_init);
+        _ui_screen_delete(&ui_screenCardShow);
     }
 }
 void ui_event_btnHomeShowCard(lv_event_t *e)
@@ -697,6 +721,7 @@ void ui_event_btnHomeShowCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenCardShow);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -721,6 +746,7 @@ void ui_event_btnBackPW(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete(&ui_SceenPassword);
     }
 }
 void ui_event_btnChangePW(lv_event_t *e)
