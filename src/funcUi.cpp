@@ -245,7 +245,8 @@ void controlScreen()
         if (screenIsOn && (currentTime - lastTouchTime >= TIMEOUT))
         {
             digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
-            _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+            // _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+            lv_disp_load_scr(ui_Screen1);
             screenIsOn = false;
         }
     }
