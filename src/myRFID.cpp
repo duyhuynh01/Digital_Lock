@@ -132,8 +132,10 @@ void RFID::scanCard()
             strcpy(notify, mess);
             strcat(notify, printName);
             while(isTask1Finish == false){ 
+                // Serial.print("isTask1Finish: ");
                 Serial.println(isTask1Finish);
             }
+            Serial.println("OKKKKKKK");
             isCriticalTask = true;
             turnLCD();
             showPopup(ui_AreaPopup, notify, 7000);

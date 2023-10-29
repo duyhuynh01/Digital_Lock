@@ -55,14 +55,17 @@ void setup()
 void Task1Code(void * pvParameters){
     for(;;){
         isTask1Finish = false;
-        while(isCriticalTask == false){
-            lv_timer_handler();
-            isTouch();
-            controlScreen();
+        while(isCriticalTask == true){
+            // Serial.print("isCriticalTask: ");
+            Serial.println(isCriticalTask);
             
-            isTask1Finish = true;
-            delay(10);
         }
+        // Serial.println("Task 1 running");
+        lv_timer_handler();
+        isTouch();
+        controlScreen();
+        isTask1Finish = true;
+        delay(10);
 
     }
 

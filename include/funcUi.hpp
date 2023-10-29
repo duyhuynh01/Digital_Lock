@@ -11,7 +11,7 @@
 #define TimeOpenDoor 5000u
 #define TIME_POPUP 5000u
 #define TIME_OUT_SETTNG 10000u
-#define TIMEOUT 30000u
+#define TIMEOUT 10000u
     void callFuncCheckPW(lv_event_t *e);
     void callFuncAddFP(lv_event_t *e);
     void callFuncDeleteFP(lv_event_t * e);
