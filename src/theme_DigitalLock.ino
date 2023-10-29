@@ -13,7 +13,7 @@ int8_t task = -1;
 lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
 
-bool isTask1Finish;
+bool isTask1Finish = false;
 bool isCriticalTask = false;
 
 TaskHandle_t Task1;
@@ -57,10 +57,13 @@ void Task1Code(void * pvParameters){
         isTask1Finish = false;
         while(isCriticalTask == false){
             lv_timer_handler();
+            isTouch();
             controlScreen();
+            
+            isTask1Finish = true;
+            delay(10);
         }
-        isTask1Finish = true;
-        delay(10);
+
     }
 
 }

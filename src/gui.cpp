@@ -70,9 +70,9 @@ bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data) {
 }
 void turnLCD()
 {
-    screenIsOn = true;
+    // screenIsOn = true;
     lastTouchTime = millis();
-    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+    // digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
 }
 
 void TFT_init()

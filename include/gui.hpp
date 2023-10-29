@@ -16,6 +16,7 @@ void TFT_init();
 bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data);
 void controlScreen();
 void turnLCD();
+void isTouch(); //Check whether the screen is being touching or not
 extern lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 extern lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
 extern bool screenIsOn;

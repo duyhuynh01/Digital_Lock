@@ -132,7 +132,7 @@ void callFuncCheckSetting(lv_event_t *e)
     if (myPassword.checkAdminPassword() == true)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
-        _ui_screen_delete( &ui_Screen1);
+        _ui_screen_delete(&ui_Screen1);
     }
     else
     {
@@ -168,10 +168,9 @@ void checkbtnSetting()
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         delay(2000);
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
-        _ui_screen_delete( &ui_Screen1);
+        _ui_screen_delete(&ui_Screen1);
         flagSetting = false;
         flagModeSetting = false;
-
     }
 }
 
@@ -226,28 +225,33 @@ void convertNum(lv_obj_t *textarea, uint16_t value)
     lv_textarea_add_text(textarea, buffer);
 }
 
+void isTouch()
+{
+    bool touched = check_touch(my_indev_driver, my_data);
+    if (touched)
+    {
+        lastTouchTime = millis();
+    }
+}
 void controlScreen()
 {
     unsigned long currentTime = millis();
-    bool touched = check_touch(my_indev_driver, my_data);
 
-    if (touched)
+    if (currentTime - lastTouchTime >= TIMEOUT)
     {
-        if (!screenIsOn)
-        {
-            digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
-            screenIsOn = true;
-        }
-        lastTouchTime = currentTime;
+        screenIsOn = false;
     }
     else
     {
-        if (screenIsOn && (currentTime - lastTouchTime >= TIMEOUT))
-        {
-            digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
-            // _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
-            lv_disp_load_scr(ui_Screen1);
-            screenIsOn = false;
-        }
+        screenIsOn = true;
     }
+
+    if (screenIsOn)
+        digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+    else
+    {
+        digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
+        lv_disp_load_scr(ui_Screen1);
+    }
+
 }
