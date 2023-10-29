@@ -5,6 +5,8 @@ extern FingerPrint myFingerPrint;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
 extern void turnLCD();
+extern bool isTask1Finish;
+extern bool isCriticalTask;
 CardData cardRegisteredData[CARD_COUNT];
 int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
@@ -123,20 +125,26 @@ void RFID::scanCard()
         {
             Serial.println("Valid Card");
             // Xử lý thẻ hợp lệ ở đây
-            turnLCD();
+
             const char *mess = "Hello Card ";
             uint8_t totalMess = strlen(mess) + strlen(printName) + 1;
             char notify[totalMess];
             strcpy(notify, mess);
             strcat(notify, printName);
+            while(isTask1Finish == false){ 
+                Serial.println(isTask1Finish);
+            }
+            isCriticalTask = true;
+            turnLCD();
             showPopup(ui_AreaPopup, notify, 7000);
+            isCriticalTask = false;
         }
         else
         {
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
-            turnLCD();
-            showPopup(ui_AreaPopup, "Unknown card", 7000);
+            // turnLCD();
+            // showPopup(ui_AreaPopup, "Unknown card", 7000);
         }
     }
 
@@ -299,7 +307,7 @@ bool RFID::unenrollCard(const char *user)
         else
         {
             Serial.println("Name not found!");
-             const char *notify = createNotification("Not found user ", getName);
+            const char *notify = createNotification("Not found user ", getName);
             showPopup(ui_areaNotyfyDeleteCard, notify, TIME_POPUP);
             return false;
         }
