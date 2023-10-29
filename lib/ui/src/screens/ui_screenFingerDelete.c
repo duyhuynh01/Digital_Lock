@@ -125,7 +125,7 @@ lv_obj_set_width( ui_areaNotyfyDeleteFP, lv_pct(80));
 lv_obj_set_x( ui_areaNotyfyDeleteFP, 0 );
 lv_obj_set_y( ui_areaNotyfyDeleteFP, -5 );
 lv_obj_set_align( ui_areaNotyfyDeleteFP, LV_ALIGN_CENTER );
-lv_textarea_set_text(ui_areaNotyfyDeleteFP,"Timeout to scan fingerprint\n");
+// lv_textarea_set_text(ui_areaNotyfyDeleteFP,"Timeout to scan fingerprint\n");
 lv_textarea_set_placeholder_text(ui_areaNotyfyDeleteFP,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyDeleteFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotyfyDeleteFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);

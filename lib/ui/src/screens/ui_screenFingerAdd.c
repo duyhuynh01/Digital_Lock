@@ -126,7 +126,7 @@ lv_obj_set_width( ui_areaNotyfyAddFP, lv_pct(80));
 lv_obj_set_x( ui_areaNotyfyAddFP, 0 );
 lv_obj_set_y( ui_areaNotyfyAddFP, -5 );
 lv_obj_set_align( ui_areaNotyfyAddFP, LV_ALIGN_CENTER );
-lv_textarea_set_text(ui_areaNotyfyAddFP,"Timeout to scan fingerprint\n");
+// lv_textarea_set_text(ui_areaNotyfyAddFP,"Timeout to scan fingerprint\n");
 lv_textarea_set_placeholder_text(ui_areaNotyfyAddFP,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_align(ui_areaNotyfyAddFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
