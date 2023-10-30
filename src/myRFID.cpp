@@ -4,9 +4,6 @@ extern SPIClass SPI12;
 extern FingerPrint myFingerPrint;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
-extern void turnLCD();
-extern bool isTask1Finish;
-extern bool isCriticalTask;
 CardData cardRegisteredData[CARD_COUNT];
 int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
@@ -131,22 +128,13 @@ void RFID::scanCard()
             char notify[totalMess];
             strcpy(notify, mess);
             strcat(notify, printName);
-            while(isTask1Finish == false){ 
-                // Serial.print("isTask1Finish: ");
-                Serial.println(isTask1Finish);
-            }
-            Serial.println("OKKKKKKK");
-            isCriticalTask = true;
-            turnLCD();
-            showPopup(ui_AreaPopup, notify, 7000);
-            isCriticalTask = false;
+            criticalTaskHandler(ui_AreaPopup,notify,7000);
         }
         else
         {
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
-            // turnLCD();
-            // showPopup(ui_AreaPopup, "Unknown card", 7000);
+            criticalTaskHandler(ui_AreaPopup,"Unknown card",7000);
         }
     }
 

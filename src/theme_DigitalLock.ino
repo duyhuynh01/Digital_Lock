@@ -6,6 +6,7 @@
 #include "gui.hpp"
 #include "myFingerPrint.hpp"
 #include "myRFID.hpp"
+#include "utils.hpp"
 FingerPrint myFingerPrint;
 RFID myRFID;
 Password myPassword;
@@ -57,8 +58,7 @@ void Task1Code(void * pvParameters){
         isTask1Finish = false;
         while(isCriticalTask == true){
             // Serial.print("isCriticalTask: ");
-            Serial.println(isCriticalTask);
-            
+            nonFunction(); 
         }
         // Serial.println("Task 1 running");
         lv_timer_handler();
@@ -66,7 +66,6 @@ void Task1Code(void * pvParameters){
         controlScreen();
         isTask1Finish = true;
         delay(10);
-
     }
 
 }
@@ -89,15 +88,3 @@ void loop()
     vTaskDelete(NULL);
 }
 
-void Log(String log)
-{
-    Serial.println(log);
-}
-
-int readNumber()
-{
-    int num = 0;
-    if (Serial.available())
-        num = Serial.parseInt();
-    return num;
-}

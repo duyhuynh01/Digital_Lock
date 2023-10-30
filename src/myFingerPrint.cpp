@@ -4,7 +4,7 @@ DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 bool flagModeSetting = false;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
-extern void turnLCD();
+extern void resetOnScreenTimer();
 extern bool addFinger;
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)

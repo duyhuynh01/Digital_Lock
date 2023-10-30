@@ -68,7 +68,7 @@ bool check_touch(lv_indev_drv_t &indev_driver, lv_indev_data_t &data) {
         return true;
     }
 }
-void turnLCD()
+void resetOnScreenTimer()
 {
     // screenIsOn = true;
     lastTouchTime = millis();
