@@ -1,11 +1,9 @@
 #include "funcUi.hpp"
-extern bool flagModeSetting;
 extern FingerPrint myFingerPrint;
 extern myEEPROM eeprom;
 extern Password myPassword;
 extern RFID myRFID;
 extern const char *setIdFP;
-extern bool flagModeSetting;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -164,13 +162,20 @@ void checkbtnSetting()
 {
     if (flagSetting && flagModeSetting)
     {
+        while (isTask1Finish == false)
+        {
+            delayMicroseconds(35);
+        }
+        isCriticalTask = true;
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        lv_refr_now(NULL);
         delay(2000);
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_Screen1);
         flagSetting = false;
         flagModeSetting = false;
+        isCriticalTask = false;
     }
 }
 
@@ -251,7 +256,10 @@ void controlScreen()
     else
     {
         digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
+        flagSetting = false;
+        lv_textarea_set_text(ui_AreaPWHome, "");
+        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);
     }
-
 }

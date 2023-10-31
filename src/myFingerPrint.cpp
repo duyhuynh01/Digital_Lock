@@ -2,10 +2,13 @@
 #include <TFT_eSPI.h>
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 bool flagModeSetting = false;
+extern bool flagSetting;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
 extern void resetOnScreenTimer();
 extern bool addFinger;
+extern bool isTask2Finish;
+extern bool isEnrollFP;
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
@@ -93,8 +96,10 @@ void FingerPrint::scanFinger()
   if (status == FINGERPRINT_NOTFOUND)
   {
     Serial.println("Did not find a match");
-    turnLCD();
-    showPopup(ui_AreaPopup, "Unknown fingerprint!", 7000);
+    _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000);
+
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -112,16 +117,20 @@ void FingerPrint::scanFinger()
       }
       if (finger.fingerID == 1)
       {
-        flagModeSetting = true;
+        if (flagSetting)
+          flagModeSetting = true;
       }
     }
-    turnLCD();
-    const char *mess = "Hello Fingerprint ";
+
+    const char *mess = "Hello ";
     uint8_t totalMess = strlen(mess) + strlen(printName) + 1;
     char notify[totalMess];
     strcpy(notify, mess);
     strcat(notify, printName);
-    showPopup(ui_AreaPopup, notify, 7000);
+    _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    criticalTaskHandler(ui_AreaPopup, notify, 7000);
+
     return;
   }
 }
@@ -411,6 +420,11 @@ bool FingerPrint::enroll(uint16_t &id)
 /*--------------------Enroll Fingerprint-----------------*/
 bool FingerPrint::enrollFingerprint()
 {
+  while (isTask2Finish == false)
+  {
+    delayMicroseconds(35);
+  }
+  isEnrollFP = true;
   readFingerprintFromEEPROM();
   if (fingerprintCount >= FINGERPRINT_COUNT)
   {
@@ -482,7 +496,7 @@ bool FingerPrint::enrollFingerprint()
   //   showPopup(ui_areaNotyfyAddFP, " ", 10);
   //   lv_refr_now(NULL);
   // }
-
+  isEnrollFP = false;
   return true;
 }
 

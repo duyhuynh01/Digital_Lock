@@ -128,13 +128,17 @@ void RFID::scanCard()
             char notify[totalMess];
             strcpy(notify, mess);
             strcat(notify, printName);
-            criticalTaskHandler(ui_AreaPopup,notify,7000);
+            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+            _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+            criticalTaskHandler(ui_AreaPopup, notify, 7000);
         }
         else
         {
             Serial.println("Invalid Card");
             // Xử lý thẻ không hợp lệ ở đây
-            criticalTaskHandler(ui_AreaPopup,"Unknown card",7000);
+            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+            _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+            criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000);
         }
     }
 

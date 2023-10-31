@@ -41,7 +41,6 @@ extern lv_obj_t *ui_KeyboardPWHome;
 extern lv_obj_t *ui_btnPassSetting;
 extern lv_obj_t *ui_labelPassSetting;
 void ui_event_PressedOkPW( lv_event_t *e);
-void ui_event_btnPassSetting( lv_event_t *e);
 // SCREEN: ui_ScreenSetting
 void ui_ScreenSetting_screen_init(void);
 extern lv_obj_t *ui_ScreenSetting;

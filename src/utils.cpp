@@ -1,15 +1,11 @@
 #include "utils.hpp"
 
-void nonFunction(){
-    int a = 1;
-    a++;
-}
 
 void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
 {
     while (isTask1Finish == false)
     {
-        nonFunction(); // do some fake behaviour
+        delayMicroseconds(35);
     }
     isCriticalTask = true;
     resetOnScreenTimer();

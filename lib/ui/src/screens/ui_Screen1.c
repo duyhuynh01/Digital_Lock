@@ -132,8 +132,6 @@ lv_keyboard_set_textarea(ui_KeyboardPWHome,ui_AreaPWHome);
 lv_obj_add_event_cb(ui_KeyboardPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 // lv_obj_add_event_cb(ui_AreaPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 // lv_obj_add_event_cb(ui_AreaPopup, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
-lv_obj_add_event_cb(ui_btnPassSetting, ui_event_btnPassSetting, LV_EVENT_PRESSED, NULL);
-
 
 
 

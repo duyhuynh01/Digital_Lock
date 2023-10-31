@@ -16,7 +16,8 @@ lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
 
 bool isTask1Finish = false;
 bool isCriticalTask = false;
-
+bool isEnrollFP = false;
+bool isTask2Finish = false;
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 void Task1Code(void *pvParameters);
@@ -58,7 +59,7 @@ void Task1Code(void * pvParameters){
         isTask1Finish = false;
         while(isCriticalTask == true){
             // Serial.print("isCriticalTask: ");
-            nonFunction(); 
+            delayMicroseconds(35);
         }
         // Serial.println("Task 1 running");
         lv_timer_handler();
@@ -71,9 +72,17 @@ void Task1Code(void * pvParameters){
 }
 void Task2Code(void * pvParameters){
     for(;;){
-    // myFingerPrint.scanFinger();
+
+        while (isEnrollFP == true)
+        {
+            delayMicroseconds(35);
+        }
+    isTask2Finish = false;
+    myFingerPrint.scanFinger();
     myRFID.scanCard();
     checkbtnSetting();
+    isTask2Finish = true;
+    delay(10);
     }
 }
 

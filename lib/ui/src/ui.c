@@ -5,7 +5,7 @@
 
 #include "ui.h"
 #include "ui_helpers.h"
-
+bool flagSetting = false;
 // extern bool flagModeSetting;
 ///////////////////// VARIABLES ////////////////////
 
@@ -26,7 +26,6 @@ lv_obj_t *ui_KeyboardPWHome;
 lv_obj_t *ui_btnPassSetting;
 lv_obj_t *ui_labelPassSetting;
 void ui_event_PressedOkPW(lv_event_t *e);
-void ui_event_btnPassSetting( lv_event_t *e);
 
 // SCREEN: ui_ScreenSetting
 void ui_ScreenSetting_screen_init(void);
@@ -259,6 +258,7 @@ void ui_event_rootpanel(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        flagSetting = false;
     }
 }
 bool flagUnlock = false;
@@ -268,38 +268,27 @@ void ui_event_Unlockbtn(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_AreaPWHome, "");
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         flagUnlock = true;
+        flagSetting = false;
     }
 }
-bool flagSetting = false;
+
 void ui_event_Settingbtn(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_AreaPWHome, "");
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        // _ui_flag_modify(ui_btnPassSetting, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        // lv_refr_now(NULL);
         flagSetting = true;
-        // isSettingMode(e);
     }
 }
 
-void ui_event_btnPassSetting( lv_event_t *e)
-{
-     lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-    }
-
-}
 void ui_event_HomeOptionbtn(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -650,7 +639,6 @@ void ui_event_BackHomeAddFinger3(lv_event_t *e)
         _ui_screen_delete(&ui_screenCardAdd);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-
     }
 }
 void ui_event_PanelCardDelete(lv_event_t *e)
@@ -789,7 +777,7 @@ void ui_event_areaPWNew(lv_event_t *e)
 bool passConfirm = false;
 void ui_event_areaPWConfirm(lv_event_t *e)
 {
-    
+
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
@@ -938,18 +926,17 @@ void ui_event_PressedOkPW(lv_event_t *e)
     {
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        if(flagUnlock)
+        if (flagUnlock)
         {
             callFuncCheckPW(e);
             flagUnlock = false;
         }
-        if(flagSetting)
+        if (flagSetting)
         {
             callFuncCheckSetting(e);
             flagSetting = false;
         }
-        
-        
+
         // _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
