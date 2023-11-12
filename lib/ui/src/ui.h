@@ -61,6 +61,7 @@ extern lv_obj_t *ui_Label11;
 void ui_SceenFinger_screen_init(void);
 extern lv_obj_t *ui_SceenFinger;
 extern lv_obj_t *ui_PanelFinger;
+extern lv_obj_t *ui_panelConfirmFP;
 void ui_event_PressDeleteFinger( lv_event_t * e);
 extern lv_obj_t *ui_PressDeleteFinger;
 void ui_event_PressAddFinger( lv_event_t * e);
@@ -79,7 +80,13 @@ extern lv_obj_t *ui_btnBackFinger;
 extern lv_obj_t *ui_BackFinger;
 extern lv_obj_t *ui_areaPopupFP;
 void ui_event_PanelFinger( lv_event_t * e);
-
+void ui_event_btnYesFP( lv_event_t * e);
+extern lv_obj_t *ui_btnYesFP;
+extern lv_obj_t *ui_labelYesFP;
+void ui_event_btnNoFP( lv_event_t * e);
+extern lv_obj_t *ui_btnNoFP;
+extern lv_obj_t *ui_labelNoFP;
+extern lv_obj_t *ui_labelConfirmFP;
 // SCREEN: ui_screenFingerAdd
 
 void ui_screenFingerAdd_screen_init(void);
@@ -165,6 +172,14 @@ extern lv_obj_t *ui_btnBackCard;
 extern lv_obj_t *ui_BackFinger4;
 extern lv_obj_t *ui_areaPopupCard;
 void ui_event_PanelCard( lv_event_t * e);
+void ui_event_btnYesCard( lv_event_t * e);
+extern lv_obj_t *ui_btnYesCard;
+extern lv_obj_t *ui_labelYesCard;
+void ui_event_btnNoCard( lv_event_t * e);
+extern lv_obj_t *ui_btnNoCard;
+extern lv_obj_t *ui_labelNoCard;
+extern lv_obj_t *ui_labelConfirmCard;
+extern lv_obj_t *ui_panelConfirmCard;
 
 
 // SCREEN: ui_screenCardAdd

@@ -89,7 +89,25 @@ lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_KeyboardPWHome = lv_keyboard_create(ui_Screen1);
 lv_keyboard_set_mode(ui_KeyboardPWHome,LV_KEYBOARD_MODE_NUMBER);
-lv_obj_set_height( ui_KeyboardPWHome, 200);
+
+
+/* Tạo một style */
+static lv_style_t style_kb;
+lv_style_init(&style_kb);
+lv_style_set_bg_color(&style_kb, lv_color_hex(0x000000)); // Màu nền mặc định
+lv_style_set_text_color(&style_kb, lv_color_hex(0xFFFFFF));
+lv_style_set_border_color(&style_kb, lv_color_hex(0x000000));
+lv_style_set_text_font(&style_kb, &lv_font_montserrat_28);
+
+/* Gán style cho bàn phím */
+lv_obj_add_style(ui_KeyboardPWHome, &style_kb, LV_PART_ITEMS);
+lv_obj_add_style(ui_KeyboardPWHome, &style_kb, LV_PART_MAIN);
+// static lv_stlv_obj_add_style(ui_KeyboardPWHome, &style_kb, LV_PART_ITEMS);yle_t *style_kb;
+// lv_style_init(style_kb);
+// lv_style_set_bg_color(style_kb, lv_color_hex(0x000000)); // Màu nền mặc định
+// lv_obj_add_style(ui_KeyboardPWHome, style_kb, LV_PART_ITEMS);  
+
+lv_obj_set_height( ui_KeyboardPWHome, 280);
 lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
 lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
 lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags

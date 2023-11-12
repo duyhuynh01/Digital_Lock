@@ -144,6 +144,43 @@ lv_obj_set_style_pad_top(ui_areaPopupCard, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_areaPopupCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 
+ui_panelConfirmCard = lv_obj_create(ui_SceenCard);
+lv_obj_set_width( ui_panelConfirmCard, lv_pct(85));
+lv_obj_set_height( ui_panelConfirmCard, 90);
+lv_obj_set_align( ui_panelConfirmCard, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_clear_flag( ui_panelConfirmCard, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
+
+ui_labelConfirmCard = lv_label_create(ui_panelConfirmCard);
+lv_obj_set_width( ui_labelConfirmCard, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelConfirmCard, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelConfirmCard, LV_ALIGN_TOP_MID );
+lv_label_set_text(ui_labelConfirmCard,"Are you sure to delete all?");
+
+ui_btnYesCard = lv_btn_create(ui_panelConfirmCard);
+lv_obj_set_width( ui_btnYesCard, 50);
+lv_obj_set_height( ui_btnYesCard, 30);
+lv_obj_set_align( ui_btnYesCard, LV_ALIGN_BOTTOM_LEFT );
+
+ui_btnNoCard = lv_btn_create(ui_panelConfirmCard);
+lv_obj_set_width( ui_btnNoCard, 50);
+lv_obj_set_height( ui_btnNoCard, 30);
+lv_obj_set_align( ui_btnNoCard, LV_ALIGN_BOTTOM_RIGHT );
+
+
+ui_labelYesCard = lv_label_create(ui_btnYesCard);
+lv_obj_set_width( ui_labelYesCard, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelYesCard, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelYesCard, LV_ALIGN_CENTER );
+lv_label_set_text(ui_labelYesCard,"YES");
+
+ui_labelNoCard = lv_label_create(ui_btnNoCard);
+lv_obj_set_width( ui_labelNoCard, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelNoCard, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelNoCard, LV_ALIGN_CENTER );
+lv_label_set_text(ui_labelNoCard,"NO");
+
 
 lv_obj_add_event_cb(ui_PressDeleteCard, ui_event_PressDeleteCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressAddCard, ui_event_PressAddCard, LV_EVENT_ALL, NULL);
@@ -152,4 +189,7 @@ lv_obj_add_event_cb(ui_PressShowCard, ui_event_PressShowCard, LV_EVENT_ALL, NULL
 lv_obj_add_event_cb(ui_btnBackCard, ui_event_btnBackCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PanelCard, ui_event_PanelCard, LV_EVENT_ALL, NULL);
 
+
+lv_obj_add_event_cb(ui_btnYesCard, ui_event_btnYesCard, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_btnNoCard, ui_event_btnNoCard, LV_EVENT_ALL, NULL);
 }

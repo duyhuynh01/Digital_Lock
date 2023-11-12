@@ -48,6 +48,7 @@ lv_obj_t *ui_Label11;
 void ui_SceenFinger_screen_init(void);
 lv_obj_t *ui_SceenFinger;
 lv_obj_t *ui_PanelFinger;
+lv_obj_t *ui_panelConfirmFP;
 void ui_event_PressDeleteFinger(lv_event_t *e);
 lv_obj_t *ui_PressDeleteFinger;
 void ui_event_PressAddFinger(lv_event_t *e);
@@ -66,7 +67,13 @@ lv_obj_t *ui_btnBackFinger;
 lv_obj_t *ui_BackFinger;
 lv_obj_t *ui_areaPopupFP;
 void ui_event_PanelFinger(lv_event_t *e);
-
+void ui_event_btnYesFP(lv_event_t *e);
+lv_obj_t *ui_btnYesFP;
+lv_obj_t *ui_labelYesFP;
+void ui_event_btnNoFP(lv_event_t *e);
+lv_obj_t *ui_btnNoFP;
+lv_obj_t *ui_labelNoFP;
+lv_obj_t *ui_labelConfirmFP;
 // SCREEN: ui_screenFingerAdd
 void ui_screenFingerAdd_screen_init(void);
 lv_obj_t *ui_screenFingerAdd;
@@ -150,7 +157,14 @@ lv_obj_t *ui_btnBackCard;
 lv_obj_t *ui_BackFinger4;
 lv_obj_t *ui_areaPopupCard;
 void ui_event_PanelCard(lv_event_t *e);
-
+void ui_event_btnYesCard( lv_event_t * e);
+lv_obj_t *ui_btnYesCard;
+lv_obj_t *ui_labelYesCard;
+void ui_event_btnNoCard( lv_event_t * e);
+lv_obj_t *ui_btnNoCard;
+lv_obj_t *ui_labelNoCard;
+lv_obj_t *ui_labelConfirmCard;
+lv_obj_t *ui_panelConfirmCard;
 // SCREEN: ui_screenCardAdd
 void ui_screenCardAdd_screen_init(void);
 lv_obj_t *ui_screenCardAdd;
@@ -360,7 +374,26 @@ void ui_event_PressRestoreFinger(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    }
+}
+void ui_event_btnYesFP(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
         callFuncRestoreFP(e);
+    }
+}
+
+void ui_event_btnNoFP(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_PressShowFinger(lv_event_t *e)
@@ -381,6 +414,8 @@ void ui_event_PanelFinger(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_flag_modify(ui_areaPopupFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        
     }
 }
 void ui_event_btnBackFinger(lv_event_t *e)
@@ -390,9 +425,11 @@ void ui_event_btnBackFinger(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_screen_delete(&ui_SceenFinger);
     }
 }
+
 void ui_event_PanelFingerAdd(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -545,9 +582,33 @@ void ui_event_PressRestoreCard(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        
+    }
+}
+
+void ui_event_btnYesCard(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
         callFuncRestoreCard(e);
     }
 }
+
+void ui_event_btnNoCard(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    }
+}
+
+
+
 void ui_event_PressShowCard(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -565,6 +626,7 @@ void ui_event_btnBackCard(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_SceenCard);
     }
@@ -576,6 +638,7 @@ void ui_event_PanelCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_flag_modify(ui_areaPopupCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_PanelCardAdd(lv_event_t *e)

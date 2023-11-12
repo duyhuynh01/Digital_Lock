@@ -67,6 +67,7 @@ void callFuncShowFP(lv_event_t *e)
 void callFuncRestoreFP(lv_event_t *e)
 {
     myFingerPrint.restore();
+    _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     showPopup(ui_areaPopupFP, "Successlly delete all fingerprints.", TIME_POPUP);
 }
 
@@ -99,6 +100,7 @@ void callFuncShowCard(lv_event_t *e)
 
 void callFuncRestoreCard(lv_event_t *e)
 {
+    _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     myRFID.restore();
     showPopup(ui_areaPopupCard, "Successlly delete all cards.", TIME_POPUP);
 }

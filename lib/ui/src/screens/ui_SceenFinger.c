@@ -125,8 +125,8 @@ lv_obj_set_style_text_opa(ui_BackFinger, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_BackFinger, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_areaPopupFP = lv_textarea_create(ui_SceenFinger);
-lv_obj_set_height( ui_areaPopupFP, 80);
 lv_obj_set_width( ui_areaPopupFP, lv_pct(80));
+lv_obj_set_height( ui_areaPopupFP, 80);
 lv_obj_set_x( ui_areaPopupFP, 0 );
 lv_obj_set_y( ui_areaPopupFP, -5 );
 lv_obj_set_align( ui_areaPopupFP, LV_ALIGN_CENTER );
@@ -145,6 +145,42 @@ lv_obj_set_style_pad_right(ui_areaPopupFP, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_areaPopupFP, 28, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_areaPopupFP, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 
+ui_panelConfirmFP = lv_obj_create(ui_SceenFinger);
+lv_obj_set_width( ui_panelConfirmFP, lv_pct(85));
+lv_obj_set_height( ui_panelConfirmFP, 90);
+lv_obj_set_align( ui_panelConfirmFP, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_clear_flag( ui_panelConfirmFP, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
+
+ui_labelConfirmFP = lv_label_create(ui_panelConfirmFP);
+lv_obj_set_width( ui_labelConfirmFP, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelConfirmFP, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelConfirmFP, LV_ALIGN_TOP_MID );
+lv_label_set_text(ui_labelConfirmFP,"Are you sure to delete all?");
+
+ui_btnYesFP = lv_btn_create(ui_panelConfirmFP);
+lv_obj_set_width( ui_btnYesFP, 50);
+lv_obj_set_height( ui_btnYesFP, 30);
+lv_obj_set_align( ui_btnYesFP, LV_ALIGN_BOTTOM_LEFT );
+
+ui_btnNoFP = lv_btn_create(ui_panelConfirmFP);
+lv_obj_set_width( ui_btnNoFP, 50);
+lv_obj_set_height( ui_btnNoFP, 30);
+lv_obj_set_align( ui_btnNoFP, LV_ALIGN_BOTTOM_RIGHT );
+
+
+ui_labelYesFP = lv_label_create(ui_btnYesFP);
+lv_obj_set_width( ui_labelYesFP, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelYesFP, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelYesFP, LV_ALIGN_CENTER );
+lv_label_set_text(ui_labelYesFP,"YES");
+
+ui_labelNoFP = lv_label_create(ui_btnNoFP);
+lv_obj_set_width( ui_labelNoFP, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_labelNoFP, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_labelNoFP, LV_ALIGN_CENTER );
+lv_label_set_text(ui_labelNoFP,"NO");
 
 
 lv_obj_add_event_cb(ui_PressDeleteFinger, ui_event_PressDeleteFinger, LV_EVENT_ALL, NULL);
@@ -154,4 +190,6 @@ lv_obj_add_event_cb(ui_PressShowFinger, ui_event_PressShowFinger, LV_EVENT_ALL, 
 lv_obj_add_event_cb(ui_btnBackFinger, ui_event_btnBackFinger, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PanelFinger, ui_event_PanelFinger, LV_EVENT_ALL, NULL);
 
+lv_obj_add_event_cb(ui_btnYesFP, ui_event_btnYesFP, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_btnNoFP, ui_event_btnNoFP, LV_EVENT_ALL, NULL);
 }

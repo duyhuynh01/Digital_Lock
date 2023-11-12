@@ -101,7 +101,7 @@ static const lv_btnmatrix_ctrl_t default_kb_ctrl_num_map[] = {
     1, 1, 1,
     1, 1, 1,
     1, 1, 1,
-    LV_KEYBOARD_CTRL_BTN_FLAGS | 2, 2 ,LV_KEYBOARD_CTRL_BTN_FLAGS | 2
+    1, 1, 1
 };
 
 static const char * * kb_map[9] = {
