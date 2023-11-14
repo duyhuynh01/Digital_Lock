@@ -45,46 +45,46 @@ lv_obj_set_style_pad_bottom(ui_AreaPWHome, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 
 
-ui_Unlockbtn = lv_imgbtn_create(ui_rootpanel);
-lv_imgbtn_set_src(ui_Unlockbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconunlock_png, NULL);
-lv_obj_set_width( ui_Unlockbtn, 50);
-lv_obj_set_height( ui_Unlockbtn, 50);
-lv_obj_set_x( ui_Unlockbtn, 0 );
-lv_obj_set_y( ui_Unlockbtn, -65 );
-lv_obj_set_align( ui_Unlockbtn, LV_ALIGN_CENTER );
-lv_obj_set_style_img_recolor(ui_Unlockbtn, lv_color_hex(0x030000), LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_img_recolor_opa(ui_Unlockbtn, 1, LV_PART_MAIN| LV_STATE_DEFAULT);
+// ui_Unlockbtn = lv_imgbtn_create(ui_rootpanel);
+// lv_imgbtn_set_src(ui_Unlockbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconunlock_png, NULL);
+// lv_obj_set_width( ui_Unlockbtn, 50);
+// lv_obj_set_height( ui_Unlockbtn, 50);
+// lv_obj_set_x( ui_Unlockbtn, 0 );
+// lv_obj_set_y( ui_Unlockbtn, -65 );
+// lv_obj_set_align( ui_Unlockbtn, LV_ALIGN_CENTER );
+// lv_obj_set_style_img_recolor(ui_Unlockbtn, lv_color_hex(0x030000), LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_img_recolor_opa(ui_Unlockbtn, 1, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Settingbtn = lv_imgbtn_create(ui_rootpanel);
-lv_imgbtn_set_src(ui_Settingbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconsetting_png, NULL);
-lv_obj_set_width( ui_Settingbtn, 50);
-lv_obj_set_height( ui_Settingbtn, 50);
-lv_obj_set_x( ui_Settingbtn, 0 );
-lv_obj_set_y( ui_Settingbtn, 60 );
-lv_obj_set_align( ui_Settingbtn, LV_ALIGN_CENTER );
-lv_obj_set_style_img_recolor(ui_Settingbtn, lv_color_hex(0x000000), LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_img_recolor_opa(ui_Settingbtn, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
+// ui_Settingbtn = lv_imgbtn_create(ui_rootpanel);
+// lv_imgbtn_set_src(ui_Settingbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconsetting_png, NULL);
+// lv_obj_set_width( ui_Settingbtn, 50);
+// lv_obj_set_height( ui_Settingbtn, 50);
+// lv_obj_set_x( ui_Settingbtn, 0 );
+// lv_obj_set_y( ui_Settingbtn, 60 );
+// lv_obj_set_align( ui_Settingbtn, LV_ALIGN_CENTER );
+// lv_obj_set_style_img_recolor(ui_Settingbtn, lv_color_hex(0x000000), LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_img_recolor_opa(ui_Settingbtn, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Label4 = lv_label_create(ui_rootpanel);
-lv_obj_set_width( ui_Label4, LV_SIZE_CONTENT);  /// 1
-lv_obj_set_height( ui_Label4, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label4, 0 );
-lv_obj_set_y( ui_Label4, -28 );
-lv_obj_set_align( ui_Label4, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label4,"Unlock");
-lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFDFBFB), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label4, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
+// ui_Label4 = lv_label_create(ui_rootpanel);
+// lv_obj_set_width( ui_Label4, LV_SIZE_CONTENT);  /// 1
+// lv_obj_set_height( ui_Label4, LV_SIZE_CONTENT);   /// 1
+// lv_obj_set_x( ui_Label4, 0 );
+// lv_obj_set_y( ui_Label4, -28 );
+// lv_obj_set_align( ui_Label4, LV_ALIGN_CENTER );
+// lv_label_set_text(ui_Label4,"Unlock");
+// lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFDFBFB), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// lv_obj_set_style_text_font(ui_Label4, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Label5 = lv_label_create(ui_rootpanel);
-lv_obj_set_width( ui_Label5, 54);
-lv_obj_set_height( ui_Label5, 20);
-lv_obj_set_x( ui_Label5, 0 );
-lv_obj_set_y( ui_Label5, 100 );
-lv_obj_set_align( ui_Label5, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label5,"Setting");
-lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xFAF4F4), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+// ui_Label5 = lv_label_create(ui_rootpanel);
+// lv_obj_set_width( ui_Label5, 54);
+// lv_obj_set_height( ui_Label5, 20);
+// lv_obj_set_x( ui_Label5, 0 );
+// lv_obj_set_y( ui_Label5, 100 );
+// lv_obj_set_align( ui_Label5, LV_ALIGN_CENTER );
+// lv_label_set_text(ui_Label5,"Setting");
+// lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xFAF4F4), LV_PART_MAIN | LV_STATE_DEFAULT );
+// lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 
 ui_KeyboardPWHome = lv_keyboard_create(ui_Screen1);
@@ -97,7 +97,7 @@ lv_style_init(&style_kb);
 lv_style_set_bg_color(&style_kb, lv_color_hex(0x000000)); // Màu nền mặc định
 lv_style_set_text_color(&style_kb, lv_color_hex(0xFFFFFF));
 lv_style_set_border_color(&style_kb, lv_color_hex(0x000000));
-lv_style_set_text_font(&style_kb, &lv_font_montserrat_28);
+lv_style_set_text_font(&style_kb, &lv_font_montserrat_34);
 
 /* Gán style cho bàn phím */
 lv_obj_add_style(ui_KeyboardPWHome, &style_kb, LV_PART_ITEMS);
@@ -107,10 +107,10 @@ lv_obj_add_style(ui_KeyboardPWHome, &style_kb, LV_PART_MAIN);
 // lv_style_set_bg_color(style_kb, lv_color_hex(0x000000)); // Màu nền mặc định
 // lv_obj_add_style(ui_KeyboardPWHome, style_kb, LV_PART_ITEMS);  
 
-lv_obj_set_height( ui_KeyboardPWHome, 280);
+lv_obj_set_height( ui_KeyboardPWHome, lv_pct(100));
 lv_obj_set_width( ui_KeyboardPWHome, lv_pct(100));
 lv_obj_set_align( ui_KeyboardPWHome, LV_ALIGN_BOTTOM_MID );
-lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
+// lv_obj_add_flag( ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN );   /// Flags
 
 ui_AreaPopup = lv_textarea_create(ui_Screen1);
 lv_obj_set_height( ui_AreaPopup, 80);
@@ -130,22 +130,22 @@ lv_obj_set_style_pad_right(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_top(ui_AreaPopup, 27, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_bottom(ui_AreaPopup, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_btnPassSetting = lv_btn_create(ui_Screen1);
-lv_obj_set_width( ui_btnPassSetting, 120);
-lv_obj_set_height( ui_btnPassSetting, 35);
-lv_obj_set_y( ui_btnPassSetting, -2 );
-lv_obj_set_align( ui_btnPassSetting, LV_ALIGN_BOTTOM_MID );
-lv_obj_add_flag( ui_btnPassSetting, LV_OBJ_FLAG_HIDDEN );   /// Flags
+// ui_btnPassSetting = lv_btn_create(ui_Screen1);
+// lv_obj_set_width( ui_btnPassSetting, 120);
+// lv_obj_set_height( ui_btnPassSetting, 35);
+// lv_obj_set_y( ui_btnPassSetting, -2 );
+// lv_obj_set_align( ui_btnPassSetting, LV_ALIGN_BOTTOM_MID );
+// lv_obj_add_flag( ui_btnPassSetting, LV_OBJ_FLAG_HIDDEN );   /// Flags
 
-ui_labelPassSetting = lv_label_create(ui_btnPassSetting);
-lv_obj_set_width( ui_labelPassSetting, LV_SIZE_CONTENT);  /// 1
-lv_obj_set_height( ui_labelPassSetting, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_align( ui_labelPassSetting, LV_ALIGN_CENTER );
-lv_label_set_text(ui_labelPassSetting,"Enter password");
+// ui_labelPassSetting = lv_label_create(ui_btnPassSetting);
+// lv_obj_set_width( ui_labelPassSetting, LV_SIZE_CONTENT);  /// 1
+// lv_obj_set_height( ui_labelPassSetting, LV_SIZE_CONTENT);   /// 1
+// lv_obj_set_align( ui_labelPassSetting, LV_ALIGN_CENTER );
+// lv_label_set_text(ui_labelPassSetting,"Enter password");
 
-lv_obj_add_event_cb(ui_Unlockbtn, ui_event_Unlockbtn, LV_EVENT_ALL, NULL);
-lv_obj_add_event_cb(ui_Settingbtn, ui_event_Settingbtn, LV_EVENT_ALL, NULL);
-lv_obj_add_event_cb(ui_rootpanel, ui_event_rootpanel, LV_EVENT_ALL, NULL);
+// lv_obj_add_event_cb(ui_Unlockbtn, ui_event_Unlockbtn, LV_EVENT_ALL, NULL);
+// lv_obj_add_event_cb(ui_Settingbtn, ui_event_Settingbtn, LV_EVENT_ALL, NULL);
+// lv_obj_add_event_cb(ui_rootpanel, ui_event_rootpanel, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardPWHome,ui_AreaPWHome);
 lv_obj_add_event_cb(ui_KeyboardPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);
 // lv_obj_add_event_cb(ui_AreaPWHome, ui_event_PressedOkPW, LV_EVENT_PRESSED, NULL);

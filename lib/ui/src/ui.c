@@ -263,45 +263,45 @@ void ui_event_KeyboardChangePWOk(lv_event_t *e);
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
-void ui_event_rootpanel(lv_event_t *e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        flagSetting = false;
-    }
-}
+// void ui_event_rootpanel(lv_event_t *e)
+// {
+//     lv_event_code_t event_code = lv_event_get_code(e);
+//     lv_obj_t *target = lv_event_get_target(e);
+//     if (event_code == LV_EVENT_PRESSED)
+//     {
+//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+//         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+//         flagSetting = false;
+//     }
+// }
 bool flagUnlock = false;
-void ui_event_Unlockbtn(lv_event_t *e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        lv_textarea_set_text(ui_AreaPWHome, "");
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        flagUnlock = true;
-        flagSetting = false;
-    }
-}
+// void ui_event_Unlockbtn(lv_event_t *e)
+// {
+//     lv_event_code_t event_code = lv_event_get_code(e);
+//     lv_obj_t *target = lv_event_get_target(e);
+//     if (event_code == LV_EVENT_PRESSED)
+//     {
+//         lv_textarea_set_text(ui_AreaPWHome, "");
+//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+//         flagUnlock = true;
+//         flagSetting = false;
+//     }
+// }
 
-void ui_event_Settingbtn(lv_event_t *e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        lv_textarea_set_text(ui_AreaPWHome, "");
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        flagSetting = true;
-    }
-}
+// void ui_event_Settingbtn(lv_event_t *e)
+// {
+//     lv_event_code_t event_code = lv_event_get_code(e);
+//     lv_obj_t *target = lv_event_get_target(e);
+//     if (event_code == LV_EVENT_PRESSED)
+//     {
+//         lv_textarea_set_text(ui_AreaPWHome, "");
+//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+//         flagSetting = true;
+//     }
+// }
 
 void ui_event_HomeOptionbtn(lv_event_t *e)
 {
@@ -987,8 +987,8 @@ void ui_event_PressedOkPW(lv_event_t *e)
     const char *txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
     if (strcmp(txt, LV_SYMBOL_OK) == 0)
     {
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         if (flagUnlock)
         {
             callFuncCheckPW(e);

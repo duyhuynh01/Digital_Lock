@@ -264,6 +264,7 @@ extern "C" {
 #define LV_SYMBOL_BACKSPACE       "\xEF\x95\x9A" /*62810, 0xF55A*/
 #endif
 
+
 #if !defined LV_SYMBOL_SD_CARD
 #define LV_SYMBOL_SD_CARD         "\xEF\x9F\x82" /*63426, 0xF7C2*/
 #endif
