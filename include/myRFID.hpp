@@ -2,7 +2,7 @@
 #define MYRFID_HPP
 
 #define SS_PIN_HSPI 27
-#define RST_PIN_HSPI 15
+#define RST_PIN_HSPI 26
 #define SCK_PIN_HSPI 14
 #define cardTimeout 7000u
 #define CARD_COUNT 20

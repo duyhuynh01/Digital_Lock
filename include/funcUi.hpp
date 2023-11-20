@@ -27,9 +27,9 @@
     void callFuncShowCard(lv_event_t * e);
     // void hidePopup(lv_obj_t *popup);
     void hidePopupArea(lv_timer_t *timer);
-    void isSettingMode(lv_event_t * e);
+    // void isSettingMode(lv_event_t * e);
     void callFuncCheckSetting(lv_event_t *e);
-    void checkbtnSetting();
+    // void checkbtnSetting();
 extern const char *PasswordUnlock;
 
 

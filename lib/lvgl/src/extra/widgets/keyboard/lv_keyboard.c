@@ -95,8 +95,8 @@ static const char * const default_kb_map_num[] = {
                                                     "1", "2", "3", "\n",
                                                   "4", "5", "6", "\n",
                                                   "7", "8", "9", "\n",
-                                                  LV_SYMBOL_BACKSPACE, "0", LV_SYMBOL_OK, "\n",
-                                                  LV_SYMBOL_SETTINGS, ""
+                                                  LV_SYMBOL_BACKSPACE, "0", LV_SYMBOL_OK, ""
+                                
                                                   
                                                  };
 
@@ -105,8 +105,7 @@ static const lv_btnmatrix_ctrl_t default_kb_ctrl_num_map[] = {
     1, 1, 1,
     1, 1, 1,
     1, 1, 1,
-    1, 1, 1,
-    1,
+    1, 1, 1
 };
 
 static const char * * kb_map[9] = {

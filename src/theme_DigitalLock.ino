@@ -13,7 +13,7 @@ Password myPassword;
 int8_t task = -1;
 lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
-
+bool isSettingModeOn = false;
 bool isTask1Finish = false;
 bool isCriticalTask = false;
 bool isEnrollFP = false;
@@ -80,7 +80,7 @@ void Task2Code(void * pvParameters){
     isTask2Finish = false;
     myFingerPrint.scanFinger();
     myRFID.scanCard();
-    checkbtnSetting();
+    // checkbtnSetting();
     isTask2Finish = true;
     delay(10);
     }

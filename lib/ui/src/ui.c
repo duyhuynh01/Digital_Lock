@@ -5,7 +5,7 @@
 
 #include "ui.h"
 #include "ui_helpers.h"
-bool flagSetting = false;
+// bool flagSetting = false;
 // extern bool flagModeSetting;
 ///////////////////// VARIABLES ////////////////////
 
@@ -26,6 +26,8 @@ lv_obj_t *ui_KeyboardPWHome;
 lv_obj_t *ui_btnPassSetting;
 lv_obj_t *ui_labelPassSetting;
 void ui_event_PressedOkPW(lv_event_t *e);
+void ui_event_PressedSetting(lv_event_t *e);
+lv_obj_t *ui_keyboardSettingOn;
 
 // SCREEN: ui_ScreenSetting
 void ui_ScreenSetting_screen_init(void);
@@ -157,10 +159,10 @@ lv_obj_t *ui_btnBackCard;
 lv_obj_t *ui_BackFinger4;
 lv_obj_t *ui_areaPopupCard;
 void ui_event_PanelCard(lv_event_t *e);
-void ui_event_btnYesCard( lv_event_t * e);
+void ui_event_btnYesCard(lv_event_t *e);
 lv_obj_t *ui_btnYesCard;
 lv_obj_t *ui_labelYesCard;
-void ui_event_btnNoCard( lv_event_t * e);
+void ui_event_btnNoCard(lv_event_t *e);
 lv_obj_t *ui_btnNoCard;
 lv_obj_t *ui_labelNoCard;
 lv_obj_t *ui_labelConfirmCard;
@@ -263,18 +265,16 @@ void ui_event_KeyboardChangePWOk(lv_event_t *e);
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
-// void ui_event_rootpanel(lv_event_t *e)
-// {
-//     lv_event_code_t event_code = lv_event_get_code(e);
-//     lv_obj_t *target = lv_event_get_target(e);
-//     if (event_code == LV_EVENT_PRESSED)
-//     {
-//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-//         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-//         flagSetting = false;
-//     }
-// }
+void ui_event_rootpanel(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+
+        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    }
+}
 bool flagUnlock = false;
 // void ui_event_Unlockbtn(lv_event_t *e)
 // {
@@ -290,19 +290,21 @@ bool flagUnlock = false;
 //     }
 // }
 
-// void ui_event_Settingbtn(lv_event_t *e)
-// {
-//     lv_event_code_t event_code = lv_event_get_code(e);
-//     lv_obj_t *target = lv_event_get_target(e);
-//     if (event_code == LV_EVENT_PRESSED)
-//     {
-//         lv_textarea_set_text(ui_AreaPWHome, "");
-//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-//         flagSetting = true;
-//     }
-// }
-
+extern bool isSettingModeOn;
+void ui_event_Settingbtn(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // _ui_flag_modify(ui_Label5, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_delete(&ui_Screen1);
+        isSettingModeOn = false;
+    }
+}
 void ui_event_HomeOptionbtn(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -415,7 +417,6 @@ void ui_event_PanelFinger(lv_event_t *e)
     {
         _ui_flag_modify(ui_areaPopupFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        
     }
 }
 void ui_event_btnBackFinger(lv_event_t *e)
@@ -583,7 +584,6 @@ void ui_event_PressRestoreCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        
     }
 }
 
@@ -606,8 +606,6 @@ void ui_event_btnNoCard(lv_event_t *e)
         _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
-
-
 
 void ui_event_PressShowCard(lv_event_t *e)
 {
@@ -982,27 +980,50 @@ void ui_event_PressedOkDeleteCard(lv_event_t *e)
 
 void ui_event_PressedOkPW(lv_event_t *e)
 {
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        lv_refr_now(NULL);
+    }
     lv_obj_t *obj = lv_event_get_target(e);
     lv_obj_t *ta = lv_event_get_user_data(e);
     const char *txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
+
     if (strcmp(txt, LV_SYMBOL_OK) == 0)
     {
+        // _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        if (flagUnlock)
-        {
-            callFuncCheckPW(e);
-            flagUnlock = false;
-        }
-        if (flagSetting)
-        {
-            callFuncCheckSetting(e);
-            flagSetting = false;
-        }
+        // if (flagUnlock)
+        // {
+        //     callFuncCheckPW(e);
+        //     flagUnlock = false;
+        // }
+        // if (flagSetting)
+        // {
+        //     callFuncCheckSetting(e);
+        //     flagSetting = false;
+        // }
+        callFuncCheckPW(e);
 
         // _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
+
+// void ui_event_PressedSetting(lv_event_t *e)
+// {
+//     lv_obj_t *obj = lv_event_get_target(e);
+//     lv_obj_t *ta = lv_event_get_user_data(e);
+//     const char *txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
+//     if (strcmp(txt, LV_SYMBOL_SETTINGS) == 0)
+//     {
+//         // lv_textarea_set_text(ui_AreaPWHome, "");
+//         flagSetting = true;
+//     }
+// }
 
 ///////////////////// SCREENS ////////////////////
 

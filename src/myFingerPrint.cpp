@@ -2,13 +2,15 @@
 #include <TFT_eSPI.h>
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 bool flagModeSetting = false;
-extern bool flagSetting;
+// extern bool flagSetting;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
 extern void resetOnScreenTimer();
 extern bool addFinger;
 extern bool isTask2Finish;
 extern bool isEnrollFP;
+extern bool isSettingModeOn;
+
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
@@ -96,8 +98,8 @@ void FingerPrint::scanFinger()
   if (status == FINGERPRINT_NOTFOUND)
   {
     Serial.println("Did not find a match");
-    _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000);
 
     return;
@@ -117,8 +119,13 @@ void FingerPrint::scanFinger()
       }
       if (finger.fingerID == 1)
       {
-        if (flagSetting)
-          flagModeSetting = true;
+            // isSettingModeOn = true;
+            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+                    _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+                                lv_refr_now(NULL);
+
+
+
       }
     }
 
@@ -130,7 +137,7 @@ void FingerPrint::scanFinger()
     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     criticalTaskHandler(ui_AreaPopup, notify, 7000);
-
+    
     return;
   }
 }

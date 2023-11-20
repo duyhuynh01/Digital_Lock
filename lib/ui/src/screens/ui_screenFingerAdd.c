@@ -129,6 +129,8 @@ lv_obj_set_align( ui_areaNotyfyAddFP, LV_ALIGN_CENTER );
 // lv_textarea_set_text(ui_areaNotyfyAddFP,"Timeout to scan fingerprint\n");
 lv_textarea_set_placeholder_text(ui_areaNotyfyAddFP,"Placeholder...");
 lv_obj_add_flag( ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_set_style_text_color(ui_areaNotyfyAddFP, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_color(ui_areaNotyfyAddFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_align(ui_areaNotyfyAddFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotyfyAddFP, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_bg_color(ui_areaNotyfyAddFP, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );

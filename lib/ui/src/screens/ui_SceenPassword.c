@@ -153,6 +153,8 @@ lv_obj_set_width( ui_areaNotifyChangePW, lv_pct(80));
 lv_obj_set_align( ui_areaNotifyChangePW, LV_ALIGN_CENTER );
 lv_textarea_set_placeholder_text(ui_areaNotifyChangePW,"Placeholder...");
 lv_obj_add_flag( ui_areaNotifyChangePW, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_set_style_text_color(ui_areaNotifyChangePW, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_color(ui_areaNotifyChangePW, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_align(ui_areaNotifyChangePW, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaNotifyChangePW, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_shadow_width(ui_areaNotifyChangePW, 50, LV_PART_MAIN| LV_STATE_DEFAULT);

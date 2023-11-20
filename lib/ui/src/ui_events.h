@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-void isSettingMode(lv_event_t * e);
+// void isSettingMode(lv_event_t * e);
 void callFuncDeleteFP(lv_event_t * e);
 void callFuncAddFP(lv_event_t * e);
 void callFuncRestoreFP(lv_event_t * e);

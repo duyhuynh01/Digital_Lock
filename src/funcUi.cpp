@@ -4,6 +4,7 @@ extern myEEPROM eeprom;
 extern Password myPassword;
 extern RFID myRFID;
 extern const char *setIdFP;
+extern bool isSettingModeOn;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -27,7 +28,14 @@ void callFuncCheckPW(lv_event_t *e)
 
     if (myPassword.checkAdminPassword() == true)
     {
+        isSettingModeOn = true;
         showPopup(ui_AreaPopup, "Unlock!", TIME_POPUP);
+        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+
+        _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        // _ui_flag_modify(ui_Label5, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        lv_refr_now(NULL);
     }
     else
     {
@@ -141,45 +149,45 @@ void callFuncCheckSetting(lv_event_t *e)
     lv_textarea_set_text(ui_AreaPWHome, "");
 }
 
-void isSettingMode(lv_event_t *e)
-{
-    unsigned long startTime = millis();
-    while (millis() - startTime <= TIMEOUT)
-    {
-        myFingerPrint.scanFinger();
-        if (flagModeSetting)
-        {
-            _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
-            flagModeSetting = false;
-            break;
-        }
-        lv_timer_handler();
-        lv_refr_now(NULL);
-    }
-}
+// void isSettingMode(lv_event_t *e)
+// {
+//     unsigned long startTime = millis();
+//     while (millis() - startTime <= TIMEOUT)
+//     {
+//         myFingerPrint.scanFinger();
+//         if (flagModeSetting)
+//         {
+//             _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+//             flagModeSetting = false;
+//             break;
+//         }
+//         lv_timer_handler();
+//         lv_refr_now(NULL);
+//     }
+// }
 
-extern bool flagSetting;
+// extern bool flagSetting;
 extern bool flagModeSetting;
-void checkbtnSetting()
-{
-    if (flagSetting && flagModeSetting)
-    {
-        while (isTask1Finish == false)
-        {
-            delayMicroseconds(35);
-        }
-        isCriticalTask = true;
-        _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        lv_refr_now(NULL);
-        delay(2000);
-        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
-        _ui_screen_delete(&ui_Screen1);
-        flagSetting = false;
-        flagModeSetting = false;
-        isCriticalTask = false;
-    }
-}
+// void checkbtnSetting()
+// {
+//     if (flagSetting && flagModeSetting)
+//     {
+//         while (isTask1Finish == false)
+//         {
+//             delayMicroseconds(35);
+//         }
+//         isCriticalTask = true;
+//         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+//         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+//         lv_refr_now(NULL);
+//         delay(2000);
+//         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+//         _ui_screen_delete(&ui_Screen1);
+//         flagSetting = false;
+//         flagModeSetting = false;
+//         isCriticalTask = false;
+//     }
+// }
 
 /*---------Function support-----------*/
 // void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
@@ -254,14 +262,24 @@ void controlScreen()
     }
 
     if (screenIsOn)
+    {
         digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+        if (isSettingModeOn)
+        {
+            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        }
+        else
+        {
+            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        }
+    }
+
     else
     {
+        isSettingModeOn = false;
         digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
-        flagSetting = false;
         lv_textarea_set_text(ui_AreaPWHome, "");
-        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);
     }
 }
