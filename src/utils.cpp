@@ -35,7 +35,7 @@ void updateDoorStatusTimer()
     {   
         if ((endOpenDoorTimer - startOpenDoorTimer) < OPEN_DOOR_TIME)
         {
-            endOpenDoorTimer += millis();
+            endOpenDoorTimer = millis();
             digitalWrite(CTRL_DOOR_PIN, HIGH);
         }
         else
