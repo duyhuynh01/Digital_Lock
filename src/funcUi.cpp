@@ -44,7 +44,6 @@ void callFuncCheckPW(lv_event_t *e)
         doorStatus = true;
         startOpenDoorTimer = millis();
         endOpenDoorTimer = startOpenDoorTimer;
-        invalidCount = 0;
     }
     else
     {

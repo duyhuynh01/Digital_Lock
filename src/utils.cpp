@@ -39,6 +39,7 @@ void updateDoorStatusTimer()
         {
             endOpenDoorTimer = millis();
             digitalWrite(CTRL_DOOR_PIN, HIGH);
+            invalidCount = 0;
         }
         else
         {
