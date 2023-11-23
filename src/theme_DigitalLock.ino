@@ -93,6 +93,10 @@ void Task2Code(void * pvParameters){
         myFingerPrint.scanFinger();
         myRFID.scanCard();
     }
+    else{
+        const char *mess = "Too many invalid";
+        criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
+    }
     updateDoorStatusTimer();
     checkInvalidCount();
     isTask2Finish = true;

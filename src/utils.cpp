@@ -60,12 +60,10 @@ void updateDoorStatusTimer()
 void checkInvalidCount(){
     if (invalidCount>=10){
         tooManyInvalid = true;
-        const char *mess = "Fingerprint and RFID are disable";
-        criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
-        Serial.print("So lan sai: "); Serial.println(invalidCount);
     }
     else{
         tooManyInvalid = false;
     }
+    Serial.print("So lan sai: "); Serial.println(invalidCount);
 
 }
