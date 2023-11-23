@@ -126,6 +126,8 @@ void FingerPrint::scanFinger()
     strcat(notify, printName);
     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+
+    
     criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID); 
     
     return;

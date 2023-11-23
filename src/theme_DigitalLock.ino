@@ -18,6 +18,11 @@ bool isTask1Finish = false;
 bool isCriticalTask = false;
 bool isEnrollFP = false;
 bool isTask2Finish = false;
+
+unsigned int startOpenDoorTimer = 0;
+unsigned int endOpenDoorTimer = 0;
+bool doorStatus = false;
+
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 void Task1Code(void *pvParameters);
@@ -80,7 +85,8 @@ void Task2Code(void * pvParameters){
     isTask2Finish = false;
     myFingerPrint.scanFinger();
     myRFID.scanCard();
-    // checkbtnSetting();
+    updateDoorStatusTimer();
+
     isTask2Finish = true;
     delay(10);
     }
