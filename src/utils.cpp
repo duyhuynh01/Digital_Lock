@@ -4,6 +4,7 @@ extern unsigned int startOpenDoorTimer;
 extern unsigned int endOpenDoorTimer;
 bool tooManyInvalid = false;
 extern uint8_t invalidCount;
+extern uint8_t temp;
 
 void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID, bool isVerified)
 {
@@ -60,9 +61,17 @@ void updateDoorStatusTimer()
 void checkInvalidCount(){
     if (invalidCount>=10){
         tooManyInvalid = true;
+        const char *mess = "Too many invalid";
+        while(temp>0)
+        {
+            criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
+            temp --;
+        }
+
     }
     else{
         tooManyInvalid = false;
+        temp = 1;
     }
     Serial.print("So lan sai: "); Serial.println(invalidCount);
 

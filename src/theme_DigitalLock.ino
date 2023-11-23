@@ -22,6 +22,7 @@ bool isEnrollFP = false;
 bool isTask2Finish = false;
 uint8_t invalidCount = 0;
 extern bool tooManyInvalid;
+uint8_t temp= 1;
 
 unsigned int startOpenDoorTimer = 0;
 unsigned int endOpenDoorTimer = 0;
@@ -92,10 +93,6 @@ void Task2Code(void * pvParameters){
     {
         myFingerPrint.scanFinger();
         myRFID.scanCard();
-    }
-    else{
-        const char *mess = "Too many invalid";
-        criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
     }
     updateDoorStatusTimer();
     checkInvalidCount();
