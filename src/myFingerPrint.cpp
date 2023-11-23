@@ -10,6 +10,7 @@ extern bool addFinger;
 extern bool isTask2Finish;
 extern bool isEnrollFP;
 extern bool isSettingModeOn;
+extern uint8_t invalidCount;
 
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
@@ -101,7 +102,7 @@ void FingerPrint::scanFinger()
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
- 
+    invalidCount+=1;
     return;
   }
   else if (status == FINGERPRINT_OK)

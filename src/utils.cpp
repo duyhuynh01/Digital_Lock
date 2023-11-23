@@ -2,6 +2,8 @@
 
 extern unsigned int startOpenDoorTimer;
 extern unsigned int endOpenDoorTimer;
+bool tooManyInvalid = false;
+extern uint8_t invalidCount;
 
 void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID, bool isVerified)
 {
@@ -52,4 +54,14 @@ void updateDoorStatusTimer()
         endOpenDoorTimer = 0;
         digitalWrite(CTRL_DOOR_PIN, LOW);
     }
+}
+
+void checkInvalidCount(){
+    if (invalidCount>=10){
+        tooManyInvalid = true;
+    }
+    else{
+        tooManyInvalid = false;
+    }
+
 }

@@ -4,6 +4,7 @@ extern SPIClass SPI12;
 extern FingerPrint myFingerPrint;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
+extern uint8_t invalidCount;
 CardData cardRegisteredData[CARD_COUNT];
 int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
@@ -139,6 +140,7 @@ void RFID::scanCard()
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000, -1, false);//-1 value means do not consider for adminFP to enter setting mode
+            invalidCount+=1;
         }
     }
 

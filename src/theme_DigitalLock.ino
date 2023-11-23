@@ -7,6 +7,8 @@
 #include "myFingerPrint.hpp"
 #include "myRFID.hpp"
 #include "utils.hpp"
+
+#define MAX_INVALID_COUNT 10
 FingerPrint myFingerPrint;
 RFID myRFID;
 Password myPassword;
@@ -18,6 +20,8 @@ bool isTask1Finish = false;
 bool isCriticalTask = false;
 bool isEnrollFP = false;
 bool isTask2Finish = false;
+uint8_t invalidCount = 0;
+extern bool tooManyInvalid;
 
 unsigned int startOpenDoorTimer = 0;
 unsigned int endOpenDoorTimer = 0;
@@ -84,10 +88,13 @@ void Task2Code(void * pvParameters){
             delayMicroseconds(35);
         }
     isTask2Finish = false;
-    myFingerPrint.scanFinger();
-    myRFID.scanCard();
+    if(!tooManyInvalid)
+    {
+        myFingerPrint.scanFinger();
+        myRFID.scanCard();
+    }
     updateDoorStatusTimer();
-
+    checkInvalidCount();
     isTask2Finish = true;
     delay(10);
     }
