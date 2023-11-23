@@ -5,6 +5,8 @@ extern Password myPassword;
 extern RFID myRFID;
 extern const char *setIdFP;
 extern bool isSettingModeOn;
+extern bool doorStatus;
+extern unsigned int startOpenDoorTimer;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -36,6 +38,9 @@ void callFuncCheckPW(lv_event_t *e)
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         // _ui_flag_modify(ui_Label5, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         lv_refr_now(NULL);
+        //open door
+        doorStatus = true;
+        startOpenDoorTimer = millis();
     }
     else
     {

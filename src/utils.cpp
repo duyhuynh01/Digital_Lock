@@ -23,6 +23,7 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
     if (isVerified)
     {
         doorStatus = true;
+        startOpenDoorTimer = millis();
     }
     isCriticalTask = false;
 }
@@ -30,11 +31,11 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
 void updateDoorStatusTimer()
 {
     if (doorStatus == true)
-    {
-        startOpenDoorTimer = millis();
-        if (endOpenDoorTimer < OPEN_DOOR_TIME)
+    {   
+        endOpenDoorTimer = startOpenDoorTimer;
+        if ((endOpenDoorTimer - startOpenDoorTimer) < OPEN_DOOR_TIME)
         {
-            endOpenDoorTimer += startOpenDoorTimer;
+            endOpenDoorTimer += millis();
             digitalWrite(CTRL_DOOR_PIN, HIGH);
         }
         else
