@@ -7,6 +7,7 @@ extern const char *setIdFP;
 extern bool isSettingModeOn;
 extern bool doorStatus;
 extern unsigned int startOpenDoorTimer;
+extern unsigned int endOpenDoorTimer;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -41,6 +42,8 @@ void callFuncCheckPW(lv_event_t *e)
         //open door
         doorStatus = true;
         startOpenDoorTimer = millis();
+        endOpenDoorTimer = startOpenDoorTimer;
+        
     }
     else
     {
