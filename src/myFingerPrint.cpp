@@ -100,8 +100,8 @@ void FingerPrint::scanFinger()
     Serial.println("Did not find a match");
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000);
-
+    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1); //-1 value means do not consider for adminFP to enter setting mode
+ 
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -117,16 +117,6 @@ void FingerPrint::scanFinger()
       {
         printName = fingerprintData[i].name;
       }
-      if (finger.fingerID == 1)
-      {
-            // isSettingModeOn = true;
-            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-                    _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-                                lv_refr_now(NULL);
-
-
-
-      }
     }
 
     const char *mess = "Hello ";
@@ -136,7 +126,7 @@ void FingerPrint::scanFinger()
     strcat(notify, printName);
     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    criticalTaskHandler(ui_AreaPopup, notify, 7000);
+    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID); 
     
     return;
   }

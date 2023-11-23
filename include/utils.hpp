@@ -6,4 +6,4 @@ extern bool isCriticalTask;
 
 
 void nonFunction();
-void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration);
+void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID);
