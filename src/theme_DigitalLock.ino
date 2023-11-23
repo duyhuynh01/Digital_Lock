@@ -36,6 +36,7 @@ void setup()
     myRFID.begin();
     myPassword.begin();
     TFT_init();
+    pinMode(CTRL_DOOR_PIN, OUTPUT);
 
     xTaskCreatePinnedToCore(
                     Task1Code,  /* Task function*/

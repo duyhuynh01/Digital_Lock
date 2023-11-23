@@ -3,7 +3,7 @@
 extern unsigned int startOpenDoorTimer;
 extern unsigned int endOpenDoorTimer;
 
-void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID)
+void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID, bool isVerified)
 {
     while (isTask1Finish == false)
     {
@@ -20,7 +20,10 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
         lv_refr_now(NULL);
     }
     //open door
-    doorStatus = true;
+    if (isVerified)
+    {
+        doorStatus = true;
+    }
     isCriticalTask = false;
 }
 
@@ -46,5 +49,6 @@ void updateDoorStatusTimer()
     else
     {
         endOpenDoorTimer = 0;
+        digitalWrite(CTRL_DOOR_PIN, LOW);
     }
 }

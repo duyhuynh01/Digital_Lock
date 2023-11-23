@@ -100,7 +100,7 @@ void FingerPrint::scanFinger()
     Serial.println("Did not find a match");
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1); //-1 value means do not consider for adminFP to enter setting mode
+    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
  
     return;
   }
@@ -128,7 +128,7 @@ void FingerPrint::scanFinger()
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
     
-    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID); 
+    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true); 
     
     return;
   }

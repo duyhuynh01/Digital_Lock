@@ -130,7 +130,7 @@ void RFID::scanCard()
             strcat(notify, printName);
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-            criticalTaskHandler(ui_AreaPopup, notify, 7000, -1); //-1 value means do not consider for adminFP to enter setting mode
+            criticalTaskHandler(ui_AreaPopup, notify, 7000, -1, true); //-1 value means do not consider for adminFP to enter setting mode
         }
         else
         {
@@ -138,7 +138,7 @@ void RFID::scanCard()
             // Xử lý thẻ không hợp lệ ở đây
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-            criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000, -1);//-1 value means do not consider for adminFP to enter setting mode
+            criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000, -1, false);//-1 value means do not consider for adminFP to enter setting mode
         }
     }
 
