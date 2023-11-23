@@ -79,18 +79,18 @@ lv_obj_set_style_text_opa(ui_BackHomeAddFinger2, 255, LV_PART_MAIN| LV_STATE_DEF
 lv_obj_set_style_text_font(ui_BackHomeAddFinger2, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_areaShowFP = lv_textarea_create(ui_screenFingerShow);
-lv_obj_set_width( ui_areaShowFP, 186);
+lv_obj_set_width( ui_areaShowFP, lv_pct(95));
 lv_obj_set_height( ui_areaShowFP, 220);
 lv_obj_set_x( ui_areaShowFP, 0 );
-lv_obj_set_y( ui_areaShowFP, 12 );
+lv_obj_set_y( ui_areaShowFP, 0 );
 lv_obj_set_align( ui_areaShowFP, LV_ALIGN_CENTER );
 // lv_textarea_set_text(ui_areaShowFP,"Fingerprint Count : 20");
-lv_obj_set_style_text_color(ui_areaShowFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_text_color(ui_areaShowFP, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_color(ui_areaShowFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_areaShowFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_areaShowFP, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_areaShowFP, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_radius(ui_areaShowFP, 15, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_areaShowFP, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_areaShowFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_border_color(ui_areaShowFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_border_opa(ui_areaShowFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
