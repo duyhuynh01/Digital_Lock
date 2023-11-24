@@ -7,11 +7,13 @@
 #include "myFingerPrint.hpp"
 #include "myRFID.hpp"
 #include "utils.hpp"
+#include "realtime.hpp"
 
 #define MAX_INVALID_COUNT 10
 FingerPrint myFingerPrint;
 RFID myRFID;
 Password myPassword;
+realTime realtime;
 int8_t task = -1;
 lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
@@ -40,6 +42,7 @@ void setup()
     myFingerPrint.begin(57600);
     myRFID.begin();
     myPassword.begin();
+    realtime.begin();
     TFT_init();
     pinMode(CTRL_DOOR_PIN, OUTPUT);
 
@@ -96,6 +99,7 @@ void Task2Code(void * pvParameters){
     }
     updateDoorStatusTimer();
     checkInvalidCount();
+    realtime.updateTimer();
     isTask2Finish = true;
     delay(10);
     }
