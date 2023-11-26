@@ -6,6 +6,17 @@ bool tooManyInvalid = false;
 extern uint8_t invalidCount;
 extern uint8_t temp;
 
+// extern HistoryHandler history;
+String removeSpaces(const String input) {
+    String result = "";
+    for (int i = 0; i < input.length(); i++) {
+        if (!isspace(input[i])) {
+            result += input[i];
+        }
+    }
+    return result;
+}
+
 void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDuration, int8_t AdminFPID, bool isVerified)
 {
     while (isTask1Finish == false)
@@ -73,6 +84,7 @@ void checkInvalidCount(){
         tooManyInvalid = false;
         temp = 1;
     }
-    Serial.print("So lan sai: "); Serial.println(invalidCount);
+    // Serial.print("So lan sai: "); Serial.println(invalidCount);
 
 }
+

@@ -1,4 +1,6 @@
 #include "funcUi.hpp"
+#include "realtime.hpp"
+#include "historyHandler.hpp"
 extern FingerPrint myFingerPrint;
 extern myEEPROM eeprom;
 extern Password myPassword;
@@ -9,6 +11,8 @@ extern bool doorStatus;
 extern unsigned int startOpenDoorTimer;
 extern unsigned int endOpenDoorTimer;
 extern uint8_t invalidCount;
+extern HistoryHandler history;
+extern realTime realtime;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -44,6 +48,10 @@ void callFuncCheckPW(lv_event_t *e)
         doorStatus = true;
         startOpenDoorTimer = millis();
         endOpenDoorTimer = startOpenDoorTimer;
+        String temp = "unk";
+        String log = temp + "-" + "Password" + "-" + realtime.getTimeLog();
+        // Serial.println(log);
+        history.updateHistory(log);
     }
     else
     {
@@ -290,4 +298,8 @@ void controlScreen()
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);
     }
+}
+
+void callFuncShowHistory(lv_event_t *e){
+    history.showHistory();
 }

@@ -29,6 +29,7 @@
     void hidePopupArea(lv_timer_t *timer);
     // void isSettingMode(lv_event_t * e);
     void callFuncCheckSetting(lv_event_t *e);
+    void callFuncShowHistory(lv_event_t *e);
     // void checkbtnSetting();
 extern const char *PasswordUnlock;
 

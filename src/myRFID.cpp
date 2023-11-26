@@ -1,10 +1,15 @@
 #include "MyRFID.hpp"
+#include "realtime.hpp"
+#include "utils.hpp"
+#include "historyHandler.hpp"
 extern bool doorStatus;
 extern SPIClass SPI12;
 extern FingerPrint myFingerPrint;
 extern bool screenIsOn;
 extern unsigned long lastTouchTime;
 extern uint8_t invalidCount;
+extern HistoryHandler history;
+extern realTime realtime;
 CardData cardRegisteredData[CARD_COUNT];
 int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
@@ -132,6 +137,9 @@ void RFID::scanCard()
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             criticalTaskHandler(ui_AreaPopup, notify, 7000, -1, true); //-1 value means do not consider for adminFP to enter setting mode
+            String log = removeSpaces(String(printName)) + "-" + "RFID" + "-" + realtime.getTimeLog();
+            // Serial.println(log);
+            history.updateHistory(log);
         }
         else
         {
@@ -139,8 +147,8 @@ void RFID::scanCard()
             // Xử lý thẻ không hợp lệ ở đây
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-            criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000, -1, false);//-1 value means do not consider for adminFP to enter setting mode
-            invalidCount+=1;
+            criticalTaskHandler(ui_AreaPopup, "Unknown card", 7000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
+            invalidCount += 1;
         }
     }
 

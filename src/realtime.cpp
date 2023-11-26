@@ -9,24 +9,11 @@ void realTime::begin()
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }
 
-void realTime::updateTimer()
+String realTime::getTimeLog()
 {
     DateTime now = rtc.now();
-    Serial.print(daysOfWeek[now.dayOfTheWeek()]);
-    Serial.print("\t");
-    Serial.print(now.hour(), DEC);
-    Serial.print(':');
-    Serial.print(now.minute(), DEC);
-    Serial.print(':');
-    Serial.print(now.second(), DEC);
-    Serial.print("\t");
-    Serial.print(now.day(), DEC);
-    Serial.print('/');
-    Serial.print(now.month(), DEC);
-    Serial.print('/');
-    Serial.println(now.year(), DEC);
-    
-    
-    
-    delay(2000);
+
+    String time = String(now.year()) + "-" + String(now.month()) + "-" +
+                  String(now.day()) + "-" + String(now.hour()) + "-" + String(now.minute());
+    return time;
 }

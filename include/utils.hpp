@@ -15,3 +15,7 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
 void updateDoorStatusTimer();
 
 void checkInvalidCount(); //this function is used to check totally user has raised an invalid auth
+
+
+String removeSpaces(const String input);
+

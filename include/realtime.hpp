@@ -14,5 +14,5 @@ class realTime
 public:
     realTime() : rtc() {};
     void begin();
-    void updateTimer();
+    String getTimeLog();
 };

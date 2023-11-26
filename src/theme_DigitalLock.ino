@@ -8,12 +8,14 @@
 #include "myRFID.hpp"
 #include "utils.hpp"
 #include "realtime.hpp"
+#include <historyHandler.hpp>
 
 #define MAX_INVALID_COUNT 10
 FingerPrint myFingerPrint;
 RFID myRFID;
 Password myPassword;
 realTime realtime;
+HistoryHandler history;
 int8_t task = -1;
 lv_indev_drv_t my_indev_driver; // Khai báo và cấu hình biến indev_driver
 lv_indev_data_t my_data;        // Khai báo và cấu hình biến data
@@ -44,6 +46,12 @@ void setup()
     myPassword.begin();
     realtime.begin();
     TFT_init();
+    if (!SPIFFS.begin(true)) {
+        Serial.println("Failed to mount SPIFFS");
+        return;
+    }
+    history.loadHistory(); //load history in to buffer
+
     pinMode(CTRL_DOOR_PIN, OUTPUT);
 
     xTaskCreatePinnedToCore(
@@ -99,7 +107,6 @@ void Task2Code(void * pvParameters){
     }
     updateDoorStatusTimer();
     checkInvalidCount();
-    realtime.updateTimer();
     isTask2Finish = true;
     delay(10);
     }
@@ -115,4 +122,3 @@ void loop()
     // checkbtnSetting();
     vTaskDelete(NULL);
 }
-

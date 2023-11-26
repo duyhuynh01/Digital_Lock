@@ -1,5 +1,8 @@
 #include "myFingerPrint.hpp"
 #include <TFT_eSPI.h>
+#include "realtime.hpp"
+#include "utils.hpp"
+#include "historyHandler.hpp"
 DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 bool flagModeSetting = false;
 // extern bool flagSetting;
@@ -11,7 +14,8 @@ extern bool isTask2Finish;
 extern bool isEnrollFP;
 extern bool isSettingModeOn;
 extern uint8_t invalidCount;
-
+extern HistoryHandler history;
+extern realTime realtime;
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
@@ -112,6 +116,7 @@ void FingerPrint::scanFinger()
     Serial.print(" with confidence of ");
     Serial.println(finger.confidence);
     const char *printName;
+    const char* logName; //name used to log
     for (int8_t i = 0; i < fingerprintCount; i++)
     {
       if (fingerprintData[i].id == finger.fingerID)
@@ -130,7 +135,9 @@ void FingerPrint::scanFinger()
 
     
     criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true); 
-    
+    String log = removeSpaces(String(printName)) + "-" + "Fingerprint" + "-" + realtime.getTimeLog(); 
+    // Serial.println(log); 
+    history.updateHistory(log);
     return;
   }
 }
