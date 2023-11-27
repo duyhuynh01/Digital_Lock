@@ -61,15 +61,35 @@ void splitString(const String& input, char delimiter, String& part1, String& par
     part3 = input.substring(secondDelimiter + 1, thirdDelimiter);
     part4 = input.substring(thirdDelimiter + 1);
 }
+
+static void draw_part_event_cb(lv_event_t * e)
+{
+    lv_obj_t * obj = lv_event_get_target(e);
+    lv_obj_draw_part_dsc_t * dsc = lv_event_get_draw_part_dsc(e);
+    
+
+}
 void HistoryHandler::showHistory(){
     Serial.print("Number of history: "); 
     Serial.println(historyBuffer.size());
     String part1, part2, part3, part4;
-    splitString(historyBuffer[HISTORY_LENGTH], '-', part1, part2, part3, part4);
     int8_t sizeBuffer = historyBuffer.size();
     lv_obj_t * table = lv_table_create(lv_scr_act());
-    for (int i = historyBuffer.size() - 1; i >= 0; i--){
-        lv_table_set_cell_value(table, i, 0, "Name");
+    lv_style_t style_table;
+    lv_style_init(&style_table);
+    lv_style_set_bg_color(&style_table, lv_color_black());  // Màu nền đen
+    lv_style_set_text_color(&style_table, lv_color_white()); // Màu chữ trắng
+    lv_obj_add_style(table, &style_table, LV_PART_MAIN);
+    for (int i = 0; i<historyBuffer.size(); i++) 
+    {
+        splitString(historyBuffer[i], '-', part1, part2, part3, part4);
+        lv_table_set_cell_value(table, i, 0, part1.c_str());
+        lv_table_set_cell_value(table, i, 1, part2.c_str());
+        lv_table_set_cell_value(table, i, 2, part3.c_str());
+        lv_table_set_cell_value(table, i, 3, part4.c_str());
         Serial.println(historyBuffer[i]);
     }
+    lv_obj_set_height(table, 200);
+    lv_obj_center(table);
+    lv_obj_add_event_cb(table, draw_part_event_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
 }

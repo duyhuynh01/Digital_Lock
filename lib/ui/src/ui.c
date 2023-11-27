@@ -254,6 +254,21 @@ lv_obj_t *ui_KeyboardChangePW;
 lv_obj_t *ui_areaNotifyChangePW;
 lv_obj_t *ui____initial_actions0;
 void ui_event_KeyboardChangePWOk(lv_event_t *e);
+
+// SCREEN: ui_screenHistory
+void ui_screenHistory_screen_init(void);
+lv_obj_t *ui_screenHistory;
+lv_obj_t *ui_PanelHistoryHeader;
+lv_obj_t *ui_LabelHistory;
+lv_obj_t *ui_panelHistory;
+void ui_event_btnBackHistory( lv_event_t * e);
+lv_obj_t *ui_btnBackHistory;
+lv_obj_t *ui_BackHistory;
+void ui_event_btnHomeHistory (lv_event_t * e);
+lv_obj_t *ui_btnHomeHistory;
+lv_obj_t *ui_BackHomeHistory;
+lv_obj_t *ui_areaShowHistory;
+
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
 #error "LV_COLOR_DEPTH should be 16bit to match SquareLine Studio's settings"
@@ -317,6 +332,8 @@ void ui_event_HomeOptionbtn(lv_event_t *e)
         // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_screen_change(&ui_screenHistory, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenCardShow_screen_init);
+        _ui_screen_delete(&ui_ScreenSetting);
         callFuncShowHistory(e);
 
     }
@@ -1028,6 +1045,29 @@ void ui_event_PressedOkPW(lv_event_t *e)
 //     }
 // }
 
+void ui_event_btnBackHistory( lv_event_t * e)
+{
+
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenHistory);
+    }
+}
+
+void ui_event_btnHomeHistory( lv_event_t * e)
+{
+
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_screenHistory);
+    }
+}
 ///////////////////// SCREENS ////////////////////
 
 void ui_init(void)
@@ -1046,6 +1086,7 @@ void ui_init(void)
     ui_screenCardDelete_screen_init();
     ui_screenCardShow_screen_init();
     ui_SceenPassword_screen_init();
+    ui_screenHistory_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }
