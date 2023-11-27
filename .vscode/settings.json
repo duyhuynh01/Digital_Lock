@@ -55,6 +55,8 @@
         "typeinfo": "cpp",
         "gui.hpp": "c",
         "myrfid.hpp": "c",
-        "tft_espi.h": "c"
+        "tft_espi.h": "c",
+        "myeeprom.hpp": "c",
+        "*.tpp": "cpp"
     }
 }

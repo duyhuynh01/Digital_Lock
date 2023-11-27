@@ -267,7 +267,20 @@ extern lv_obj_t *ui_KeyboardChangePW;
 extern lv_obj_t *ui_areaNotifyChangePW;
 extern lv_obj_t *ui____initial_actions0;
 void ui_event_KeyboardChangePWOk( lv_event_t * e);
-
+//ScreenHistory
+// SCREEN: ui_screenHistory
+void ui_screenHistory_screen_init(void);
+extern lv_obj_t *ui_screenHistory;
+extern lv_obj_t *ui_PanelHistoryHeader;
+extern lv_obj_t *ui_LabelHistory;
+extern lv_obj_t *ui_panelHistory;
+void ui_event_btnBackHistory( lv_event_t * e);
+extern lv_obj_t *ui_btnBackHistory;
+extern lv_obj_t *ui_BackHistory;
+void ui_event_btnHomeHistory (lv_event_t * e);
+extern lv_obj_t *ui_btnHomeHistory;
+extern lv_obj_t *ui_BackHomeHistory;
+extern lv_obj_t *ui_areaShowHistory;
 
 LV_IMG_DECLARE( ui_img_iconunlock_png);   // assets\iconUnlock.png
 LV_IMG_DECLARE( ui_img_iconsetting_png);   // assets\iconSetting.png
