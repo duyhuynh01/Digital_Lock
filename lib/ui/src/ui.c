@@ -332,7 +332,7 @@ void ui_event_HomeOptionbtn(lv_event_t *e)
         // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_screen_change(&ui_screenHistory, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenCardShow_screen_init);
+        _ui_screen_change(&ui_screenHistory, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_screenHistory_screen_init);
         _ui_screen_delete(&ui_ScreenSetting);
         callFuncShowHistory(e);
 
@@ -1052,7 +1052,7 @@ void ui_event_btnBackHistory( lv_event_t * e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
-        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_screenHistory);
     }
 }
