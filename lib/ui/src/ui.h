@@ -293,7 +293,7 @@ LV_IMG_DECLARE( ui_img_iconcard_png);   // assets\iconCard.png
 
 extern bool addFinger;
 
-extern unsigned long volumeTime;
+extern uint16_t volumeTime;
 void ui_init(void);
 
 #ifdef __cplusplus

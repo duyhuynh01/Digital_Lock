@@ -5,8 +5,8 @@ extern unsigned int endOpenDoorTimer;
 bool tooManyInvalid = false;
 extern uint8_t invalidCount;
 extern uint8_t temp;
-extern unsigned long volumeTime;
-extern unsigned long startVolumeTimer;
+extern uint16_t volumeTime;
+extern uint16_t startVolumeTimer;
 extern uint16_t endVolumeTimer;
 // extern HistoryHandler history;
 String removeSpaces(const String input)
@@ -112,15 +112,18 @@ void ctrlVolumeTimer()
     {
         digitalWrite(CTRL_VOLUME, HIGH);
         endVolumeTimer = millis();
+        Serial.println("Dang keu");
     }
     else
     {
-        digitalWrite(CTRL_VOLUME, LOW);
         while (isCriticalTask == true)
         {
             delayMicroseconds(35);
         }
         volumeTime = 0;
+        digitalWrite(CTRL_VOLUME, LOW);
+        Serial.println("Dang khong keu");
+
     }
 }
 
