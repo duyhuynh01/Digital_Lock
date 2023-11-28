@@ -1006,7 +1006,7 @@ void ui_event_PressedOkPW(lv_event_t *e)
     {
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_refr_now(NULL);
-        volumeTime = 500;
+        volumeTime = 15;
         volumeStart = true;
     }
     lv_obj_t *obj = lv_event_get_target(e);
