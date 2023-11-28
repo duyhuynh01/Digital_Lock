@@ -5,14 +5,17 @@ extern unsigned int endOpenDoorTimer;
 bool tooManyInvalid = false;
 extern uint8_t invalidCount;
 extern uint8_t temp;
-extern uint16_t volumeTime;
-extern uint16_t startVolumeTimer;
+extern unsigned long volumeTime;
+extern unsigned long startVolumeTimer;
 extern uint16_t endVolumeTimer;
 // extern HistoryHandler history;
-String removeSpaces(const String input) {
+String removeSpaces(const String input)
+{
     String result = "";
-    for (int i = 0; i < input.length(); i++) {
-        if (!isspace(input[i])) {
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (!isspace(input[i]))
+        {
             result += input[i];
         }
     }
@@ -35,7 +38,7 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         lv_refr_now(NULL);
     }
-    //open door
+    // open door
     if (isVerified)
     {
         doorStatus = true;
@@ -48,7 +51,7 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
 void updateDoorStatusTimer()
 {
     if (doorStatus == true)
-    {   
+    {
         if ((endOpenDoorTimer - startOpenDoorTimer) < OPEN_DOOR_TIME)
         {
             endOpenDoorTimer = millis();
@@ -71,48 +74,58 @@ void updateDoorStatusTimer()
     }
 }
 
-void checkInvalidCount(){
-    if (invalidCount>=10){
+void checkInvalidCount()
+{
+    if (invalidCount >= 10)
+    {
         tooManyInvalid = true;
         const char *mess = "Too many invalid";
-        while(temp>0)
+        while (temp > 0)
         {
             criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
-            temp --;
+            temp--;
         }
-
     }
-    else{
+    else
+    {
         tooManyInvalid = false;
         temp = 1;
     }
     // Serial.print("So lan sai: "); Serial.println(invalidCount);
-
 }
-bool volumeIsUsed(){
-    if (volumeTime > 0){
+void volumeIsUsed()
+{
+    if (volumeTime > 0)
+    {
         startVolumeTimer = millis();
+        Serial.println(volumeTime);
     }
-    else{
+    else
+    {
         startVolumeTimer = 0;
         endVolumeTimer = 0;
     }
 }
-void ctrlVolumeTimer(){
-    if(endVolumeTimer - startVolumeTimer <volumeTime){
+void ctrlVolumeTimer()
+{
+    if (endVolumeTimer - startVolumeTimer < volumeTime)
+    {
         digitalWrite(CTRL_VOLUME, HIGH);
         endVolumeTimer = millis();
     }
-    else{
+    else
+    {
         while (isCriticalTask == true)
-            {
-                delayMicroseconds(35);
-            }
-            volumeTime = 0;
+        {
+            delayMicroseconds(35);
+        }
+        volumeTime = 0;
+        Serial.println("off volume");
     }
 }
 
-void ctrlVolume(){
+void ctrlVolume()
+{
     volumeIsUsed();
     ctrlVolumeTimer();
 }
