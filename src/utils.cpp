@@ -115,12 +115,12 @@ void ctrlVolumeTimer()
     }
     else
     {
+        digitalWrite(CTRL_VOLUME, LOW);
         while (isCriticalTask == true)
         {
             delayMicroseconds(35);
         }
         volumeTime = 0;
-        Serial.println("off volume");
     }
 }
 
