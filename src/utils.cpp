@@ -95,21 +95,17 @@ void checkInvalidCount()
 }
 void volumeIsUsed()
 {
-    if (volumeTime > 0)
+    if (volumeStart)
     {
         startVolumeTimer = millis();
-        Serial.println(volumeTime);
+        volumeStart = false;
     }
-    else
-    {
-        startVolumeTimer = 0;
-        endVolumeTimer = 0;
-    }
+
 }
 void ctrlVolumeTimer()
 {
     if (endVolumeTimer - startVolumeTimer < volumeTime)
-    {
+    {   
         digitalWrite(CTRL_VOLUME, HIGH);
         endVolumeTimer = millis();
         Serial.println("Dang keu");
@@ -122,6 +118,8 @@ void ctrlVolumeTimer()
         }
         volumeTime = 0;
         digitalWrite(CTRL_VOLUME, LOW);
+        startVolumeTimer = 0;
+        endVolumeTimer = 0;
         Serial.println("Dang khong keu");
 
     }

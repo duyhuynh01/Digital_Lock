@@ -294,6 +294,7 @@ LV_IMG_DECLARE( ui_img_iconcard_png);   // assets\iconCard.png
 extern bool addFinger;
 
 extern uint16_t volumeTime;
+extern bool volumeStart;
 void ui_init(void);
 
 #ifdef __cplusplus

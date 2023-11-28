@@ -35,6 +35,7 @@ bool doorStatus = false;
 uint16_t volumeTime = 0;
 uint16_t  startVolumeTimer = 0;
 uint16_t endVolumeTimer = 0;
+bool volumeStart = false;
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 void Task1Code(void *pvParameters);
