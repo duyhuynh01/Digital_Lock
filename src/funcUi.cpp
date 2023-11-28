@@ -13,6 +13,8 @@ extern unsigned int endOpenDoorTimer;
 extern uint8_t invalidCount;
 extern HistoryHandler history;
 extern realTime realtime;
+extern lv_obj_t *table;
+extern bool flagHistory;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -49,7 +51,7 @@ void callFuncCheckPW(lv_event_t *e)
         startOpenDoorTimer = millis();
         endOpenDoorTimer = startOpenDoorTimer;
         String temp = "unk";
-        String log = temp + "-" + "Password" + "-" + realtime.getTimeLog();
+        String log = temp + "-" + "PW" + "-" + realtime.getTimeLog();
         // Serial.println(log);
         history.updateHistory(log);
     }
@@ -295,11 +297,19 @@ void controlScreen()
         isSettingModeOn = false;
         digitalWrite(TFT_BL, TFT_BACKLIGHT_OFF);
         lv_textarea_set_text(ui_AreaPWHome, "");
+        if (flagHistory)
+        {
+            lv_obj_del(table);
+            table = NULL;
+            flagHistory = false;
+        }
+
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);
     }
 }
 
-void callFuncShowHistory(lv_event_t *e){
-    history.showHistory();
+void callFuncShowHistory(lv_event_t *e)
+{
+    history.showHistory();  
 }

@@ -1,6 +1,7 @@
 #include "funcUi.hpp"
 #define OPEN_DOOR_TIME 5000
 #define CTRL_DOOR_PIN 33
+#define CTRL_VOLUME 25
 
 extern void resetOnScreenTimer();
 extern bool isTask1Finish;

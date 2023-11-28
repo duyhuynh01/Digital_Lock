@@ -135,7 +135,7 @@ void FingerPrint::scanFinger()
 
     
     criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true); 
-    String log = removeSpaces(String(printName)) + "-" + "Fingerprint" + "-" + realtime.getTimeLog(); 
+    String log = removeSpaces(String(printName)) + "-" + "FP" + "-" + realtime.getTimeLog(); 
     // Serial.println(log); 
     history.updateHistory(log);
     return;

@@ -1044,7 +1044,7 @@ void ui_event_PressedOkPW(lv_event_t *e)
 //         flagSetting = true;
 //     }
 // }
-
+extern lv_obj_t *table;
 void ui_event_btnBackHistory( lv_event_t * e)
 {
 
@@ -1054,18 +1054,21 @@ void ui_event_btnBackHistory( lv_event_t * e)
     {
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_screenHistory);
+        lv_obj_del(table);
+        table = NULL;
     }
 }
 
 void ui_event_btnHomeHistory( lv_event_t * e)
 {
-
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_screenHistory);
+        lv_obj_del(table);
+        table = NULL;
     }
 }
 ///////////////////// SCREENS ////////////////////

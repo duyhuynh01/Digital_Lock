@@ -24,6 +24,7 @@ bool isTask1Finish = false;
 bool isCriticalTask = false;
 bool isEnrollFP = false;
 bool isTask2Finish = false;
+// bool flagHistory = false;
 uint8_t invalidCount = 0;
 extern bool tooManyInvalid;
 uint8_t temp= 1;
@@ -53,6 +54,8 @@ void setup()
     history.loadHistory(); //load history in to buffer
 
     pinMode(CTRL_DOOR_PIN, OUTPUT);
+    pinMode(CTRL_VOLUME, OUTPUT);
+    digitalWrite(CTRL_VOLUME, LOW);
 
     xTaskCreatePinnedToCore(
                     Task1Code,  /* Task function*/

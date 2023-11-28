@@ -9,6 +9,7 @@ SET(SOURCES screens/ui_Screen1.c
     screens/ui_screenCardDelete.c
     screens/ui_screenCardShow.c
     screens/ui_SceenPassword.c
+    screens/ui_ScreenHistory.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
