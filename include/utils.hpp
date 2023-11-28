@@ -20,3 +20,5 @@ void checkInvalidCount(); //this function is used to check totally user has rais
 
 String removeSpaces(const String input);
 
+void ctrlVolume();
+

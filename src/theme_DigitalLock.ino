@@ -32,7 +32,9 @@ uint8_t temp= 1;
 unsigned int startOpenDoorTimer = 0;
 unsigned int endOpenDoorTimer = 0;
 bool doorStatus = false;
-
+uint16_t volumeTime = 0;
+uint16_t startVolumeTimer = 0;
+uint16_t endVolumeTimer = 0;
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 void Task1Code(void *pvParameters);
@@ -110,6 +112,7 @@ void Task2Code(void * pvParameters){
     }
     updateDoorStatusTimer();
     checkInvalidCount();
+    ctrlVolume();
     isTask2Finish = true;
     delay(10);
     }

@@ -5,7 +5,9 @@ extern unsigned int endOpenDoorTimer;
 bool tooManyInvalid = false;
 extern uint8_t invalidCount;
 extern uint8_t temp;
-
+extern uint16_t volumeTime;
+extern uint16_t startVolumeTimer;
+extern uint16_t endVolumeTimer;
 // extern HistoryHandler history;
 String removeSpaces(const String input) {
     String result = "";
@@ -87,4 +89,30 @@ void checkInvalidCount(){
     // Serial.print("So lan sai: "); Serial.println(invalidCount);
 
 }
+bool volumeIsUsed(){
+    if (volumeTime > 0){
+        startVolumeTimer = millis();
+    }
+    else{
+        startVolumeTimer = 0;
+        endVolumeTimer = 0;
+    }
+}
+void ctrlVolumeTimer(){
+    if(endVolumeTimer - startVolumeTimer <volumeTime){
+        digitalWrite(CTRL_VOLUME, HIGH);
+        endVolumeTimer = millis();
+    }
+    else{
+        while (isCriticalTask == true)
+            {
+                delayMicroseconds(35);
+            }
+            volumeTime = 0;
+    }
+}
 
+void ctrlVolume(){
+    volumeIsUsed();
+    ctrlVolumeTimer();
+}
