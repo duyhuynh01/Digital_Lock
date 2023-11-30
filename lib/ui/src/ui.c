@@ -554,6 +554,7 @@ void ui_event_btnHomeFingerDelete(lv_event_t *e)
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
+extern lv_obj_t *tableFP;
 void ui_event_btnBackShowFP(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -562,6 +563,8 @@ void ui_event_btnBackShowFP(lv_event_t *e)
     {
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenFinger_screen_init);
         _ui_screen_delete(&ui_screenFingerShow);
+        lv_obj_del(tableFP);
+        tableFP = NULL;
     }
 }
 void ui_event_btnHomeShowFP(lv_event_t *e)
@@ -572,6 +575,8 @@ void ui_event_btnHomeShowFP(lv_event_t *e)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_screenFingerShow);
+        lv_obj_del(tableFP);
+        tableFP = NULL;
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -773,6 +778,7 @@ void ui_event_btnHomeCardDelete(lv_event_t *e)
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
+extern lv_obj_t *tableRFID;
 void ui_event_btnBackShowCard(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -781,6 +787,10 @@ void ui_event_btnBackShowCard(lv_event_t *e)
     {
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_SceenCard_screen_init);
         _ui_screen_delete(&ui_screenCardShow);
+        lv_obj_del(tableRFID);
+        tableRFID = NULL;
+
+
     }
 }
 void ui_event_btnHomeShowCard(lv_event_t *e)
@@ -791,6 +801,8 @@ void ui_event_btnHomeShowCard(lv_event_t *e)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_screenCardShow);
+        lv_obj_del(tableRFID);
+        tableRFID = NULL;
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);

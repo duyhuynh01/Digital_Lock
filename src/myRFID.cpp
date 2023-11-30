@@ -327,26 +327,66 @@ bool RFID::unenrollCard(const char *user)
 }
 
 /*------------Print list card----------*/
+// void RFID::showList()
+// {
+//     readCardFromEEPROM();
+//     lv_textarea_set_text(ui_areaShowCard, "");
+//     lv_textarea_add_text(ui_areaShowCard, "Total card is ");
+//     convertNum(ui_areaShowCard, cardCount);
+//     lv_textarea_add_text(ui_areaShowCard, "\n\n");
+//     Serial.print("Registered Cards: ");
+//     Serial.println(cardCount);
+//     for (int i = 0; i < CARD_COUNT; i++)
+//     {
+//         if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
+//         {
+//             Serial.print(cardRegisteredData[i].id);
+//             Serial.print(" : ");
+//             Serial.println(cardRegisteredData[i].name);
+//             lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].id);
+//             lv_textarea_add_text(ui_areaShowCard, " : ");
+//             lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].name);
+//             lv_textarea_add_text(ui_areaShowCard, "\n");
+//         }
+//     }
+// }
+
+void draw_part_event_RFID(lv_event_t *e)
+{
+    lv_obj_t *obj = lv_event_get_target(e);
+    lv_obj_draw_part_dsc_t *dsc = lv_event_get_draw_part_dsc(e);
+    if (dsc->part == LV_PART_ITEMS)
+    {
+        uint32_t row = dsc->id / lv_table_get_col_cnt(obj);
+        uint32_t col = dsc->id - row * lv_table_get_col_cnt(obj);
+    }
+}
+
+// extern bool flagHistory;
+lv_obj_t *tableRFID;
+bool flagShowRFID = false;
 void RFID::showList()
 {
     readCardFromEEPROM();
-    lv_textarea_set_text(ui_areaShowCard, "");
-    lv_textarea_add_text(ui_areaShowCard, "Total card is ");
-    convertNum(ui_areaShowCard, cardCount);
-    lv_textarea_add_text(ui_areaShowCard, "\n\n");
-    Serial.print("Registered Cards: ");
-    Serial.println(cardCount);
+    tableRFID = lv_table_create(ui_panelShowCard);
+    int8_t countRFID = 0;
     for (int i = 0; i < CARD_COUNT; i++)
     {
         if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
         {
-            Serial.print(cardRegisteredData[i].id);
-            Serial.print(" : ");
-            Serial.println(cardRegisteredData[i].name);
-            lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].id);
-            lv_textarea_add_text(ui_areaShowCard, " : ");
-            lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].name);
-            lv_textarea_add_text(ui_areaShowCard, "\n");
+            lv_table_set_cell_value(tableRFID, countRFID, 0, cardRegisteredData[i].id);
+            lv_table_set_cell_value(tableRFID, countRFID, 1, fingerprintData[i].name);
+            countRFID++;
         }
     }
+    lv_obj_set_style_text_font(tableRFID, &lv_font_montserrat_10, LV_PART_MAIN);
+    lv_obj_set_style_text_color(tableRFID, lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(tableRFID, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
+    lv_obj_set_style_text_align(tableRFID, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_size(table, 235, 220);
+    lv_obj_set_height(tableRFID, 230);
+    lv_obj_center(tableRFID);
+    lv_obj_set_y(tableRFID, -10);
+    lv_obj_add_event_cb(tableRFID, draw_part_event_RFID, LV_EVENT_DRAW_PART_BEGIN, NULL);
+    flagShowRFID = true;
 }

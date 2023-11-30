@@ -15,6 +15,10 @@ extern HistoryHandler history;
 extern realTime realtime;
 extern lv_obj_t *table;
 extern bool flagHistory;
+extern lv_obj_t *tableFP;
+extern bool flagShowFP;
+extern lv_obj_t *tableRFID;
+extern bool flagShowRFID;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 bool screenIsOn = true;
@@ -303,6 +307,31 @@ void controlScreen()
             table = NULL;
             flagHistory = false;
         }
+        if(flagShowFP)
+        {
+            lv_obj_del(tableFP);
+            tableFP = NULL;
+            flagShowFP = false;
+        }
+        if(flagShowRFID)
+        {
+            lv_obj_del(tableRFID);
+            tableRFID = NULL;
+            flagShowRFID = false;
+        }
+
+        _ui_screen_delete(&ui_SceenCard);
+        _ui_screen_delete(&ui_SceenFinger);
+        _ui_screen_delete(&ui_SceenPassword);
+        _ui_screen_delete(&ui_Screen1);
+        _ui_screen_delete(&ui_screenCardAdd);
+        _ui_screen_delete(&ui_screenCardDelete);
+        _ui_screen_delete(&ui_screenCardShow);
+        _ui_screen_delete(&ui_screenFingerAdd);
+        _ui_screen_delete(&ui_screenFingerDelete);
+        _ui_screen_delete(&ui_screenFingerShow);
+        _ui_screen_delete(&ui_screenHistory);
+        _ui_screen_delete(&ui_ScreenSetting);
 
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);

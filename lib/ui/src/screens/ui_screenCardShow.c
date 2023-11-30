@@ -78,7 +78,7 @@ lv_obj_set_style_text_color(ui_BackHomeAddFinger5, lv_color_hex(0xFFFFFF), LV_PA
 lv_obj_set_style_text_opa(ui_BackHomeAddFinger5, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_BackHomeAddFinger5, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_areaShowCard = lv_textarea_create(ui_screenCardShow);
+ui_areaShowCard = lv_textarea_create(ui_panelShowCard);
 lv_obj_set_width( ui_areaShowCard, lv_pct(95));
 lv_obj_set_height( ui_areaShowCard, 220);
 lv_obj_set_x( ui_areaShowCard, 0 );

@@ -195,9 +195,9 @@ void HistoryHandler::showHistory()
     lv_obj_set_style_text_color(table, lv_color_hex(0x000000), LV_PART_MAIN );
     lv_obj_set_style_bg_color(table, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
     // lv_obj_set_size(table, 235, 220);
-    lv_obj_set_height(table, 215);
+    lv_obj_set_height(table, 230);
     lv_obj_center(table);
-    lv_obj_set_y(table, -15);
+    lv_obj_set_y(table, -10);
     lv_obj_add_event_cb(table, draw_part_event_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
     flagHistory = true;
 }

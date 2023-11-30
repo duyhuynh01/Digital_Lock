@@ -106,7 +106,7 @@ void FingerPrint::scanFinger()
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
-    invalidCount+=1;
+    invalidCount += 1;
     return;
   }
   else if (status == FINGERPRINT_OK)
@@ -116,7 +116,7 @@ void FingerPrint::scanFinger()
     Serial.print(" with confidence of ");
     Serial.println(finger.confidence);
     const char *printName;
-    const char* logName; //name used to log
+    const char *logName; // name used to log
     for (int8_t i = 0; i < fingerprintCount; i++)
     {
       if (fingerprintData[i].id == finger.fingerID)
@@ -133,10 +133,9 @@ void FingerPrint::scanFinger()
     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
-    
-    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true); 
-    String log = removeSpaces(String(printName)) + "-" + "FP" + "-" + realtime.getTimeLog(); 
-    // Serial.println(log); 
+    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true);
+    String log = removeSpaces(String(printName)) + "-" + "FP" + "-" + realtime.getTimeLog();
+    // Serial.println(log);
     history.updateHistory(log);
     return;
   }
@@ -587,28 +586,75 @@ void FingerPrint::restore()
   Serial.println("Successfully delete all template");
 }
 
+void draw_part_event_FP(lv_event_t *e)
+{
+  lv_obj_t *obj = lv_event_get_target(e);
+  lv_obj_draw_part_dsc_t *dsc = lv_event_get_draw_part_dsc(e);
+  if (dsc->part == LV_PART_ITEMS)
+  {
+    uint32_t row = dsc->id / lv_table_get_col_cnt(obj);
+    uint32_t col = dsc->id - row * lv_table_get_col_cnt(obj);
+  }
+}
+
+// extern bool flagHistory;
+lv_obj_t *tableFP;
+bool flagShowFP = false;
 void FingerPrint::showList()
 {
   readFingerprintFromEEPROM();
-  // Serial.println(fingerprintCount);
-  lv_textarea_set_text(ui_areaShowFP, "");
-  lv_textarea_add_text(ui_areaShowFP, "Total fingerprint is ");
-  convertNum(ui_areaShowFP, fingerprintCount);
-  lv_textarea_add_text(ui_areaShowFP, "\n\n");
+  tableFP = lv_table_create(ui_panelShowFP);
+  int8_t countFP = 0;
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
     if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
     {
-      convertNum(ui_areaShowFP, fingerprintData[i].id);
-      lv_textarea_add_text(ui_areaShowFP, " : ");
-      lv_textarea_add_text(ui_areaShowFP, fingerprintData[i].name);
-      lv_textarea_add_text(ui_areaShowFP, "\n");
-      Serial.print(fingerprintData[i].id);
-      Serial.print(" :");
-      Serial.println(fingerprintData[i].name);
+      
+      char str[5];  // 5 chữ số + ký tự kết thúc chuỗi ('\0')
+      snprintf(str, sizeof(str), "%hu", fingerprintData[i].id);
+      lv_table_set_cell_value(tableFP, countFP, 0, str);
+      lv_table_set_cell_value(tableFP, countFP, 1, fingerprintData[i].name);
+      countFP++;
     }
   }
+
+  // lv_table_set_col_width(tableFP, 0, 60);
+  // lv_table_set_col_width(tableFP, 1, 50);
+  lv_obj_set_style_text_font(tableFP, &lv_font_montserrat_10, LV_PART_MAIN);
+  lv_obj_set_style_text_color(tableFP, lv_color_hex(0x000000), LV_PART_MAIN);
+  lv_obj_set_style_bg_color(tableFP, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
+  lv_obj_set_style_text_align(tableFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+  // lv_obj_set_size(table, 235, 220);
+  lv_obj_set_height(tableFP, 230);
+  lv_obj_center(tableFP);
+  lv_obj_set_y(tableFP, -10);
+  lv_obj_add_event_cb(tableFP, draw_part_event_FP, LV_EVENT_DRAW_PART_BEGIN, NULL);
+  flagShowFP = true;
 }
+
+// void FingerPrint::showList()
+// {
+//   readFingerprintFromEEPROM();
+//   // Serial.println(fingerprintCount);
+//   // lv_textarea_set_text(ui_areaShowFP, "");
+//   // lv_textarea_add_text(ui_areaShowFP, "Total fingerprint is ");
+//   // convertNum(ui_areaShowFP, fingerprintCount);
+//   // lv_textarea_add_text(ui_areaShowFP, "\n\n");
+//   // for (int i = 0; i < FINGERPRINT_COUNT; i++)
+//   // {
+//   //   if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
+//   //   {
+//   //     convertNum(ui_areaShowFP, fingerprintData[i].id);
+//   //     lv_textarea_add_text(ui_areaShowFP, " : ");
+//   //     lv_textarea_add_text(ui_areaShowFP, fingerprintData[i].name);
+//   //     lv_textarea_add_text(ui_areaShowFP, "\n");
+//   //     Serial.print(fingerprintData[i].id);
+//   //     Serial.print(" :");
+//   //     Serial.println(fingerprintData[i].name);
+//   //   }
+//   // }
+// }
 
 void FingerPrint::changeFingerprintAdmin()
 {
