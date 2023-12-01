@@ -16,6 +16,7 @@ extern bool isSettingModeOn;
 extern uint8_t invalidCount;
 extern HistoryHandler history;
 extern realTime realtime;
+
 // int16_t fingerprintCount = 0;
 FingerPrint::FingerPrint() : finger(&Serial2)
 {
@@ -130,10 +131,10 @@ void FingerPrint::scanFinger()
     char notify[totalMess];
     strcpy(notify, mess);
     strcat(notify, printName);
-    _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
-    criticalTaskHandler(ui_AreaPopup, notify, 7000, finger.fingerID, true);
+    criticalTaskHandler(ui_AreaPopup, notify, 5000, finger.fingerID, true);
     String log = removeSpaces(String(printName)) + "-" + "FP" + "-" + realtime.getTimeLog();
     // Serial.println(log);
     history.updateHistory(log);

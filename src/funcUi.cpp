@@ -21,6 +21,8 @@ extern lv_obj_t *tableRFID;
 extern bool flagShowRFID;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
+lv_timer_t *hidePopupTimerBtnSetting;
+lv_timer_t *hideKeyboardPW;
 bool screenIsOn = true;
 unsigned long lastTouchTime = 0;
 void hidePopupAreaHome(lv_timer_t *timer)
@@ -43,11 +45,11 @@ void callFuncCheckPW(lv_event_t *e)
     if (myPassword.checkAdminPassword() == true)
     {
         isSettingModeOn = true;
-        showPopup(ui_AreaPopup, "Unlock!", TIME_POPUP);
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-
-        _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        showPopup(ui_AreaPopup, "Unlock!", 5000);
+        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        hideKeyboard(ui_KeyboardPWHome, 5000);
+        showPopupBtnSetting(ui_Settingbtn, 5000);
         // _ui_flag_modify(ui_Label5, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         lv_refr_now(NULL);
         // open door
@@ -161,7 +163,7 @@ void callFuncCheckSetting(lv_event_t *e)
     PasswordUnlock = lv_textarea_get_text(ui_AreaPWHome);
     if (myPassword.checkAdminPassword() == true)
     {
-        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_ScreenSetting_screen_init);
+        _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_Screen1);
     }
     else
@@ -236,6 +238,7 @@ void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration)
     lv_refr_now(NULL);
 }
 
+
 void hidePopup(lv_obj_t *popup)
 {
     _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -245,6 +248,36 @@ void hidePopupArea(lv_timer_t *timer)
 {
     lv_obj_t *popup = (lv_obj_t *)timer->user_data;
     hidePopup(popup);
+}
+
+
+
+void showPopupBtnSetting(lv_obj_t *popup, uint32_t timerDuration)
+{
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    if (hidePopupTimerBtnSetting)
+    {
+        lv_timer_del(hidePopupTimerBtnSetting);
+    }
+    // Tạo một timer để tự động ẩn thông báo sau một khoảng thời gian
+    hidePopupTimerBtnSetting = lv_timer_create(hidePopupArea, timerDuration, popup);
+    lv_refr_now(NULL);
+}
+void showKeyboard(lv_timer_t *timer)
+{
+    lv_obj_t *popup = (lv_obj_t *)timer->user_data;
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+}
+void hideKeyboard(lv_obj_t *popup, uint32_t timerDuration)
+{
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    if (hideKeyboardPW)
+    {
+        lv_timer_del(hideKeyboardPW);
+    }
+    // Tạo một timer để tự động ẩn thông báo sau một khoảng thời gian
+    hideKeyboardPW = lv_timer_create(showKeyboard, timerDuration, popup);
+    lv_refr_now(NULL);
 }
 
 const char *createNotification(const char *mess, const char *name)
@@ -286,11 +319,15 @@ void controlScreen()
     if (screenIsOn)
     {
         digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
-        if (isSettingModeOn)
-        {
-            _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        }
-        else
+        // if (isSettingModeOn)
+        // {
+        //     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        // }
+        // else
+        // {
+        //     _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        // }
+        if(!isSettingModeOn)
         {
             _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         }

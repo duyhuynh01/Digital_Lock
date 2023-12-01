@@ -10,7 +10,6 @@
 #include "gui.hpp"
 #define TimeOpenDoor 5000u
 #define TIME_POPUP 5000u
-#define TIME_OUT_SETTNG 10000u
 #define TIMEOUT 10000u
     void callFuncCheckPW(lv_event_t *e);
     void callFuncAddFP(lv_event_t *e);
@@ -19,6 +18,8 @@
     void callFuncShowFP(lv_event_t * e);
     // void notifyPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration);
     void showPopup(lv_obj_t *popup, const char *notify, uint32_t timerDuration);
+    void showPopupBtnSetting(lv_obj_t *popup, uint32_t timerDuration);
+    void hideKeyboard(lv_obj_t *popup, uint32_t timerDuration);
     const char *createNotification(const char *mess, const char *name);
     void convertNum(lv_obj_t *textarea, uint16_t value);
     void callFuncRestoreFP(lv_event_t * e);

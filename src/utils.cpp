@@ -8,6 +8,7 @@ extern uint8_t temp;
 extern uint16_t volumeTime;
 extern uint16_t startVolumeTimer;
 extern uint16_t endVolumeTimer;
+extern bool openDoorByButton;
 // extern HistoryHandler history;
 String removeSpaces(const String input)
 {
@@ -34,8 +35,8 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
     if (AdminFPID == 1)
     {
         isSettingModeOn = true;
-        _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        hideKeyboard(ui_KeyboardPWHome, 5000);
+        showPopupBtnSetting(ui_Settingbtn, 5000);
         lv_refr_now(NULL);
     }
     // open door
@@ -50,6 +51,7 @@ void criticalTaskHandler(lv_obj_t *popup, const char *notify, uint32_t timerDura
 
 void updateDoorStatusTimer()
 {
+    
     if (doorStatus == true)
     {
         if ((endOpenDoorTimer - startOpenDoorTimer) < OPEN_DOOR_TIME)
@@ -65,6 +67,7 @@ void updateDoorStatusTimer()
                 delayMicroseconds(35);
             }
             doorStatus = false;
+            // openDoorByButton = false;
         }
     }
     else
@@ -100,13 +103,12 @@ void volumeIsUsed()
         startVolumeTimer = millis();
         volumeStart = false;
     }
-
 }
 void ctrlVolumeTimer()
 {
     if (endVolumeTimer - startVolumeTimer < volumeTime)
-    {   
-        // digitalWrite(CTRL_VOLUME, HIGH);
+    {
+        digitalWrite(CTRL_VOLUME, HIGH);
         endVolumeTimer = millis();
         Serial.println("Dang keu");
     }
@@ -121,7 +123,6 @@ void ctrlVolumeTimer()
         startVolumeTimer = 0;
         endVolumeTimer = 0;
         // Serial.println("Dang khong keu");
-
     }
 }
 

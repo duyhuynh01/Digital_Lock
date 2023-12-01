@@ -11,6 +11,7 @@
 #include <historyHandler.hpp>
 
 #define MAX_INVALID_COUNT 10
+#define BUTTON_OPEN_DOOR 32
 FingerPrint myFingerPrint;
 RFID myRFID;
 Password myPassword;
@@ -36,6 +37,7 @@ uint16_t volumeTime = 0;
 uint16_t  startVolumeTimer = 0;
 uint16_t endVolumeTimer = 0;
 bool volumeStart = false;
+bool openDoorByButton = false;
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 void Task1Code(void *pvParameters);
@@ -59,7 +61,8 @@ void setup()
     pinMode(CTRL_DOOR_PIN, OUTPUT);
     pinMode(CTRL_VOLUME, OUTPUT);
     digitalWrite(CTRL_VOLUME, LOW);
-
+    pinMode(BUTTON_OPEN_DOOR, INPUT_PULLUP);
+    attachInterrupt(BUTTON_OPEN_DOOR, buttonInterrupt, FALLING);
     xTaskCreatePinnedToCore(
                     Task1Code,  /* Task function*/
                     "Task1",    /* Task name */
@@ -128,4 +131,10 @@ void loop()
     // myRFID.scanCard();
     // checkbtnSetting();
     vTaskDelete(NULL);
+}
+void IRAM_ATTR buttonInterrupt(){
+    // openDoorByButton = true;
+    // startOpenDoorTimer = millis();
+    // endOpenDoorTimer = startOpenDoorTimer;
+    // Serial.println("button uoc nhnaff");
 }

@@ -136,7 +136,7 @@ void RFID::scanCard()
             strcat(notify, printName);
             // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
             // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-            criticalTaskHandler(ui_AreaPopup, notify, 7000, -1, true); //-1 value means do not consider for adminFP to enter setting mode
+            criticalTaskHandler(ui_AreaPopup, notify, 5000, -1, true); //-1 value means do not consider for adminFP to enter setting mode
             String log = removeSpaces(String(printName)) + "-" + "RFID" + "-" + realtime.getTimeLog();
             // Serial.println(log);
             history.updateHistory(log);
@@ -375,7 +375,7 @@ void RFID::showList()
         if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
         {
             lv_table_set_cell_value(tableRFID, countRFID, 0, cardRegisteredData[i].id);
-            lv_table_set_cell_value(tableRFID, countRFID, 1, fingerprintData[i].name);
+            lv_table_set_cell_value(tableRFID, countRFID, 1, cardRegisteredData[i].name);
             countRFID++;
         }
     }
