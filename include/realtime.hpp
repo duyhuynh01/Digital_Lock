@@ -2,7 +2,7 @@
 
 class realTime
 {
-    RTC_DS1307 rtc;
+    RTC_DS3231 rtc;
     char daysOfWeek[7][12] = {
         "Sunday",
         "Monday",
@@ -15,4 +15,5 @@ public:
     realTime() : rtc() {};
     void begin();
     String getTimeLog();
+    void updateTimer();
 };

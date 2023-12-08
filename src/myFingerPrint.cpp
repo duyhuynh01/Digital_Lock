@@ -226,24 +226,8 @@ void FingerPrint::readFingerprintFromEEPROM()
     EEPROM.get(i, fingerprintData[countList]);
     countList++;
   }
-  // for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  // {
-  //   Serial.println(fingerprintData[i].id);
-  //   if (fingerprintData[i].id != 65535)
-  //   {
-  //     // Serial.println(fingerprintData[i].id);
-  //     fingerprintCount++;
-  //   }
-
-  // }
-  // Serial.print("fingeradd: ");
-  // Serial.println(fingerprintCount);
-  // fingerprintCount = 0;
   for (int i = 0; i < FINGERPRINT_COUNT; i++)
   {
-    // Serial.println(fingerprintData[i].id);
-    // Serial.println(fingerprintData[i].id);
-    // Serial.println(fingerprintData[i].name);
     if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
     {
       fingerprintCount++;
@@ -499,10 +483,7 @@ bool FingerPrint::enrollFingerprint()
     showPopup(ui_areaNotyfyAddFP, notify, TIME_POPUP);
     Serial.println("saved succcessfull!");
   }
-  // else{
-  //   showPopup(ui_areaNotyfyAddFP, " ", 10);
-  //   lv_refr_now(NULL);
-  // }
+  readFingerprintFromEEPROM();
   isEnrollFP = false;
   return true;
 }
@@ -527,6 +508,8 @@ bool FingerPrint::unEnroll(const char *admin)
     if (status != FINGERPRINT_OK)
     {
       Serial.println("Failed to delete model");
+      showPopup(ui_areaNotyfyDeleteFP, "Failed to delete!", TIME_POPUP);
+      readFingerprintFromEEPROM();
       return false;
     }
 
@@ -543,8 +526,8 @@ bool FingerPrint::unEnroll(const char *admin)
     showPopup(ui_areaNotyfyDeleteFP, "Name not found!", TIME_POPUP);
     lv_timer_handler();
     lv_refr_now(NULL);
-
     Serial.println("Name not found!");
+    readFingerprintFromEEPROM();
     return false;
   }
 

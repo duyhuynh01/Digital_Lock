@@ -117,6 +117,7 @@ void Task2Code(void * pvParameters){
     updateDoorStatusTimer();
     checkInvalidCount();
     ctrlVolume();
+    realtime.updateTimer();
     isTask2Finish = true;
     delay(10);
     }
@@ -130,6 +131,7 @@ void loop()
     // myFingerPrint.scanFinger();
     // myRFID.scanCard();
     // checkbtnSetting();
+    
     vTaskDelete(NULL);
 }
 void IRAM_ATTR buttonInterrupt(){
@@ -138,3 +140,43 @@ void IRAM_ATTR buttonInterrupt(){
     // endOpenDoorTimer = startOpenDoorTimer;
     // Serial.println("button uoc nhnaff");
 }
+
+// #include <Wire.h>
+// #include <RTClib.h>
+
+// RTC_DS3231 rtc;  // Thay đổi tên lớp thành RTC_DS3231
+
+// void setup() {
+//   Serial.begin(115200);
+
+//   if (!rtc.begin()) {
+//     Serial.println("Không tìm thấy DS3231");
+//     while (1);
+//   }
+
+//   if (!rtc.lostPower()) {
+//     Serial.println("DS3231 không chạy, bắt đầu cài đặt thời gian!");
+
+//     // Cập nhật thời gian tại đây
+//     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+//   }
+// }
+
+// void loop() {
+//   DateTime now = rtc.now();
+
+//   Serial.print(now.year(), DEC);
+//   Serial.print('/');
+//   Serial.print(now.month(), DEC);
+//   Serial.print('/');
+//   Serial.print(now.day(), DEC);
+//   Serial.print(" ");
+//   Serial.print(now.hour(), DEC);
+//   Serial.print(':');
+//   Serial.print(now.minute(), DEC);
+//   Serial.print(':');
+//   Serial.print(now.second(), DEC);
+//   Serial.println();
+
+//   delay(1000);
+// }

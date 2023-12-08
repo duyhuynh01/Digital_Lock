@@ -251,6 +251,17 @@ void hidePopupArea(lv_timer_t *timer)
 }
 
 
+void hidePopupSetting(lv_obj_t *popup)
+{
+    _ui_flag_modify(popup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+}
+
+void hidePopupAreaBtnSetting(lv_timer_t *timer)
+{
+    lv_obj_t *popup = (lv_obj_t *)timer->user_data;
+    hidePopupSetting(popup);
+}
+
 
 void showPopupBtnSetting(lv_obj_t *popup, uint32_t timerDuration)
 {
@@ -260,9 +271,15 @@ void showPopupBtnSetting(lv_obj_t *popup, uint32_t timerDuration)
         lv_timer_del(hidePopupTimerBtnSetting);
     }
     // Tạo một timer để tự động ẩn thông báo sau một khoảng thời gian
-    hidePopupTimerBtnSetting = lv_timer_create(hidePopupArea, timerDuration, popup);
+    hidePopupTimerBtnSetting = lv_timer_create(hidePopupAreaBtnSetting, timerDuration, popup);
     lv_refr_now(NULL);
 }
+
+
+
+
+
+
 void showKeyboard(lv_timer_t *timer)
 {
     lv_obj_t *popup = (lv_obj_t *)timer->user_data;
