@@ -215,12 +215,7 @@ lv_obj_t *ui_areaNotyfyDeleteCard;
 lv_obj_t *ui_KeyboardCardDelete;
 void ui_event_btnDeleteCard(lv_event_t *e);
 void ui_event_PressedOkDeleteCard(lv_event_t *e);
-lv_obj_t *ui_btnHomeCard;
-lv_obj_t *ui_BackHomeCard;
-void ui_event_btnHomeCard( lv_event_t * e);
-lv_obj_t *ui_BackHomeFP;
-lv_obj_t *ui_btnHomeFP;
-void ui_event_btnHomeFinger( lv_event_t * e);
+
 // SCREEN: ui_screenCardShow
 void ui_screenCardShow_screen_init(void);
 lv_obj_t *ui_screenCardShow;
@@ -1121,30 +1116,6 @@ void ui_event_btnHomeHistory(lv_event_t *e)
         lv_obj_del(table);
         table = NULL;
         flagHistory = false;
-        isSettingMode_usedToBlockAuth = false;
-    }
-}
-void ui_event_btnHomeCard(lv_event_t *e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
-        _ui_screen_delete(&ui_SceenCard);
-        isSettingMode_usedToBlockAuth = false;
-    }
-}
-void ui_event_btnHomeFinger( lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t *target = lv_event_get_target(e);
-    if (event_code == LV_EVENT_PRESSED)
-    {
-        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
-        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_screen_delete(&ui_SceenFinger);
         isSettingMode_usedToBlockAuth = false;
     }
 }

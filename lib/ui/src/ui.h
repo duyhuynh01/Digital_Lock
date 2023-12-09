@@ -285,15 +285,6 @@ extern lv_obj_t *ui_btnHomeHistory;
 extern lv_obj_t *ui_BackHomeHistory;
 extern lv_obj_t *ui_areaShowHistory;
 
-extern lv_obj_t *ui_btnHomeCard;
-extern lv_obj_t *ui_BackHomeCard;
-void ui_event_btnHomeCard( lv_event_t * e);
-
-extern lv_obj_t *ui_BackHomeFP;
-extern lv_obj_t *ui_btnHomeFP;
-void ui_event_btnHomeFinger( lv_event_t * e);
-
-
 LV_IMG_DECLARE( ui_img_iconunlock_png);   // assets\iconUnlock.png
 LV_IMG_DECLARE( ui_img_iconsetting_png);   // assets\iconSetting.png
 LV_IMG_DECLARE( ui_img_iconhome_png);   // assets\iconHome.png
