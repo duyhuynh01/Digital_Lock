@@ -10,7 +10,7 @@
 #include "gui.hpp"
 #define TimeOpenDoor 5000u
 #define TIME_POPUP 2000u
-#define TIMEOUT 10000u
+#define TIMEOUT 15000u
     void callFuncCheckPW(lv_event_t *e);
     void callFuncAddFP(lv_event_t *e);
     void callFuncDeleteFP(lv_event_t * e);

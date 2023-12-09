@@ -100,15 +100,9 @@ void Task1Code(void * pvParameters){
         isTask1Finish = true;
         delay(10);
     }
-
 }
 void Task2Code(void * pvParameters){
     for(;;){
-
-        while (isEnrollFP == true)
-        {
-            delayMicroseconds(35);
-        }
     isTask2Finish = false;
     if(!tooManyInvalid && !isSettingMode_usedToBlockAuth)
     {
@@ -118,7 +112,7 @@ void Task2Code(void * pvParameters){
     updateDoorStatusTimer();
     checkInvalidCount();
     ctrlVolume();
-    realtime.updateTimer();
+    // realtime.updateTimer();
     isTask2Finish = true;
     delay(10);
     }

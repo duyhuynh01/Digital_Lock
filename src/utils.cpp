@@ -110,7 +110,6 @@ void ctrlVolumeTimer()
     {
         digitalWrite(CTRL_VOLUME, HIGH);
         endVolumeTimer = millis();
-        Serial.println("Dang keu");
     }
     else
     {
@@ -122,7 +121,6 @@ void ctrlVolumeTimer()
         digitalWrite(CTRL_VOLUME, LOW);
         startVolumeTimer = 0;
         endVolumeTimer = 0;
-        // Serial.println("Dang khong keu");
     }
 }
 
