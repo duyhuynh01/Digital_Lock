@@ -32,10 +32,10 @@ int myEEPROM::read(uint16_t addr){
     return EEPROM.read(addr);
 }
 
-void myEEPROM::readAll(){
-    for (int i = 0; i < EEPROM.length(); i++){
-        if (read(i) != 0){
-            Serial.print("Value at addr "); Serial.print(i); Serial.print(" is "); Serial.println(read(i));
-        }
-    }
-}
+// void myEEPROM::readAll(){
+//     for (int i = 0; i < 7; i++){
+//         if (read(i) != 0){
+//             Serial.print("Value at addr "); Serial.print(i); Serial.print(" is "); Serial.println(read(i));
+//         }
+//     }
+// }

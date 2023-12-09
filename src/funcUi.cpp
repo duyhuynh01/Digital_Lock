@@ -19,6 +19,7 @@ extern lv_obj_t *tableFP;
 extern bool flagShowFP;
 extern lv_obj_t *tableRFID;
 extern bool flagShowRFID;
+extern bool isSettingMode_usedToBlockAuth;
 const char *PasswordUnlock = "";
 lv_timer_t *hidePopupTimer;
 lv_timer_t *hidePopupTimerBtnSetting;
@@ -389,6 +390,7 @@ void controlScreen()
 
         _ui_flag_modify(ui_Settingbtn, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         lv_disp_load_scr(ui_Screen1);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 

@@ -10,6 +10,7 @@
 #include "realtime.hpp"
 #include <historyHandler.hpp>
 
+
 #define MAX_INVALID_COUNT 10
 #define BUTTON_OPEN_DOOR 32
 FingerPrint myFingerPrint;
@@ -29,7 +30,7 @@ bool isTask2Finish = false;
 uint8_t invalidCount = 0;
 extern bool tooManyInvalid;
 uint8_t temp= 1;
-
+bool isSettingMode_usedToBlockAuth = false;
 unsigned int startOpenDoorTimer = 0;
 unsigned int endOpenDoorTimer = 0;
 bool doorStatus = false;
@@ -109,7 +110,7 @@ void Task2Code(void * pvParameters){
             delayMicroseconds(35);
         }
     isTask2Finish = false;
-    if(!tooManyInvalid)
+    if(!tooManyInvalid && !isSettingMode_usedToBlockAuth)
     {
         myFingerPrint.scanFinger();
         myRFID.scanCard();

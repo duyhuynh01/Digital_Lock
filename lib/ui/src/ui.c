@@ -310,6 +310,7 @@ bool flagUnlock = false;
 // }
 
 extern bool isSettingModeOn;
+extern bool isSettingMode_usedToBlockAuth;
 void ui_event_Settingbtn(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -322,6 +323,7 @@ void ui_event_Settingbtn(lv_event_t *e)
         _ui_screen_change(&ui_ScreenSetting, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, &ui_ScreenSetting_screen_init);
         _ui_screen_delete(&ui_Screen1);
         isSettingModeOn = false;
+        isSettingMode_usedToBlockAuth = true;
     }
 }
 
@@ -507,6 +509,7 @@ void ui_event_btnHomeAddFP(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 void ui_event_PanelFingerDelete(lv_event_t *e)
@@ -558,6 +561,7 @@ void ui_event_btnHomeFingerDelete(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 extern lv_obj_t *tableFP;
@@ -722,6 +726,7 @@ void ui_event_btnHomeAddCard(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 void ui_event_BackHomeAddFinger3(lv_event_t *e)
@@ -785,6 +790,7 @@ void ui_event_btnHomeCardDelete(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 extern lv_obj_t *tableRFID;
@@ -816,6 +822,7 @@ void ui_event_btnHomeShowCard(lv_event_t *e)
         _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_AreaPopup, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 void ui_event_PanelPassword(lv_event_t *e)
@@ -849,6 +856,7 @@ void ui_event_btnHomePW(lv_event_t *e)
     {
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_SceenPassword);
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 
@@ -1108,6 +1116,7 @@ void ui_event_btnHomeHistory(lv_event_t *e)
         lv_obj_del(table);
         table = NULL;
         flagHistory = false;
+        isSettingMode_usedToBlockAuth = false;
     }
 }
 ///////////////////// SCREENS ////////////////////
