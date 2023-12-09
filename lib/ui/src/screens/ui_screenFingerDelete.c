@@ -25,7 +25,7 @@ lv_obj_set_align( ui_Label20, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label20,"Delete fingerprint");
 lv_obj_set_style_text_color(ui_Label20, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label20, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label20, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_Label20, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_panelDeleteFinger = lv_obj_create(ui_screenFingerDelete);
 lv_obj_set_height( ui_panelDeleteFinger, 275);
@@ -37,8 +37,8 @@ lv_obj_set_style_bg_color(ui_panelDeleteFinger, lv_color_hex(0x000000), LV_PART_
 lv_obj_set_style_bg_opa(ui_panelDeleteFinger, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Label21 = lv_label_create(ui_panelDeleteFinger);
-lv_obj_set_width( ui_Label21, 180);
-lv_obj_set_height( ui_Label21, 24);
+lv_obj_set_width( ui_Label21, 200);
+lv_obj_set_height( ui_Label21, 40);
 lv_obj_set_x( ui_Label21, 0 );
 lv_obj_set_y( ui_Label21, 100 );
 lv_obj_set_align( ui_Label21, LV_ALIGN_TOP_MID );
@@ -46,10 +46,10 @@ lv_label_set_text(ui_Label21,"Enter a user that you want to delete\n");
 lv_obj_set_style_text_color(ui_Label21, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label21, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_align(ui_Label21, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label21, &lv_font_montserrat_10, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_Label21, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_areaEnterNameFP1 = lv_textarea_create(ui_panelDeleteFinger);
-lv_obj_set_width( ui_areaEnterNameFP1, lv_pct(71));
+lv_obj_set_width( ui_areaEnterNameFP1, lv_pct(80));
 lv_obj_set_height( ui_areaEnterNameFP1, LV_SIZE_CONTENT);   /// 45
 lv_obj_set_x( ui_areaEnterNameFP1, 0 );
 lv_obj_set_y( ui_areaEnterNameFP1, 60 );
@@ -61,7 +61,7 @@ lv_obj_set_style_text_align(ui_areaEnterNameFP1, LV_TEXT_ALIGN_CENTER, LV_PART_M
 
 
 ui_btnDeleteFinger = lv_btn_create(ui_panelDeleteFinger);
-lv_obj_set_width( ui_btnDeleteFinger, 70);
+lv_obj_set_width( ui_btnDeleteFinger, 80);
 lv_obj_set_height( ui_btnDeleteFinger, 35);
 lv_obj_set_x( ui_btnDeleteFinger, 0 );
 lv_obj_set_y( ui_btnDeleteFinger, 50 );
@@ -76,10 +76,11 @@ lv_obj_set_width( ui_Label22, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label22, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( ui_Label22, LV_ALIGN_CENTER );
 lv_label_set_text(ui_Label22,"DELETE");
+lv_obj_set_style_text_font(ui_Label22, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnBackFingerDelete = lv_btn_create(ui_screenFingerDelete);
 lv_obj_set_width( ui_btnBackFingerDelete, 50);
-lv_obj_set_height( ui_btnBackFingerDelete, 23);
+lv_obj_set_height( ui_btnBackFingerDelete, 26);
 lv_obj_set_x( ui_btnBackFingerDelete, 5 );
 lv_obj_set_y( ui_btnBackFingerDelete, -5 );
 lv_obj_set_align( ui_btnBackFingerDelete, LV_ALIGN_BOTTOM_LEFT );
@@ -96,11 +97,11 @@ lv_obj_set_align( ui_BackFinger2, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackFinger2,"Back");
 lv_obj_set_style_text_color(ui_BackFinger2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_BackFinger2, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_BackFinger2, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackFinger2, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnHomeFingerDelete = lv_btn_create(ui_screenFingerDelete);
-lv_obj_set_width( ui_btnHomeFingerDelete, 50);
-lv_obj_set_height( ui_btnHomeFingerDelete, 23);
+lv_obj_set_width( ui_btnHomeFingerDelete, 53);
+lv_obj_set_height( ui_btnHomeFingerDelete, 26);
 lv_obj_set_x( ui_btnHomeFingerDelete, -7 );
 lv_obj_set_y( ui_btnHomeFingerDelete, -5 );
 lv_obj_set_align( ui_btnHomeFingerDelete, LV_ALIGN_BOTTOM_RIGHT );
@@ -117,11 +118,11 @@ lv_obj_set_align( ui_BackHomeAddFinger1, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackHomeAddFinger1,"Home");
 lv_obj_set_style_text_color(ui_BackHomeAddFinger1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_BackHomeAddFinger1, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_BackHomeAddFinger1, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackHomeAddFinger1, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_areaNotyfyDeleteFP = lv_textarea_create(ui_screenFingerDelete);
 lv_obj_set_height( ui_areaNotyfyDeleteFP, 80);
-lv_obj_set_width( ui_areaNotyfyDeleteFP, lv_pct(80));
+lv_obj_set_width( ui_areaNotyfyDeleteFP, lv_pct(90));
 lv_obj_set_x( ui_areaNotyfyDeleteFP, 0 );
 lv_obj_set_y( ui_areaNotyfyDeleteFP, -5 );
 lv_obj_set_align( ui_areaNotyfyDeleteFP, LV_ALIGN_CENTER );
@@ -131,7 +132,7 @@ lv_obj_add_flag( ui_areaNotyfyDeleteFP, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_color(ui_areaNotyfyDeleteFP, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_color(ui_areaNotyfyDeleteFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_align(ui_areaNotyfyDeleteFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_areaNotyfyDeleteFP, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_areaNotyfyDeleteFP, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_bg_color(ui_areaNotyfyDeleteFP, lv_color_hex(0xE3E1E1), LV_PART_MAIN | LV_STATE_DEFAULT );
 // lv_obj_set_style_bg_opa(ui_areaNotyfyDeleteFP, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_border_color(ui_areaNotyfyDeleteFP, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );

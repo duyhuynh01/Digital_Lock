@@ -593,8 +593,8 @@ void FingerPrint::showList()
   {
     if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
     {
-      
-      char str[5];  // 5 chữ số + ký tự kết thúc chuỗi ('\0')
+
+      char str[5]; // 5 chữ số + ký tự kết thúc chuỗi ('\0')
       snprintf(str, sizeof(str), "%hu", fingerprintData[i].id);
       lv_table_set_cell_value(tableFP, countFP, 0, str);
       lv_table_set_cell_value(tableFP, countFP, 1, fingerprintData[i].name);
@@ -607,7 +607,8 @@ void FingerPrint::showList()
   lv_obj_set_style_text_font(tableFP, &lv_font_montserrat_10, LV_PART_MAIN);
   lv_obj_set_style_text_color(tableFP, lv_color_hex(0x000000), LV_PART_MAIN);
   lv_obj_set_style_bg_color(tableFP, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
-  lv_obj_set_style_text_align(tableFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+  lv_obj_set_style_text_align(tableFP, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_obj_set_style_text_font(tableFP, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
   // lv_obj_set_size(table, 235, 220);
   lv_obj_set_height(tableFP, 230);

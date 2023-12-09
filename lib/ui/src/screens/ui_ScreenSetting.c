@@ -17,76 +17,84 @@ lv_obj_set_align( ui_Panel1, LV_ALIGN_CENTER );
 lv_obj_clear_flag( ui_Panel1, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
 lv_obj_set_style_bg_color(ui_Panel1, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_Panel1, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_radius(ui_Panel1, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_border_color(ui_Panel1, lv_color_hex(0x000000), LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_HomeOptionbtn = lv_imgbtn_create(ui_Panel1);
 lv_imgbtn_set_src(ui_HomeOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconhome_png, NULL);
-lv_obj_set_width( ui_HomeOptionbtn, 50);
-lv_obj_set_height( ui_HomeOptionbtn, 50);
-lv_obj_set_x( ui_HomeOptionbtn, -50 );
-lv_obj_set_y( ui_HomeOptionbtn, 54 );
+lv_obj_set_width( ui_HomeOptionbtn, 65);
+lv_obj_set_height( ui_HomeOptionbtn, 65);
+lv_obj_set_x( ui_HomeOptionbtn, -57 );
+lv_obj_set_y( ui_HomeOptionbtn, 40 );
 lv_obj_set_align( ui_HomeOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_PWOptionbtn = lv_imgbtn_create(ui_Panel1);
 lv_imgbtn_set_src(ui_PWOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconpassword_png, NULL);
-lv_obj_set_width( ui_PWOptionbtn, 50);
-lv_obj_set_height( ui_PWOptionbtn, 50);
-lv_obj_set_x( ui_PWOptionbtn, 50 );
-lv_obj_set_y( ui_PWOptionbtn, 54 );
+lv_obj_set_width( ui_PWOptionbtn, 65);
+lv_obj_set_height( ui_PWOptionbtn, 65);
+lv_obj_set_x( ui_PWOptionbtn, 55 );
+lv_obj_set_y( ui_PWOptionbtn, 40 );
 lv_obj_set_align( ui_PWOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_FPOptionbtn = lv_imgbtn_create(ui_Panel1);
 lv_imgbtn_set_src(ui_FPOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconfinger_png, NULL);
-lv_obj_set_width( ui_FPOptionbtn, 50);
-lv_obj_set_height( ui_FPOptionbtn, 50);
-lv_obj_set_x( ui_FPOptionbtn, -50 );
-lv_obj_set_y( ui_FPOptionbtn, 169 );
+lv_obj_set_width( ui_FPOptionbtn, 65);
+lv_obj_set_height( ui_FPOptionbtn, 65);
+lv_obj_set_x( ui_FPOptionbtn, -57 );
+lv_obj_set_y( ui_FPOptionbtn, 170 );
 lv_obj_set_align( ui_FPOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_CardOptionbtn = lv_imgbtn_create(ui_Panel1);
 lv_imgbtn_set_src(ui_CardOptionbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconcard_png, NULL);
-lv_obj_set_width( ui_CardOptionbtn, 50);
-lv_obj_set_height( ui_CardOptionbtn, 50);
-lv_obj_set_x( ui_CardOptionbtn, 50 );
-lv_obj_set_y( ui_CardOptionbtn, 169 );
+lv_obj_set_width( ui_CardOptionbtn, 65);
+lv_obj_set_height( ui_CardOptionbtn, 65);
+lv_obj_set_x( ui_CardOptionbtn, 55 );
+lv_obj_set_y( ui_CardOptionbtn, 170 );
 lv_obj_set_align( ui_CardOptionbtn, LV_ALIGN_TOP_MID );
 
 ui_Label3 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label3, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label3, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label3, -50 );
-lv_obj_set_y( ui_Label3, 107 );
+lv_obj_set_x( ui_Label3, -57 );
+lv_obj_set_y( ui_Label3, 110 );
 lv_obj_set_align( ui_Label3, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label3,"History");
 lv_obj_set_style_text_color(ui_Label3, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_text_font(ui_Label3, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_opa(ui_Label3, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Label9 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label9, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label9, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label9, 50 );
-lv_obj_set_y( ui_Label9, 107 );
+lv_obj_set_x( ui_Label9, 55 );
+lv_obj_set_y( ui_Label9, 110 );
 lv_obj_set_align( ui_Label9, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label9,"Password");
+lv_obj_set_style_text_font(ui_Label9, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_color(ui_Label9, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label9, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Label10 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label10, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label10, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label10, 50 );
-lv_obj_set_y( ui_Label10, 222 );
+lv_obj_set_x( ui_Label10, 55 );
+lv_obj_set_y( ui_Label10, 240 );
 lv_obj_set_align( ui_Label10, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label10,"Card");
+lv_obj_set_style_text_font(ui_Label10, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+
 lv_obj_set_style_text_color(ui_Label10, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label10, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Label11 = lv_label_create(ui_Panel1);
 lv_obj_set_width( ui_Label11, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label11, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label11, -50 );
-lv_obj_set_y( ui_Label11, 222 );
+lv_obj_set_x( ui_Label11, -57 );
+lv_obj_set_y( ui_Label11, 240 );
 lv_obj_set_align( ui_Label11, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label11,"Fingerprint");
+lv_obj_set_style_text_font(ui_Label11, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+
 lv_obj_set_style_text_color(ui_Label11, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label11, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 

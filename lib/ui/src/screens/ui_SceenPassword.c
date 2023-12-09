@@ -25,7 +25,7 @@ lv_obj_set_align( ui_Label41, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_Label41,"PASSWORD SETTING");
 lv_obj_set_style_text_color(ui_Label41, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label41, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label41, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_Label41, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_areaPWCurrent = lv_textarea_create(ui_PanelPassword);
 lv_obj_set_width( ui_areaPWCurrent, 160);
@@ -93,7 +93,7 @@ lv_obj_set_style_text_font(ui_areaPWPadding, &lv_font_montserrat_18, LV_PART_MAI
 
 ui_btnBackPW = lv_btn_create(ui_SceenPassword);
 lv_obj_set_width( ui_btnBackPW, 50);
-lv_obj_set_height( ui_btnBackPW, 23);
+lv_obj_set_height( ui_btnBackPW, 26);
 lv_obj_set_x( ui_btnBackPW, 5 );
 lv_obj_set_y( ui_btnBackPW, -5 );
 lv_obj_set_align( ui_btnBackPW, LV_ALIGN_BOTTOM_LEFT );
@@ -110,21 +110,43 @@ lv_obj_set_align( ui_BackFinger8, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackFinger8,"Back");
 lv_obj_set_style_text_color(ui_BackFinger8, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_BackFinger8, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_BackFinger8, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackFinger8, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+
+ui_btnHomePW = lv_btn_create(ui_SceenPassword);
+lv_obj_set_width( ui_btnHomePW, 53);
+lv_obj_set_height( ui_btnHomePW, 26);
+lv_obj_set_x( ui_btnHomePW, -7 );
+lv_obj_set_y( ui_btnHomePW, -5 );
+lv_obj_set_align( ui_btnHomePW, LV_ALIGN_BOTTOM_RIGHT);
+lv_obj_add_flag( ui_btnHomePW, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
+lv_obj_clear_flag( ui_btnHomePW, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_obj_set_style_radius(ui_btnHomePW, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_bg_color(ui_btnHomePW, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_opa(ui_btnHomePW, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+ui_HomePW = lv_label_create(ui_btnHomePW);
+lv_obj_set_width( ui_HomePW, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_HomePW, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_HomePW, LV_ALIGN_CENTER );
+lv_label_set_text(ui_HomePW,"Home");
+lv_obj_set_style_text_color(ui_HomePW, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_text_opa(ui_HomePW, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_HomePW, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Label37 = lv_label_create(ui_SceenPassword);
 lv_obj_set_width( ui_Label37, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label37, LV_SIZE_CONTENT);   /// 1
 // lv_obj_set_x( ui_Label37, 0 );
-lv_obj_set_y( ui_Label37, -33 );
+lv_obj_set_y( ui_Label37, -36 );
 lv_obj_set_align( ui_Label37, LV_ALIGN_CENTER );
 lv_label_set_text(ui_Label37,"6-digit passcode");
 lv_obj_set_style_text_color(ui_Label37, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label37, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label37, &lv_font_montserrat_10, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_Label37, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnChangePW = lv_btn_create(ui_SceenPassword);
-lv_obj_set_width( ui_btnChangePW, 70);
+lv_obj_set_width( ui_btnChangePW, 90);
 lv_obj_set_height( ui_btnChangePW, 35);
 lv_obj_set_x( ui_btnChangePW, 0 );
 lv_obj_set_y( ui_btnChangePW, 105 );
@@ -139,24 +161,37 @@ lv_obj_set_width( ui_Label38, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( ui_Label38, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( ui_Label38, LV_ALIGN_CENTER );
 lv_label_set_text(ui_Label38,"CHANGE");
+lv_obj_set_style_text_font(ui_Label38, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_KeyboardChangePW = lv_keyboard_create(ui_SceenPassword);
 lv_keyboard_set_mode(ui_KeyboardChangePW,LV_KEYBOARD_MODE_NUMBER);
+/* Tạo một style */
+static lv_style_t style_kb_PW;
+lv_style_init(&style_kb_PW);
+lv_style_set_bg_color(&style_kb_PW, lv_color_hex(0x000000)); // Màu nền mặc định
+lv_style_set_text_color(&style_kb_PW, lv_color_hex(0xFFFFFF));
+lv_style_set_border_color(&style_kb_PW, lv_color_hex(0x000000));
+lv_style_set_text_font(&style_kb_PW, &lv_font_montserrat_34);
+
+/* Gán style cho bàn phím */
+lv_obj_add_style(ui_KeyboardChangePW, &style_kb_PW, LV_PART_ITEMS);
+lv_obj_add_style(ui_KeyboardChangePW, &style_kb_PW, LV_PART_MAIN);
 lv_obj_set_height( ui_KeyboardChangePW, 200);
 lv_obj_set_width( ui_KeyboardChangePW, lv_pct(100));
 lv_obj_set_align( ui_KeyboardChangePW, LV_ALIGN_BOTTOM_MID );
 lv_obj_add_flag( ui_KeyboardChangePW, LV_OBJ_FLAG_HIDDEN );   /// Flags
 
+
 ui_areaNotifyChangePW = lv_textarea_create(ui_SceenPassword);
 lv_obj_set_height( ui_areaNotifyChangePW, 80);
-lv_obj_set_width( ui_areaNotifyChangePW, lv_pct(80));
+lv_obj_set_width( ui_areaNotifyChangePW, lv_pct(90));
 lv_obj_set_align( ui_areaNotifyChangePW, LV_ALIGN_CENTER );
 lv_textarea_set_placeholder_text(ui_areaNotifyChangePW,"Placeholder...");
 lv_obj_add_flag( ui_areaNotifyChangePW, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_color(ui_areaNotifyChangePW, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_color(ui_areaNotifyChangePW, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_align(ui_areaNotifyChangePW, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_areaNotifyChangePW, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_areaNotifyChangePW, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_shadow_width(ui_areaNotifyChangePW, 50, LV_PART_MAIN| LV_STATE_DEFAULT);
 // lv_obj_set_style_shadow_spread(ui_areaNotifyChangePW, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_areaNotifyChangePW, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -171,6 +206,7 @@ lv_obj_add_event_cb(ui_areaPWNew, ui_event_areaPWNew, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_areaPWConfirm, ui_event_areaPWConfirm, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PanelPassword, ui_event_PanelPassword, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackPW, ui_event_btnBackPW, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_btnHomePW, ui_event_btnHomePW, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnChangePW, ui_event_btnChangePW, LV_EVENT_ALL, NULL);
 lv_keyboard_set_textarea(ui_KeyboardChangePW,ui_areaPWPadding);
 lv_obj_add_event_cb(ui_KeyboardChangePW, ui_event_KeyboardChangePWOk, LV_EVENT_PRESSED, NULL);

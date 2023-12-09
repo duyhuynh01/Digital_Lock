@@ -257,6 +257,7 @@ void ui_event_areaPWConfirm( lv_event_t * e);
 extern lv_obj_t *ui_areaPWConfirm;
 extern lv_obj_t *ui_areaPWPadding;
 void ui_event_btnBackPW( lv_event_t * e);
+void ui_event_btnHomePW(lv_event_t *e);
 extern lv_obj_t *ui_btnBackPW;
 extern lv_obj_t *ui_BackFinger8;
 extern lv_obj_t *ui_Label37;
@@ -266,6 +267,8 @@ extern lv_obj_t *ui_Label38;
 extern lv_obj_t *ui_KeyboardChangePW;
 extern lv_obj_t *ui_areaNotifyChangePW;
 extern lv_obj_t *ui____initial_actions0;
+extern lv_obj_t *ui_btnHomePW;
+extern lv_obj_t *ui_HomePW;
 void ui_event_KeyboardChangePWOk( lv_event_t * e);
 //ScreenHistory
 // SCREEN: ui_screenHistory

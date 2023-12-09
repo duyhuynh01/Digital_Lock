@@ -383,6 +383,9 @@ void RFID::showList()
     lv_obj_set_style_text_color(tableRFID, lv_color_hex(0x000000), LV_PART_MAIN);
     lv_obj_set_style_bg_color(tableRFID, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
     lv_obj_set_style_text_align(tableRFID, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(tableRFID, &lv_font_montserrat_14, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+
     // lv_obj_set_size(table, 235, 220);
     lv_obj_set_height(tableRFID, 230);
     lv_obj_center(tableRFID);

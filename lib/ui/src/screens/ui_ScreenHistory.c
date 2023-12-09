@@ -25,7 +25,7 @@ lv_obj_set_align( ui_LabelHistory, LV_ALIGN_TOP_MID );
 lv_label_set_text(ui_LabelHistory,"History");
 lv_obj_set_style_text_color(ui_LabelHistory, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_LabelHistory, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_LabelHistory, &lv_font_montserrat_12, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_LabelHistory, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_panelHistory = lv_obj_create(ui_screenHistory);
 lv_obj_set_height( ui_panelHistory, 275);
@@ -38,7 +38,7 @@ lv_obj_set_style_bg_opa(ui_panelHistory, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnBackHistory = lv_btn_create(ui_screenHistory);
 lv_obj_set_width( ui_btnBackHistory, 50);
-lv_obj_set_height( ui_btnBackHistory, 23);
+lv_obj_set_height( ui_btnBackHistory, 26);
 lv_obj_set_x( ui_btnBackHistory, 5 );
 lv_obj_set_y( ui_btnBackHistory, -5 );
 lv_obj_set_align( ui_btnBackHistory, LV_ALIGN_BOTTOM_LEFT );
@@ -55,11 +55,11 @@ lv_obj_set_align( ui_BackHistory, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackHistory,"Back");
 lv_obj_set_style_text_color(ui_BackHistory, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_BackHistory, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_BackHistory, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackHistory, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnHomeHistory = lv_btn_create(ui_screenHistory);
-lv_obj_set_width( ui_btnHomeHistory, 50);
-lv_obj_set_height( ui_btnHomeHistory, 23);
+lv_obj_set_width( ui_btnHomeHistory, 53);
+lv_obj_set_height( ui_btnHomeHistory, 26);
 lv_obj_set_x( ui_btnHomeHistory, -7 );
 lv_obj_set_y( ui_btnHomeHistory, -5 );
 lv_obj_set_align( ui_btnHomeHistory, LV_ALIGN_BOTTOM_RIGHT );
@@ -76,7 +76,7 @@ lv_obj_set_align( ui_BackHomeHistory, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackHomeHistory,"Home");
 lv_obj_set_style_text_color(ui_BackHomeHistory, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_BackHomeHistory, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_BackHomeHistory, &lv_font_montserrat_16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackHomeHistory, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 // ui_areaShowHistory = lv_textarea_create(ui_screenHistory);
 // lv_obj_set_width( ui_areaShowHistory, lv_pct(95));

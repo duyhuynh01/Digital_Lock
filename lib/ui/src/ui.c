@@ -252,6 +252,10 @@ lv_obj_t *ui_btnChangePW;
 lv_obj_t *ui_Label38;
 lv_obj_t *ui_KeyboardChangePW;
 lv_obj_t *ui_areaNotifyChangePW;
+lv_obj_t *ui_btnHomePW;
+lv_obj_t *ui_HomePW;
+void ui_event_btnHomePW(lv_event_t *e);
+
 lv_obj_t *ui____initial_actions0;
 void ui_event_KeyboardChangePWOk(lv_event_t *e);
 
@@ -261,10 +265,10 @@ lv_obj_t *ui_screenHistory;
 lv_obj_t *ui_PanelHistoryHeader;
 lv_obj_t *ui_LabelHistory;
 lv_obj_t *ui_panelHistory;
-void ui_event_btnBackHistory( lv_event_t * e);
+void ui_event_btnBackHistory(lv_event_t *e);
 lv_obj_t *ui_btnBackHistory;
 lv_obj_t *ui_BackHistory;
-void ui_event_btnHomeHistory (lv_event_t * e);
+void ui_event_btnHomeHistory(lv_event_t *e);
 lv_obj_t *ui_btnHomeHistory;
 lv_obj_t *ui_BackHomeHistory;
 lv_obj_t *ui_areaShowHistory;
@@ -335,7 +339,6 @@ void ui_event_HomeOptionbtn(lv_event_t *e)
         _ui_screen_change(&ui_screenHistory, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, &ui_screenHistory_screen_init);
         _ui_screen_delete(&ui_ScreenSetting);
         callFuncShowHistory(e);
-
     }
 }
 void ui_event_PWOptionbtn(lv_event_t *e)
@@ -344,6 +347,9 @@ void ui_event_PWOptionbtn(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_areaPWCurrent, "");
+        lv_textarea_set_text(ui_areaPWNew, "");
+        lv_textarea_set_text(ui_areaPWConfirm, "");
         _ui_screen_change(&ui_SceenPassword, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 100, 0, &ui_SceenPassword_screen_init);
         _ui_screen_delete(&ui_ScreenSetting);
     }
@@ -794,8 +800,6 @@ void ui_event_btnBackShowCard(lv_event_t *e)
         lv_obj_del(tableRFID);
         tableRFID = NULL;
         flagShowRFID = false;
-
-
     }
 }
 void ui_event_btnHomeShowCard(lv_event_t *e)
@@ -836,6 +840,18 @@ void ui_event_btnBackPW(lv_event_t *e)
         _ui_screen_delete(&ui_SceenPassword);
     }
 }
+
+void ui_event_btnHomePW(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_SceenPassword);
+    }
+}
+
 void ui_event_btnChangePW(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -1066,7 +1082,7 @@ void ui_event_PressedOkPW(lv_event_t *e)
 // }
 extern lv_obj_t *table;
 extern bool flagHistory;
-void ui_event_btnBackHistory( lv_event_t * e)
+void ui_event_btnBackHistory(lv_event_t *e)
 {
 
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -1081,7 +1097,7 @@ void ui_event_btnBackHistory( lv_event_t * e)
     }
 }
 
-void ui_event_btnHomeHistory( lv_event_t * e)
+void ui_event_btnHomeHistory(lv_event_t *e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t *target = lv_event_get_target(e);

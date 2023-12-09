@@ -145,10 +145,10 @@ lv_obj_add_flag( ui_AreaPopup, LV_OBJ_FLAG_HIDDEN );
 
 ui_Settingbtn = lv_imgbtn_create(ui_Screen1);
 lv_imgbtn_set_src(ui_Settingbtn, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_iconsetting_png, NULL);
-lv_obj_set_width( ui_Settingbtn, 50);
-lv_obj_set_height( ui_Settingbtn, 50);
+lv_obj_set_width( ui_Settingbtn, 65);
+lv_obj_set_height( ui_Settingbtn, 65);
 lv_obj_set_x( ui_Settingbtn, 0 );
-lv_obj_set_y( ui_Settingbtn, 70 );
+lv_obj_set_y( ui_Settingbtn, 80 );
 lv_obj_set_align( ui_Settingbtn, LV_ALIGN_CENTER );
 lv_obj_set_style_img_recolor(ui_Settingbtn, lv_color_hex(0x000000), LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_img_recolor_opa(ui_Settingbtn, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
