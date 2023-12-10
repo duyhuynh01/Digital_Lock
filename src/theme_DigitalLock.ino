@@ -121,13 +121,6 @@ void Task2Code(void * pvParameters){
 
 void loop()
 {
-    // controlScreen();
-    // lv_timer_handler();
-    // delay(5);
-    // myFingerPrint.scanFinger();
-    // myRFID.scanCard();
-    // checkbtnSetting();
-    
     vTaskDelete(NULL);
 }
 void IRAM_ATTR buttonInterrupt(){

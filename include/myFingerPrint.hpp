@@ -22,23 +22,10 @@ extern uint8_t errorCount;
 extern bool isDoorOpen;
 extern bool flagModeSetting;
 
-
-enum fingerLocalStatus{
-    //enum used for enroll method 
-    FINGER_OK,
-    FINGER_ERROR,
-    FINGER_TIMEOUT,
-};
-
 struct DataFingerprint {
   int8_t id;
   String name;
 };
-
-
-#define FINGERPRINT_COUNT 20
-#define FINGERPRINT_START_ADDRESS 100 
-#define FINGERPRINT_END_ADDRESS 299
 
 class FingerPrint {
     Adafruit_Fingerprint finger;
@@ -58,7 +45,5 @@ public:
     const char* getNameByID(int8_t);
     int8_t getID();
     ~FingerPrint();
-private:
-    int16_t fingerprintCount;
 };
 #endif
