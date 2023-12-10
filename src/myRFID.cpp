@@ -218,7 +218,7 @@ bool RFID::enrollCard()
             {
                 strcpy(name, getName);
             }
-            myFingerPrint.padNameWithSpaces(name);
+            // myFingerPrint.padNameWithSpaces(name);
             strcpy(cardRegisteredData[position].id, cardID);
             strcpy(cardRegisteredData[position].name, name);
             cardCount++;
@@ -231,7 +231,7 @@ bool RFID::enrollCard()
             {
                 strcpy(name, getName);
             }
-            myFingerPrint.padNameWithSpaces(name);
+            // myFingerPrint.padNameWithSpaces(name);
             int8_t lastPosition = cardCount;
             strcpy(cardRegisteredData[lastPosition].id, cardID);
             strcpy(cardRegisteredData[lastPosition].name, name);
@@ -302,7 +302,7 @@ bool RFID::unenrollCard(const char *user)
         const char *getName = user;
         char name[8];
         strcpy(name, getName);
-        myFingerPrint.padNameWithSpaces(name);
+        // myFingerPrint.padNameWithSpaces(name);
         if (deleteCardByName(name))
         {
             Serial.print("Deleting card: ");

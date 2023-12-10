@@ -3,7 +3,6 @@
 #include "realtime.hpp"
 #include "utils.hpp"
 #include "historyHandler.hpp"
-DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 bool flagModeSetting = false;
 // extern bool flagSetting;
 extern bool screenIsOn;
@@ -26,12 +25,6 @@ FingerPrint::~FingerPrint()
 {
 }
 
-int16_t FingerPrint::getFingerprintCount()
-{
-  readFingerprintFromEEPROM();
-  return fingerprintCount;
-}
-
 void FingerPrint::begin(uint16_t baudRate)
 {
   finger.begin(baudRate);
@@ -49,24 +42,6 @@ void FingerPrint::begin(uint16_t baudRate)
     }
   }
   // update database
-  readFingerprintFromEEPROM();
-
-  Serial.println(F("Reading sensor parameters"));
-  finger.getParameters();
-  Serial.print(F("Status: 0x"));
-  Serial.println(finger.status_reg, HEX);
-  Serial.print(F("Sys ID: 0x"));
-  Serial.println(finger.system_id, HEX);
-  Serial.print(F("Capacity: "));
-  Serial.println(finger.capacity);
-  Serial.print(F("Security level: "));
-  Serial.println(finger.security_level);
-  Serial.print(F("Device address: "));
-  Serial.println(finger.device_addr, HEX);
-  Serial.print(F("Packet len: "));
-  Serial.println(finger.packet_len);
-  Serial.print(F("Baud rate: "));
-  Serial.println(finger.baud_rate);
   // get number of templates
   finger.getTemplateCount();
   Serial.print(F("Sensor contains: "));
@@ -117,12 +92,11 @@ void FingerPrint::scanFinger()
     Serial.print(" with confidence of ");
     Serial.println(finger.confidence);
     const char *printName;
-    const char *logName; // name used to log
-    for (int8_t i = 0; i < fingerprintCount; i++)
+    for (int8_t i = 0; i < fingerprintData.size(); i++)
     {
       if (fingerprintData[i].id == finger.fingerID)
       {
-        printName = fingerprintData[i].name;
+        printName = fingerprintData[i].name.c_str();
       }
     }
 
@@ -131,6 +105,7 @@ void FingerPrint::scanFinger()
     char notify[totalMess];
     strcpy(notify, mess);
     strcat(notify, printName);
+    Serial.println(notify);
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
@@ -141,117 +116,76 @@ void FingerPrint::scanFinger()
     return;
   }
 }
-
-int FingerPrint::findFingerprintByName(const char *name)
+int8_t FingerPrint::getID()
 {
-  for (int i = 0; i < fingerprintCount; i++)
+  int8_t dataSize = fingerprintData.size();
+  int8_t id = -1;
+  for (int i = 1; i <= FINGERPRINT_COUNT; i++)
   {
-    if (strcmp(fingerprintData[i].name, name) == 0)
+    bool found = (std::find_if(fingerprintData.begin(), fingerprintData.end(),
+                               [i](const DataFingerprint &data)
+                               { return data.id == i; }) != fingerprintData.end());
+    if (!found)
     {
-      return i;
+      id = i;
+      return (id <= FINGERPRINT_COUNT) ? id : -1;
     }
   }
   return -1;
 }
-
-bool FingerPrint::deleteFingerprintByName(const char *nameToDelete, uint16_t *id)
-{
-  int position = findFingerprintByName(nameToDelete);
-
-  if (position >= 0)
-  {
-    *id = fingerprintData[position].id;
-    fingerprintData[position].id = 65534;
-    strcpy(fingerprintData[position].name, "");
-
-    return true;
+bool compareById(const DataFingerprint& a, const DataFingerprint& b){
+    return a.id < b.id;
   }
-  else
-    return false;
+void FingerPrint::LoadFPFromMem()
+{
+  fingerprintData.clear(); // clear all buffer
+  File file = SPIFFS.open("/fplist.txt", "r");
+  if (!file)
+  {
+    Serial.println("Failed to open fplist file for reading");
+    return;
+  }
+  while (file.available())
+  {
+    DataFingerprint FP;
+    String line = file.readStringUntil('\n');
+    int hyphenPos = line.indexOf('-');
+    // Extract the ID part
+    String idStr = line.substring(0, hyphenPos);
+    FP.id = idStr.toInt();
+    String tempName= line.substring(hyphenPos + 1);
+    for (char c : tempName){
+      if(!isspace(c)){
+        FP.name+=c;
+      }
+    }
+    fingerprintData.push_back(FP);
+  }
+  //sort 
+  std::sort(fingerprintData.begin(), fingerprintData.end(), compareById);
 }
-
-bool isIDUsed(uint16_t id)
+bool FingerPrint::storeFPToBuffer(String name, int8_t id)
 {
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  {
-    if (fingerprintData[i].id == id)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-int findDeletedPosition()
-{
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  {
-    if (fingerprintData[i].id == 65534)
-    {
-      return i;
-    }
-  }
-  return -1;
-}
-
-bool FingerPrint::saveFingerprintToEEPROM()
-{
-  for (int i = FINGERPRINT_START_ADDRESS; i <= FINGERPRINT_END_ADDRESS; i += sizeof(DataFingerprint))
-  {
-    uint8_t index = (i - FINGERPRINT_START_ADDRESS) / sizeof(DataFingerprint);
-    if (index < fingerprintCount)
-    {
-      EEPROM.put(i, fingerprintData[index]);
-    }
-    else
-    {
-      DataFingerprint emptyFingerprint;
-      emptyFingerprint.id = 65535;
-      strcpy(emptyFingerprint.name, "");
-      EEPROM.put(i, emptyFingerprint);
-    }
-  }
-  EEPROM.commit();
-  readFingerprintFromEEPROM();
+  DataFingerprint newFP;
+  newFP.id = id;
+  newFP.name = name;
+  // save to local vector
+  fingerprintData.push_back(newFP);
   return true;
 }
+bool FingerPrint::enroll()
+{
+  // get ID for enroll
+  int8_t id = getID();
+  if (id == -1)
+  {
+    Serial.println("Fingerprint list is full.");
+    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", TIME_POPUP);
+    _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
+    lv_refr_now(NULL);
+    return false;
+  }
 
-/*------------------Load data from EEPROM---------------------*/
-void FingerPrint::readFingerprintFromEEPROM()
-{
-  uint8_t countList = 0; // Đặt giá trị ban đầu của fingerprintCount là 0
-  fingerprintCount = 0;
-  for (int i = FINGERPRINT_START_ADDRESS; i < FINGERPRINT_END_ADDRESS; i += sizeof(DataFingerprint))
-  {
-    EEPROM.get(i, fingerprintData[countList]);
-    countList++;
-  }
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  {
-    if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
-    {
-      fingerprintCount++;
-    }
-  }
-  Serial.print("fingecount: ");
-  Serial.println(fingerprintCount);
-}
-
-/*----------------Padding name---------------------*/
-void FingerPrint::padNameWithSpaces(char *name)
-{
-  int nameLength = strlen(name);
-  if (nameLength < 7)
-  {
-    for (int i = nameLength; i < 7; i++)
-    {
-      name[i] = ' ';
-    }
-  }
-  name[7] = '\0';
-}
-bool FingerPrint::enroll(uint16_t &id)
-{
   int status = -1;
   // first stage: get image
   unsigned int startTime = millis();
@@ -406,167 +340,103 @@ bool FingerPrint::enroll(uint16_t &id)
     showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
-  return true;
-}
-/*--------------------Enroll Fingerprint-----------------*/
-bool FingerPrint::enrollFingerprint()
-{
-  while (isTask2Finish == false)
+  String name = "user";
+  name += String(id);
+  if (id == 1)
   {
-    delayMicroseconds(35);
-  }
-  isEnrollFP = true;
-  readFingerprintFromEEPROM();
-  if (fingerprintCount >= FINGERPRINT_COUNT)
-  {
-    Serial.println("Fingerprint list is full.");
-    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", TIME_POPUP);
-    _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
-    lv_refr_now(NULL);
-    return false;
-  }
-  uint16_t id;
-  char name[8];
-  const char *getName = lv_textarea_get_text(ui_areaEnterNameFP);
-  int8_t position = findDeletedPosition();
-  id = position + 1;
-  if (position >= 0)
-  {
-    if (id == 1)
-    {
-      strcpy(name, "admin");
-    }
-    else
-    {
-      snprintf(name, sizeof(name), "user%d", id);
-    }
-    if (strcmp(getName, "") != 0)
-    {
-      strcpy(name, getName);
-    }
-    padNameWithSpaces(name);
-    fingerprintData[position].id = id;
-    strcpy(fingerprintData[position].name, name);
-    fingerprintCount++;
-  }
-  else
-  {
-    id = fingerprintCount + 1;
-    if (id == 1)
-    {
-      strcpy(name, "admin");
-    }
-    else
-    {
-      snprintf(name, sizeof(name), "user%d", id);
-    }
-    if (strcmp(getName, "") != 0)
-    {
-      strcpy(name, getName);
-    }
-    padNameWithSpaces(name);
-    // fourth stage: save id into EEPROM
-    int lastPosition = fingerprintCount;
-    fingerprintData[lastPosition].id = id;
-    strcpy(fingerprintData[lastPosition].name, name);
-    fingerprintCount++;
-  }
-
-  if (enroll(id))
-  {
-    saveFingerprintToEEPROM();
-    // const char *mess = "Added fingerprint ";
-    // char notify[30];
-    // strcpy(notify, mess);
-    // strcat(notify, name);
-    const char *notify = createNotification("Successfully add ", name);
-    showPopup(ui_areaNotyfyAddFP, notify, TIME_POPUP);
-    Serial.println("saved succcessfull!");
-  }
-  readFingerprintFromEEPROM();
-  isEnrollFP = false;
-  return true;
-}
-
-/*-------------------Delete Fingerprint-----------------*/
-bool FingerPrint::unEnroll(const char *admin)
-{
-  const char *getName = admin;
-  char name[8];
-  strcpy(name, getName);
-  padNameWithSpaces(name);
-  uint16_t ID;
-  if (deleteFingerprintByName(name, &ID))
-  {
-    Serial.print("id: ");
-    Serial.println(ID);
-    uint8_t status = -1;
-    uint16_t id = ID;
-    status = finger.deleteModel(id);
-    Serial.print("Deleteting model #");
-    Serial.println(id);
-    if (status != FINGERPRINT_OK)
-    {
-      Serial.println("Failed to delete model");
-      showPopup(ui_areaNotyfyDeleteFP, "Failed to delete!", TIME_POPUP);
-      readFingerprintFromEEPROM();
+    if (!storeFPToBuffer("admin", 1))
       return false;
-    }
-
-    Serial.print("Model # ");
-    Serial.print(id);
-    Serial.println(" has been deleted");
-    const char *notify = createNotification("Deleted fingerprint ", getName);
-    showPopup(ui_areaNotyfyDeleteFP, notify, TIME_POPUP);
-    lv_timer_handler();
-    lv_refr_now(NULL);
   }
   else
   {
-    showPopup(ui_areaNotyfyDeleteFP, "Name not found!", TIME_POPUP);
+    if (!storeFPToBuffer(name, id))
+      return false;
+  }
+  showPopup(ui_areaNotyfyAddFP, "Successfully", TIME_POPUP);
+  storeFPToMem();
+  LoadFPFromMem();
+  return true;
+}
+const char *FingerPrint::getNameByID(int8_t ID)
+{
+  for (int i = 0; i < fingerprintData.size(); i++)
+  {
+    if (fingerprintData[i].id == ID){
+      return fingerprintData[i].name.c_str();
+    }
+      
+  }
+  return "unknown";
+}
+void FingerPrint::storeFPToMem()
+{
+  File file = SPIFFS.open("/fplist.txt", "w");
+  if (!file)
+  {
+    Serial.println("Failed to open FPList file for writing");
+    return;
+  }
+  for (int i = 0; i < fingerprintData.size(); ++i)
+  {
+    file.print(fingerprintData[i].id);
+    file.print("-");
+    file.println(fingerprintData[i].name);
+  }
+  file.close();
+}
+/*-------------------Delete Fingerprint-----------------*/
+bool FingerPrint::unEnroll(int8_t DelID)
+{
+  const char *DelName = getNameByID(DelID);
+  if (!strcmp(DelName, "unknown")){
+    showPopup(ui_areaNotyfyDeleteFP, "ID not found!", TIME_POPUP);
     lv_timer_handler();
     lv_refr_now(NULL);
-    Serial.println("Name not found!");
-    readFingerprintFromEEPROM();
+    Serial.println("ID not found!");
+    return false;
+  }
+  uint8_t status = -1;
+  status = finger.deleteModel(DelID);
+  Serial.print("Deleteting model #");
+  Serial.println(DelID);
+  if (status != FINGERPRINT_OK)
+  {
+    Serial.println("Failed to delete model");
+    showPopup(ui_areaNotyfyDeleteFP, "Failed to delete!", TIME_POPUP);
     return false;
   }
 
-  saveFingerprintToEEPROM();
 
+  Serial.print("Model # ");
+  Serial.print(DelID);
+  Serial.println(" has been deleted");
+  Serial.println(DelName);
+  const char *notify = createNotification("Deleted fingerprint ", DelName);
+  showPopup(ui_areaNotyfyDeleteFP, notify, TIME_POPUP);
+  lv_timer_handler();
+  lv_refr_now(NULL);
+  
+  //remove FP in vector
+  fingerprintData.erase(std::remove_if(fingerprintData.begin(), fingerprintData.end(),
+                        [DelID](const DataFingerprint& data) { return data.id == DelID; }),
+                        fingerprintData.end());
+
+  storeFPToMem();  //update to memory
+  LoadFPFromMem();
   return true;
 }
-
-bool FingerPrint::debugFinger()
-{
-  // This method is used to check if number of template in eeprom not match with in sensor
-  return true;
-}
-
-void FingerPrint::diagFingerPrint()
-{
-  // This method is used to check if there are any issue with fingerprint module (connection,...)
-
-  // This method will run on diag main function
-}
-
 void FingerPrint::restore()
 {
   // This method is used to delete all template (both eeprom and sensor)
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
-  {
-    fingerprintData[i].id = 0;
-    memset(fingerprintData[i].name, 0, sizeof(fingerprintData[i].name));
-  }
-  for (int i = FINGERPRINT_START_ADDRESS; i < FINGERPRINT_END_ADDRESS; i += sizeof(DataFingerprint))
-  {
-    DataFingerprint emptyFingerprint;
-    emptyFingerprint.id = 65535;
-    strcpy(emptyFingerprint.name, "");
-    EEPROM.put(i, emptyFingerprint);
-  }
-  fingerprintCount = 0;
-  EEPROM.commit();
   finger.emptyDatabase();
+  File file = SPIFFS.open("/fplist.txt", "w");
+  if (!file)
+  {
+    Serial.println("Failed to open fplist file for clearing");
+    return;
+  }
+  LoadFPFromMem();
+  file.close();
   Serial.println("Successfully delete all template");
 }
 
@@ -586,20 +456,15 @@ lv_obj_t *tableFP;
 bool flagShowFP = false;
 void FingerPrint::showList()
 {
-  readFingerprintFromEEPROM();
   tableFP = lv_table_create(ui_panelShowFP);
   int8_t countFP = 0;
-  for (int i = 0; i < FINGERPRINT_COUNT; i++)
+  for (int i = 0; i < fingerprintData.size(); i++)
   {
-    if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
-    {
-
-      char str[5]; // 5 chữ số + ký tự kết thúc chuỗi ('\0')
-      snprintf(str, sizeof(str), "%hu", fingerprintData[i].id);
-      lv_table_set_cell_value(tableFP, countFP, 0, str);
-      lv_table_set_cell_value(tableFP, countFP, 1, fingerprintData[i].name);
-      countFP++;
-    }
+    char str[5]; // 5 chữ số + ký tự kết thúc chuỗi ('\0')
+    snprintf(str, sizeof(str), "%hu", fingerprintData[i].id);
+    lv_table_set_cell_value(tableFP, countFP, 0, str);
+    lv_table_set_cell_value(tableFP, countFP, 1, fingerprintData[i].name.c_str());
+    countFP++;
   }
 
   // lv_table_set_col_width(tableFP, 0, 60);
@@ -618,57 +483,3 @@ void FingerPrint::showList()
   flagShowFP = true;
 }
 
-// void FingerPrint::showList()
-// {
-//   readFingerprintFromEEPROM();
-//   // Serial.println(fingerprintCount);
-//   // lv_textarea_set_text(ui_areaShowFP, "");
-//   // lv_textarea_add_text(ui_areaShowFP, "Total fingerprint is ");
-//   // convertNum(ui_areaShowFP, fingerprintCount);
-//   // lv_textarea_add_text(ui_areaShowFP, "\n\n");
-//   // for (int i = 0; i < FINGERPRINT_COUNT; i++)
-//   // {
-//   //   if (fingerprintData[i].id != 65535 && fingerprintData[i].id != 65534)
-//   //   {
-//   //     convertNum(ui_areaShowFP, fingerprintData[i].id);
-//   //     lv_textarea_add_text(ui_areaShowFP, " : ");
-//   //     lv_textarea_add_text(ui_areaShowFP, fingerprintData[i].name);
-//   //     lv_textarea_add_text(ui_areaShowFP, "\n");
-//   //     Serial.print(fingerprintData[i].id);
-//   //     Serial.print(" :");
-//   //     Serial.println(fingerprintData[i].name);
-//   //   }
-//   // }
-// }
-
-void FingerPrint::changeFingerprintAdmin()
-{
-  unEnroll("admin");
-  enrollFingerprint();
-}
-
-void FingerPrint::queryFinger()
-{
-  // This medthod is used to query number of template
-}
-
-// std::vector<int> FingerPrint::getFPInUsed(){
-//   // This method is used to get the current FP in use
-//   std::vector<int> FPIndex(TotalFP + 1);
-//   for (int i = StartAddrSaveFP; i < TotalFP; i++){
-//     if (eeprom.read(i) != 0){
-//       FPIndex[i]=eeprom.read(i);
-//     }
-//     else{
-//       FPIndex[i]=0;
-//     }
-//   }
-
-//   //Debug
-
-//   // for (int j = 0; j < FPIndex.size(); j++)
-//   // {
-//   //   Serial.print("Index "); Serial.print(j); Serial.print(" :"); Serial.println(FPIndex[j]);
-//   // }
-//   return FPIndex;
-// }

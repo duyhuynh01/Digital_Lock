@@ -6,6 +6,13 @@
 #include "myEEPROM.hpp"
 #include <ui.h>
 #include "funcUi.hpp"
+#include <vector>
+#include <FS.h>
+#include <SPIFFS.h>
+#include <string>
+#include <algorithm>
+
+using namespace fs;
 
 #define ScanTimeoutMillis 4000u
 
@@ -24,11 +31,10 @@ enum fingerLocalStatus{
 };
 
 struct DataFingerprint {
-  uint16_t id;
-  char name[8];
+  int8_t id;
+  String name;
 };
 
-extern DataFingerprint fingerprintData[];
 
 #define FINGERPRINT_COUNT 20
 #define FINGERPRINT_START_ADDRESS 100 
@@ -36,25 +42,21 @@ extern DataFingerprint fingerprintData[];
 
 class FingerPrint {
     Adafruit_Fingerprint finger;
+    std::vector<DataFingerprint> fingerprintData;
+    // DataFingerprint fingerprintData[FINGERPRINT_COUNT];
 public:
     FingerPrint();
     void scanFinger();
     void begin(uint16_t baudRate);
-    bool enroll(uint16_t &id);
-    bool enrollFingerprint();
-    bool unEnroll(const char* admin);
-    void padNameWithSpaces(char *name);
-    bool debugFinger();
-    void diagFingerPrint();
+    bool enroll();
+    bool storeFPToBuffer(String name,int8_t id);
+    void storeFPToMem();
+    void LoadFPFromMem();
+    bool unEnroll(int8_t);
     void restore();
-    void queryFinger();
-    void readFingerprintFromEEPROM();
-    int findFingerprintByName(const char *name);
-    bool deleteFingerprintByName(const char *nameToDelete, uint16_t *id);
-    bool saveFingerprintToEEPROM();
     void showList();
-    void changeFingerprintAdmin();
-    int16_t getFingerprintCount();
+    const char* getNameByID(int8_t);
+    int8_t getID();
     ~FingerPrint();
 private:
     int16_t fingerprintCount;

@@ -72,7 +72,7 @@ void callFuncCheckPW(lv_event_t *e)
 void callFuncAddFP(lv_event_t *e)
 {
     // _ui_flag_modify(ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-    myFingerPrint.enrollFingerprint();
+    myFingerPrint.enroll();
     lv_textarea_set_text(ui_areaEnterNameFP, "");
     lv_refr_now(NULL);
 }
@@ -82,7 +82,8 @@ void callFuncDeleteFP(lv_event_t *e)
     const char *getDelete = lv_textarea_get_text(ui_areaEnterNameFP1);
     if (strcmp(getDelete, "") != 0)
     {
-        myFingerPrint.unEnroll(getDelete);
+        int8_t DelID = std::stoi(getDelete);
+        myFingerPrint.unEnroll(DelID);
     }
     else
     {

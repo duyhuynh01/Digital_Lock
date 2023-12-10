@@ -57,6 +57,7 @@
         "myrfid.hpp": "c",
         "tft_espi.h": "c",
         "myeeprom.hpp": "c",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "fs.h": "c"
     }
 }

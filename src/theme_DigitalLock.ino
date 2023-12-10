@@ -58,6 +58,7 @@ void setup()
         return;
     }
     history.loadHistory(); //load history in to buffer
+    myFingerPrint.LoadFPFromMem(); //load Fp into buffer
 
     pinMode(CTRL_DOOR_PIN, OUTPUT);
     pinMode(CTRL_VOLUME, OUTPUT);

@@ -112,8 +112,8 @@ lv_obj_set_style_bg_color(ui_btnHomeFingerDelete, lv_color_hex(0x000000), LV_PAR
 lv_obj_set_style_bg_opa(ui_btnHomeFingerDelete, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_BackHomeAddFinger1 = lv_label_create(ui_btnHomeFingerDelete);
-lv_obj_set_width( ui_BackHomeAddFinger1, 50);
-lv_obj_set_height( ui_BackHomeAddFinger1, 20);
+lv_obj_set_width( ui_BackHomeAddFinger1, LV_SIZE_CONTENT);
+lv_obj_set_height( ui_BackHomeAddFinger1, LV_SIZE_CONTENT);
 lv_obj_set_align( ui_BackHomeAddFinger1, LV_ALIGN_CENTER );
 lv_label_set_text(ui_BackHomeAddFinger1,"Home");
 lv_obj_set_style_text_color(ui_BackHomeAddFinger1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
@@ -147,6 +147,18 @@ lv_obj_set_style_pad_bottom(ui_areaNotyfyDeleteFP, 0, LV_PART_MAIN| LV_STATE_DEF
 
 
 ui_KeyboardFingerDelete = lv_keyboard_create(ui_screenFingerDelete);
+lv_keyboard_set_mode(ui_KeyboardFingerDelete,LV_KEYBOARD_MODE_NUMBER);
+/* Tạo một style */
+static lv_style_t style_kb_Del_FP;
+lv_style_init(&style_kb_Del_FP);
+lv_style_set_bg_color(&style_kb_Del_FP, lv_color_hex(0x000000)); // Màu nền mặc định
+lv_style_set_text_color(&style_kb_Del_FP, lv_color_hex(0xFFFFFF));
+lv_style_set_border_color(&style_kb_Del_FP, lv_color_hex(0x000000));
+lv_style_set_text_font(&style_kb_Del_FP, &lv_font_montserrat_34);
+
+/* Gán style cho bàn phím */
+lv_obj_add_style(ui_KeyboardFingerDelete, &style_kb_Del_FP, LV_PART_ITEMS);
+lv_obj_add_style(ui_KeyboardFingerDelete, &style_kb_Del_FP, LV_PART_MAIN);
 lv_obj_set_height( ui_KeyboardFingerDelete, 160);
 lv_obj_set_width( ui_KeyboardFingerDelete, lv_pct(100));
 lv_obj_set_align( ui_KeyboardFingerDelete, LV_ALIGN_BOTTOM_MID );

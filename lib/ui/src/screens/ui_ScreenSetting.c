@@ -69,7 +69,7 @@ lv_obj_set_height( ui_Label9, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_x( ui_Label9, 55 );
 lv_obj_set_y( ui_Label9, 110 );
 lv_obj_set_align( ui_Label9, LV_ALIGN_TOP_MID );
-lv_label_set_text(ui_Label9,"Password");
+lv_label_set_text(ui_Label9,"Passcode");
 lv_obj_set_style_text_font(ui_Label9, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_color(ui_Label9, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_text_opa(ui_Label9, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
@@ -102,5 +102,4 @@ lv_obj_add_event_cb(ui_HomeOptionbtn, ui_event_HomeOptionbtn, LV_EVENT_ALL, NULL
 lv_obj_add_event_cb(ui_PWOptionbtn, ui_event_PWOptionbtn, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_FPOptionbtn, ui_event_FPOptionbtn, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_CardOptionbtn, ui_event_CardOptionbtn, LV_EVENT_ALL, NULL);
-
 }
