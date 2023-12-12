@@ -87,6 +87,10 @@ void ui_event_btnNoFP( lv_event_t * e);
 extern lv_obj_t *ui_btnNoFP;
 extern lv_obj_t *ui_labelNoFP;
 extern lv_obj_t *ui_labelConfirmFP;
+extern lv_obj_t *ui_BackHomeFP;
+extern lv_obj_t *ui_btnHomeFP;
+void ui_event_btnHomeFinger( lv_event_t * e);
+
 // SCREEN: ui_screenFingerAdd
 
 // void ui_screenFingerAdd_screen_init(void);
@@ -181,6 +185,9 @@ extern lv_obj_t *ui_btnNoCard;
 extern lv_obj_t *ui_labelNoCard;
 extern lv_obj_t *ui_labelConfirmCard;
 extern lv_obj_t *ui_panelConfirmCard;
+extern lv_obj_t *ui_btnHomeCard;
+extern lv_obj_t *ui_BackHomeCard;
+void ui_event_btnHomeCard( lv_event_t * e);
 
 
 // // SCREEN: ui_screenCardAdd
@@ -230,6 +237,7 @@ extern lv_obj_t *ui_areaNotyfyDeleteCard;
 extern lv_obj_t *ui_KeyboardCardDelete;
 void ui_event_btnDeleteCard( lv_event_t *e);
 void ui_event_PressedOkDeleteCard( lv_event_t *e);
+extern lv_obj_t *ui_areaCardDeletePadding;
 
 // SCREEN: ui_screenCardShow
 void ui_screenCardShow_screen_init(void);

@@ -125,6 +125,27 @@ lv_obj_set_style_text_color(ui_BackFinger4, lv_color_hex(0xFFFFFF), LV_PART_MAIN
 lv_obj_set_style_text_opa(ui_BackFinger4, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_font(ui_BackFinger4, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
+ui_btnHomeCard = lv_btn_create(ui_SceenCard);
+lv_obj_set_width( ui_btnHomeCard, 53);
+lv_obj_set_height( ui_btnHomeCard, 26);
+lv_obj_set_x( ui_btnHomeCard, -7 );
+lv_obj_set_y( ui_btnHomeCard, -5 );
+lv_obj_set_align( ui_btnHomeCard, LV_ALIGN_BOTTOM_RIGHT );
+lv_obj_add_flag( ui_btnHomeCard, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
+lv_obj_clear_flag( ui_btnHomeCard, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_obj_set_style_radius(ui_btnHomeCard, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_bg_color(ui_btnHomeCard, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_opa(ui_btnHomeCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+ui_BackHomeCard = lv_label_create(ui_btnHomeCard);
+lv_obj_set_width( ui_BackHomeCard, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_BackHomeCard, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( ui_BackHomeCard, LV_ALIGN_CENTER );
+lv_label_set_text(ui_BackHomeCard,"Home");
+lv_obj_set_style_text_color(ui_BackHomeCard, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_text_opa(ui_BackHomeCard, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_BackHomeCard, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
+
 ui_areaPopupCard = lv_textarea_create(ui_SceenCard);
 lv_obj_set_height( ui_areaPopupCard, 80);
 lv_obj_set_width( ui_areaPopupCard, lv_pct(90));
@@ -191,6 +212,7 @@ lv_obj_add_event_cb(ui_PressRestoreCard, ui_event_PressRestoreCard, LV_EVENT_ALL
 lv_obj_add_event_cb(ui_PressShowCard, ui_event_PressShowCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackCard, ui_event_btnBackCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PanelCard, ui_event_PanelCard, LV_EVENT_ALL, NULL);
+lv_obj_add_event_cb(ui_btnHomeCard, ui_event_btnHomeCard, LV_EVENT_ALL, NULL);
 
 
 lv_obj_add_event_cb(ui_btnYesCard, ui_event_btnYesCard, LV_EVENT_ALL, NULL);

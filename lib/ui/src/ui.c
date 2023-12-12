@@ -8,7 +8,7 @@
 // bool flagSetting = false;
 // extern bool flagModeSetting;
 ///////////////////// VARIABLES ////////////////////
-
+extern bool isSettingMode_usedToBlockAuth;
 // SCREEN: ui_Screen1
 void ui_Screen1_screen_init(void);
 lv_obj_t *ui_Screen1;
@@ -76,6 +76,10 @@ void ui_event_btnNoFP(lv_event_t *e);
 lv_obj_t *ui_btnNoFP;
 lv_obj_t *ui_labelNoFP;
 lv_obj_t *ui_labelConfirmFP;
+lv_obj_t *ui_BackHomeFP;
+lv_obj_t *ui_btnHomeFP;
+void ui_event_btnHomeFinger( lv_event_t * e);
+
 // // SCREEN: ui_screenFingerAdd
 // void ui_screenFingerAdd_screen_init(void);
 // lv_obj_t *ui_screenFingerAdd;
@@ -168,6 +172,10 @@ lv_obj_t *ui_btnNoCard;
 lv_obj_t *ui_labelNoCard;
 lv_obj_t *ui_labelConfirmCard;
 lv_obj_t *ui_panelConfirmCard;
+lv_obj_t *ui_btnHomeCard;
+lv_obj_t *ui_BackHomeCard;
+void ui_event_btnHomeCard( lv_event_t * e);
+
 // // SCREEN: ui_screenCardAdd
 // void ui_screenCardAdd_screen_init(void);
 // lv_obj_t *ui_screenCardAdd;
@@ -216,6 +224,7 @@ lv_obj_t *ui_areaNotyfyDeleteCard;
 lv_obj_t *ui_KeyboardCardDelete;
 void ui_event_btnDeleteCard(lv_event_t *e);
 void ui_event_PressedOkDeleteCard(lv_event_t *e);
+lv_obj_t *ui_areaCardDeletePadding;
 
 // SCREEN: ui_screenCardShow
 void ui_screenCardShow_screen_init(void);
@@ -561,6 +570,7 @@ void ui_event_btnBackFingerDelete(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_areaEnterNameFP1, "");
         _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_SceenFinger_screen_init);
         _ui_screen_delete(&ui_screenFingerDelete);
     }
@@ -571,6 +581,7 @@ void ui_event_btnHomeFingerDelete(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_areaEnterNameFP1, "");
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_screenFingerDelete);
         // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -773,6 +784,7 @@ void ui_event_PanelCardDelete(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_flag_modify(ui_KeyboardCardDelete, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_areaCardDeletePadding, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_panelDeleteCard(lv_event_t *e)
@@ -783,6 +795,7 @@ void ui_event_panelDeleteCard(lv_event_t *e)
     {
         _ui_flag_modify(ui_KeyboardCardDelete, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         _ui_flag_modify(ui_areaNotyfyDeleteCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_areaCardDeletePadding, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_areaEnterNameDeleteCard(lv_event_t *e)
@@ -792,6 +805,8 @@ void ui_event_areaEnterNameDeleteCard(lv_event_t *e)
     if (event_code == LV_EVENT_PRESSED)
     {
         _ui_flag_modify(ui_KeyboardCardDelete, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_areaCardDeletePadding, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        lv_textarea_set_text(ui_areaCardDeletePadding, "");
     }
 }
 void ui_event_btnBackCardDelete(lv_event_t *e)
@@ -800,6 +815,7 @@ void ui_event_btnBackCardDelete(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_areaEnterNameDeleteCard, "");
         _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_SceenCard_screen_init);
         _ui_screen_delete(&ui_screenCardDelete);
     }
@@ -810,6 +826,7 @@ void ui_event_btnHomeCardDelete(lv_event_t *e)
     lv_obj_t *target = lv_event_get_target(e);
     if (event_code == LV_EVENT_PRESSED)
     {
+        lv_textarea_set_text(ui_areaEnterNameDeleteCard, "");
         _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, &ui_Screen1_screen_init);
         _ui_screen_delete(&ui_screenCardDelete);
         // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
@@ -1066,6 +1083,9 @@ void ui_event_PressedOkDeleteCard(lv_event_t *e)
     if (strcmp(txt, LV_SYMBOL_OK) == 0)
     {
         _ui_flag_modify(ui_KeyboardCardDelete, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_areaCardDeletePadding, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        const char *getDelete = lv_textarea_get_text(ui_areaCardDeletePadding);
+        lv_textarea_set_text(ui_areaEnterNameDeleteCard, getDelete);
     }
 }
 /*-------------------------------------*/
@@ -1146,6 +1166,32 @@ void ui_event_btnHomeHistory(lv_event_t *e)
         lv_obj_del(table);
         table = NULL;
         flagHistory = false;
+        isSettingMode_usedToBlockAuth = false;
+    }
+}
+
+void ui_event_btnHomeCard(lv_event_t *e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_flag_modify(ui_panelConfirmCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
+        _ui_screen_delete(&ui_SceenCard);
+        isSettingMode_usedToBlockAuth = false;
+    }
+}
+
+void ui_event_btnHomeFinger( lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t *target = lv_event_get_target(e);
+    if (event_code == LV_EVENT_PRESSED)
+    {
+        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_MOVE_LEFT, 100, 0, &ui_Screen1_screen_init);
+        _ui_flag_modify(ui_panelConfirmFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_screen_delete(&ui_SceenFinger);
         isSettingMode_usedToBlockAuth = false;
     }
 }

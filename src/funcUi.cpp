@@ -122,7 +122,7 @@ void callFuncDeleteCard(lv_event_t *e)
     }
     else
     {
-        showPopup(ui_areaNotyfyDeleteCard, "Please enter a name.", TIME_POPUP);
+        showPopup(ui_areaNotyfyDeleteCard, "Please enter an ID.", TIME_POPUP);
     }
     lv_textarea_set_text(ui_areaEnterNameDeleteCard, "");
     lv_refr_now(NULL);

@@ -58,7 +58,19 @@ lv_textarea_set_max_length(ui_areaEnterNameDeleteCard,7);
 lv_textarea_set_one_line(ui_areaEnterNameDeleteCard,true);
 lv_obj_set_style_text_align(ui_areaEnterNameDeleteCard, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-
+ui_areaCardDeletePadding = lv_textarea_create(ui_panelDeleteCard);
+lv_obj_set_width( ui_areaCardDeletePadding, 160);
+lv_obj_set_height( ui_areaCardDeletePadding, LV_SIZE_CONTENT);   /// 30
+lv_obj_set_x( ui_areaCardDeletePadding, 0 );
+lv_obj_set_y( ui_areaCardDeletePadding, -90 );
+lv_obj_set_align( ui_areaCardDeletePadding, LV_ALIGN_CENTER );
+lv_textarea_set_max_length(ui_areaCardDeletePadding,10);
+lv_textarea_set_one_line(ui_areaCardDeletePadding,true);
+lv_textarea_set_password_mode(ui_areaCardDeletePadding, true);
+lv_obj_add_flag( ui_areaCardDeletePadding, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_set_style_text_letter_space(ui_areaCardDeletePadding, 4, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_line_space(ui_areaCardDeletePadding, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_areaCardDeletePadding, &lv_font_montserrat_18, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_btnDeleteCard1 = lv_btn_create(ui_panelDeleteCard);
 lv_obj_set_width( ui_btnDeleteCard1, 80);
@@ -147,7 +159,19 @@ lv_obj_set_style_pad_bottom(ui_areaNotyfyDeleteCard, 0, LV_PART_MAIN| LV_STATE_D
 
 
 ui_KeyboardCardDelete = lv_keyboard_create(ui_screenCardDelete);
-lv_obj_set_height( ui_KeyboardCardDelete, 160);
+lv_keyboard_set_mode(ui_KeyboardCardDelete,LV_KEYBOARD_MODE_NUMBER);
+/* Tạo một style */
+static lv_style_t style_kb_Del_Card;
+lv_style_init(&style_kb_Del_Card);
+lv_style_set_bg_color(&style_kb_Del_Card, lv_color_hex(0x000000)); // Màu nền mặc định
+lv_style_set_text_color(&style_kb_Del_Card, lv_color_hex(0xFFFFFF));
+lv_style_set_border_color(&style_kb_Del_Card, lv_color_hex(0x000000));
+lv_style_set_text_font(&style_kb_Del_Card, &lv_font_montserrat_34);
+
+/* Gán style cho bàn phím */
+lv_obj_add_style(ui_KeyboardCardDelete, &style_kb_Del_Card, LV_PART_ITEMS);
+lv_obj_add_style(ui_KeyboardCardDelete, &style_kb_Del_Card, LV_PART_MAIN);
+lv_obj_set_height( ui_KeyboardCardDelete, 200);
 lv_obj_set_width( ui_KeyboardCardDelete, lv_pct(100));
 lv_obj_set_align( ui_KeyboardCardDelete, LV_ALIGN_BOTTOM_MID );
 lv_obj_add_flag( ui_KeyboardCardDelete, LV_OBJ_FLAG_HIDDEN );   /// Flags
@@ -157,7 +181,7 @@ lv_obj_add_event_cb(ui_areaEnterNameDeleteCard, ui_event_areaEnterNameDeleteCard
 lv_obj_add_event_cb(ui_panelDeleteCard, ui_event_panelDeleteCard, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnBackCardDelete, ui_event_btnBackCardDelete, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_btnHomeCardDelete, ui_event_btnHomeCardDelete, LV_EVENT_ALL, NULL);
-lv_keyboard_set_textarea(ui_KeyboardCardDelete,ui_areaEnterNameDeleteCard);
+lv_keyboard_set_textarea(ui_KeyboardCardDelete,ui_areaCardDeletePadding);
 lv_obj_add_event_cb(ui_btnDeleteCard1, ui_event_btnDeleteCard, LV_EVENT_PRESSED, NULL);
 lv_obj_add_event_cb(ui_KeyboardCardDelete, ui_event_PressedOkDeleteCard, LV_EVENT_PRESSED, NULL);
 
