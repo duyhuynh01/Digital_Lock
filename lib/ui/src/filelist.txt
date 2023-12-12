@@ -1,11 +1,9 @@
 screens/ui_Screen1.c
 screens/ui_ScreenSetting.c
 screens/ui_SceenFinger.c
-screens/ui_screenFingerAdd.c
 screens/ui_screenFingerDelete.c
 screens/ui_screenFingerShow.c
 screens/ui_SceenCard.c
-screens/ui_screenCardAdd.c
 screens/ui_screenCardDelete.c
 screens/ui_screenCardShow.c
 screens/ui_SceenPassword.c

@@ -73,7 +73,7 @@ void callFuncAddFP(lv_event_t *e)
 {
     // _ui_flag_modify(ui_areaNotyfyAddFP, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     myFingerPrint.enroll();
-    lv_textarea_set_text(ui_areaEnterNameFP, "");
+    // lv_textarea_set_text(ui_areaEnterNameFP, "");
     lv_refr_now(NULL);
 }
 
@@ -87,9 +87,10 @@ void callFuncDeleteFP(lv_event_t *e)
     }
     else
     {
-        showPopup(ui_areaNotyfyDeleteFP, "Please enter a name.", TIME_POPUP);
+        showPopup(ui_areaNotyfyDeleteFP, "Please enter an ID.", TIME_POPUP);
     }
     lv_textarea_set_text(ui_areaEnterNameFP1, "");
+    
     lv_refr_now(NULL);
 }
 
@@ -108,7 +109,7 @@ void callFuncRestoreFP(lv_event_t *e)
 void callFuncAddCard(lv_event_t *e)
 {
     myRFID.enrollCard();
-    lv_textarea_set_text(ui_areaEnterNameFP2, "");
+    // lv_textarea_set_text(ui_areaEnterNameFP2, "");
     lv_refr_now(NULL);
 }
 
@@ -380,10 +381,10 @@ void controlScreen()
         _ui_screen_delete(&ui_SceenFinger);
         _ui_screen_delete(&ui_SceenPassword);
         _ui_screen_delete(&ui_Screen1);
-        _ui_screen_delete(&ui_screenCardAdd);
+        // _ui_screen_delete(&ui_screenCardAdd);
         _ui_screen_delete(&ui_screenCardDelete);
         _ui_screen_delete(&ui_screenCardShow);
-        _ui_screen_delete(&ui_screenFingerAdd);
+        // _ui_screen_delete(&ui_screenFingerAdd);
         _ui_screen_delete(&ui_screenFingerDelete);
         _ui_screen_delete(&ui_screenFingerShow);
         _ui_screen_delete(&ui_screenHistory);

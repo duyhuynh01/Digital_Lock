@@ -180,7 +180,7 @@ bool FingerPrint::enroll()
   if (id == -1)
   {
     Serial.println("Fingerprint list is full.");
-    showPopup(ui_areaNotyfyAddFP, "Fingerprint list is full.", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Fingerprint list is full.", TIME_POPUP);
     _ui_screen_change(&ui_SceenFinger, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
     lv_refr_now(NULL);
     return false;
@@ -192,7 +192,7 @@ bool FingerPrint::enroll()
   Serial.println("Place your finger on sensor");
   // lv_textarea_set_text(ui_areaNotyfyAddFP, "Place your finger on sensor");
   // lv_refr_now(NULL);
-  showPopup(ui_areaNotyfyAddFP, "Place your finger on sensor", TIME_POPUP);
+  showPopup(ui_areaPopupFP, "Place your finger on sensor", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -210,7 +210,7 @@ bool FingerPrint::enroll()
       Serial.println(status);
       // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
       // lv_refr_now(NULL);
-      showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+      showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
       // delay(2000);
       return false;
     }
@@ -222,7 +222,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaNotyfyAddFP, "No fingerprint detected");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "No fingerprint detected", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "No fingerprint detected", TIME_POPUP);
     return false;
   }
 
@@ -235,7 +235,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -246,7 +246,7 @@ bool FingerPrint::enroll()
     Serial.println("Remove your finger");
     // lv_textarea_set_text(ui_areaNotyfyAddFP, "Remove your finger");
     // lv_refr_now(NULL);
-    showPopup(ui_areaNotyfyAddFP, "Remove your finger", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Remove your finger", TIME_POPUP);
     status = finger.getImage();
   }
   delay(1000);
@@ -256,7 +256,7 @@ bool FingerPrint::enroll()
   Serial.println("Place your same finger on sensor again");
   // lv_textarea_set_text(ui_areaNotyfyAddFP, "Place your same finger on sensor again");
   // lv_refr_now(NULL);
-  showPopup(ui_areaNotyfyAddFP, "Place your same finger on sensor again", TIME_POPUP);
+  showPopup(ui_areaPopupFP, "Place your same finger on sensor again", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
     status = finger.getImage();
@@ -282,7 +282,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaNotyfyAddFP, "No fingerprint detected");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "No fingerprint detected", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "No fingerprint detected", TIME_POPUP);
     return false;
   }
 
@@ -295,7 +295,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -311,7 +311,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to your two fingerprints do not match");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to your two fingerprints do not match", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to your two fingerprints do not match", TIME_POPUP);
     return false;
   }
   else if (status != FINGERPRINT_OK)
@@ -321,7 +321,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to issues");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
 
@@ -337,7 +337,7 @@ bool FingerPrint::enroll()
     // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to issues");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaNotyfyAddFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to issues", TIME_POPUP);
     return false;
   }
   String name = "user";
@@ -352,7 +352,7 @@ bool FingerPrint::enroll()
     if (!storeFPToBuffer(name, id))
       return false;
   }
-  showPopup(ui_areaNotyfyAddFP, "Successfully", TIME_POPUP);
+  showPopup(ui_areaPopupFP, "Successfully", TIME_POPUP);
   storeFPToMem();
   LoadFPFromMem();
   return true;

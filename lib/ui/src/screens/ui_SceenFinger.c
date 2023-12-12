@@ -186,6 +186,8 @@ lv_obj_set_align( ui_labelNoFP, LV_ALIGN_CENTER );
 lv_label_set_text(ui_labelNoFP,"NO");
 
 
+
+
 lv_obj_add_event_cb(ui_PressDeleteFinger, ui_event_PressDeleteFinger, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressAddFinger, ui_event_PressAddFinger, LV_EVENT_ALL, NULL);
 lv_obj_add_event_cb(ui_PressRestoreFinger, ui_event_PressRestoreFinger, LV_EVENT_ALL, NULL);

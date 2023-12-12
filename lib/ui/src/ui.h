@@ -89,28 +89,28 @@ extern lv_obj_t *ui_labelNoFP;
 extern lv_obj_t *ui_labelConfirmFP;
 // SCREEN: ui_screenFingerAdd
 
-void ui_screenFingerAdd_screen_init(void);
-extern lv_obj_t *ui_screenFingerAdd;
-void ui_event_PanelFingerAdd( lv_event_t * e);
-extern lv_obj_t *ui_PanelFingerAdd;
-extern lv_obj_t *ui_Label24;
-void ui_event_panelAddfinger( lv_event_t * e);
-extern lv_obj_t *ui_panelAddfinger;
-extern lv_obj_t *ui_Label13;
-void ui_event_areaEnterNameFP( lv_event_t * e);
-extern lv_obj_t *ui_areaEnterNameFP;
-extern lv_obj_t *ui_btnAddFinger;
-extern lv_obj_t *ui_Label19;
-void ui_event_btnBackAddFP( lv_event_t * e);
-extern lv_obj_t *ui_btnBackAddFP;
-extern lv_obj_t *ui_BackFinger1;
-void ui_event_btnHomeAddFP( lv_event_t * e);
-extern lv_obj_t *ui_btnHomeAddFP;
-extern lv_obj_t *ui_BackHomeAddFinger;
-extern lv_obj_t *ui_areaNotyfyAddFP;
-extern lv_obj_t *ui_KeyboardFingerAdd;
-void ui_event_btnAddFinger( lv_event_t * e);
-void ui_event_PressedOkAddFP( lv_event_t *e);
+// void ui_screenFingerAdd_screen_init(void);
+// extern lv_obj_t *ui_screenFingerAdd;
+// void ui_event_PanelFingerAdd( lv_event_t * e);
+// extern lv_obj_t *ui_PanelFingerAdd;
+// extern lv_obj_t *ui_Label24;
+// void ui_event_panelAddfinger( lv_event_t * e);
+// extern lv_obj_t *ui_panelAddfinger;
+// extern lv_obj_t *ui_Label13;
+// void ui_event_areaEnterNameFP( lv_event_t * e);
+// extern lv_obj_t *ui_areaEnterNameFP;
+// extern lv_obj_t *ui_btnAddFinger;
+// extern lv_obj_t *ui_Label19;
+// void ui_event_btnBackAddFP( lv_event_t * e);
+// extern lv_obj_t *ui_btnBackAddFP;
+// extern lv_obj_t *ui_BackFinger1;
+// void ui_event_btnHomeAddFP( lv_event_t * e);
+// extern lv_obj_t *ui_btnHomeAddFP;
+// extern lv_obj_t *ui_BackHomeAddFinger;
+// extern lv_obj_t *ui_areaNotyfyAddFP;
+// extern lv_obj_t *ui_KeyboardFingerAdd;
+// void ui_event_btnAddFinger( lv_event_t * e);
+// void ui_event_PressedOkAddFP( lv_event_t *e);
 
 // SCREEN: ui_screenFingerDelete
 void ui_screenFingerDelete_screen_init(void);
@@ -135,6 +135,7 @@ extern lv_obj_t *ui_areaNotyfyDeleteFP;
 extern lv_obj_t *ui_KeyboardFingerDelete;
 void ui_event_btnDeleteFinger( lv_event_t * e);
 void ui_event_PressedOkDeleteFP( lv_event_t * e);
+extern lv_obj_t *ui_areaFPDeletePadding;
 
 
 // SCREEN: ui_screenFingerShow
@@ -182,30 +183,30 @@ extern lv_obj_t *ui_labelConfirmCard;
 extern lv_obj_t *ui_panelConfirmCard;
 
 
-// SCREEN: ui_screenCardAdd
-void ui_screenCardAdd_screen_init(void);
-extern lv_obj_t *ui_screenCardAdd;
-void ui_event_PanelCardAdd( lv_event_t * e);
-extern lv_obj_t *ui_PanelCardAdd;
-extern lv_obj_t *ui_Label30;
-void ui_event_panelCardAdd( lv_event_t * e);
-extern lv_obj_t *ui_panelCardAdd;
-extern lv_obj_t *ui_Label31;
-void ui_event_areaEnterNameFP2( lv_event_t * e);
-extern lv_obj_t *ui_areaEnterNameFP2;
-extern lv_obj_t *ui_btnAddFinger2;
-extern lv_obj_t *ui_Label32;
-void ui_event_btnBackAddCard( lv_event_t * e);
-extern lv_obj_t *ui_btnBackAddCard;
-extern lv_obj_t *ui_BackFinger5;
-void ui_event_btnHomeAddCard( lv_event_t * e);
-extern lv_obj_t *ui_btnHomeAddCard;
-void ui_event_BackHomeAddFinger3( lv_event_t * e);
-extern lv_obj_t *ui_BackHomeAddFinger3;
-extern lv_obj_t *ui_areaNotyfyAddCard;
-extern lv_obj_t *ui_KeyboardAddCard;
-void ui_event_btnCardAdd( lv_event_t *e);
-void ui_event_PressedOkAddCard( lv_event_t *e);
+// // SCREEN: ui_screenCardAdd
+// void ui_screenCardAdd_screen_init(void);
+// extern lv_obj_t *ui_screenCardAdd;
+// void ui_event_PanelCardAdd( lv_event_t * e);
+// extern lv_obj_t *ui_PanelCardAdd;
+// extern lv_obj_t *ui_Label30;
+// void ui_event_panelCardAdd( lv_event_t * e);
+// extern lv_obj_t *ui_panelCardAdd;
+// extern lv_obj_t *ui_Label31;
+// void ui_event_areaEnterNameFP2( lv_event_t * e);
+// extern lv_obj_t *ui_areaEnterNameFP2;
+// extern lv_obj_t *ui_btnAddFinger2;
+// extern lv_obj_t *ui_Label32;
+// void ui_event_btnBackAddCard( lv_event_t * e);
+// extern lv_obj_t *ui_btnBackAddCard;
+// extern lv_obj_t *ui_BackFinger5;
+// void ui_event_btnHomeAddCard( lv_event_t * e);
+// extern lv_obj_t *ui_btnHomeAddCard;
+// void ui_event_BackHomeAddFinger3( lv_event_t * e);
+// extern lv_obj_t *ui_BackHomeAddFinger3;
+// extern lv_obj_t *ui_areaNotyfyAddCard;
+// extern lv_obj_t *ui_KeyboardAddCard;
+// void ui_event_btnCardAdd( lv_event_t *e);
+// void ui_event_PressedOkAddCard( lv_event_t *e);
 // SCREEN: ui_screenCardDelete
 void ui_screenCardDelete_screen_init(void);
 extern lv_obj_t *ui_screenCardDelete;

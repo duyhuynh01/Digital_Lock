@@ -171,94 +171,96 @@ int8_t findDeletedCardPosition()
 /*-------------------Add card--------------------*/
 bool RFID::enrollCard()
 {
-    readCardFromEEPROM();
-    if (cardCount >= CARD_COUNT)
-    {
-        Serial.println("Card list is full");
-        lv_textarea_set_text(ui_areaNotyfyAddCard, "Card list is full.");
-        _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
-        lv_refr_now(NULL);
-        return false;
-    }
-    unsigned long startTime = millis();
-    bool cardDetected = false;
+    showPopup(ui_areaPopupCard, "Card list is full.", TIME_POPUP);
+    // readCardFromEEPROM();
+    // if (cardCount >= CARD_COUNT)
+    // {
+    //     Serial.println("Card list is full");
+    //     showPopup(ui_areaPopupCard, "Card list is full.", TIME_POPUP);
+    //     // lv_textarea_set_text(ui_areaPopupCard, "Card list is full.");
+    //     _ui_screen_change(&ui_SceenCard, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, &ui_SceenFinger_screen_init);
+    //     lv_refr_now(NULL);
+    //     return false;
+    // }
+    // unsigned long startTime = millis();
+    // bool cardDetected = false;
 
-    while (millis() - startTime <= cardTimeout)
-    {
-        _ui_flag_modify(ui_areaNotyfyAddCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-        lv_textarea_set_text(ui_areaNotyfyAddCard, "Place card on sensor");
-        lv_refr_now(NULL);
-        if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
-        {
-            cardDetected = true;
-            break;
-        }
-    }
-    if (cardDetected)
-    {
-        String cardUID = "";
-        for (byte i = 0; i < mfrc522.uid.size; i++)
-        {
-            cardUID += String(mfrc522.uid.uidByte[i], HEX);
-        }
-        cardUID.toUpperCase();
-        mfrc522.PICC_HaltA();
-        // Serial.print("Card add is: ");
-        Serial.println(cardUID);
-        const char *cardID = cardUID.c_str();
-        int8_t position = findDeletedCardPosition();
-        int8_t userId;
-        char name[8];
-        const char *getName = lv_textarea_get_text(ui_areaEnterNameFP2);
-        if (position >= 0)
-        {
-            userId = position + 1;
-            snprintf(name, sizeof(name), "user%d", userId);
-            if (strcmp(getName, "") != 0)
-            {
-                strcpy(name, getName);
-            }
-            // myFingerPrint.padNameWithSpaces(name);
-            strcpy(cardRegisteredData[position].id, cardID);
-            strcpy(cardRegisteredData[position].name, name);
-            cardCount++;
-        }
-        else
-        {
-            userId = cardCount + 1;
-            snprintf(name, sizeof(name), "user%d", userId);
-            if (strcmp(getName, "") != 0)
-            {
-                strcpy(name, getName);
-            }
-            // myFingerPrint.padNameWithSpaces(name);
-            int8_t lastPosition = cardCount;
-            strcpy(cardRegisteredData[lastPosition].id, cardID);
-            strcpy(cardRegisteredData[lastPosition].name, name);
-            cardCount++;
-        }
-        if (saveCard())
-        {
-            const char *notify = createNotification("Successfully add card ", name);
-            showPopup(ui_areaNotyfyAddCard, notify, TIME_POPUP);
-            Serial.println("Successfully add new card");
-            readCardFromEEPROM();
-            return true;
-        }
-        else
-        {
-            Serial.println("Failed to save a new card. Please try again!");
-            showPopup(ui_areaNotyfyAddCard, "Failed to add new card", TIME_POPUP);
-            // behavior for fail
-            return false;
-        }
-    }
-    else
-    {
-        Serial.println("No card detected!");
-        showPopup(ui_areaNotyfyAddCard, "No card detected!", TIME_POPUP);
-        return false;
-    }
+    // while (millis() - startTime <= cardTimeout)
+    // {
+    //     _ui_flag_modify(ui_areaPopupCard, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    //     lv_textarea_set_text(ui_areaPopupCard, "Place card on sensor");
+    //     lv_refr_now(NULL);
+    //     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
+    //     {
+    //         cardDetected = true;
+    //         break;
+    //     }
+    // }
+    // if (cardDetected)
+    // {
+    //     String cardUID = "";
+    //     for (byte i = 0; i < mfrc522.uid.size; i++)
+    //     {
+    //         cardUID += String(mfrc522.uid.uidByte[i], HEX);
+    //     }
+    //     cardUID.toUpperCase();
+    //     mfrc522.PICC_HaltA();
+    //     // Serial.print("Card add is: ");
+    //     Serial.println(cardUID);
+    //     const char *cardID = cardUID.c_str();
+    //     int8_t position = findDeletedCardPosition();
+    //     int8_t userId;
+    //     char name[8];
+    //     const char *getName = lv_textarea_get_text(ui_areaEnterNameFP2);
+    //     if (position >= 0)
+    //     {
+    //         userId = position + 1;
+    //         snprintf(name, sizeof(name), "user%d", userId);
+    //         if (strcmp(getName, "") != 0)
+    //         {
+    //             strcpy(name, getName);
+    //         }
+    //         // myFingerPrint.padNameWithSpaces(name);
+    //         strcpy(cardRegisteredData[position].id, cardID);
+    //         strcpy(cardRegisteredData[position].name, name);
+    //         cardCount++;
+    //     }
+    //     else
+    //     {
+    //         userId = cardCount + 1;
+    //         snprintf(name, sizeof(name), "user%d", userId);
+    //         if (strcmp(getName, "") != 0)
+    //         {
+    //             strcpy(name, getName);
+    //         }
+    //         // myFingerPrint.padNameWithSpaces(name);
+    //         int8_t lastPosition = cardCount;
+    //         strcpy(cardRegisteredData[lastPosition].id, cardID);
+    //         strcpy(cardRegisteredData[lastPosition].name, name);
+    //         cardCount++;
+    //     }
+    //     if (saveCard())
+    //     {
+    //         const char *notify = createNotification("Successfully add card ", name);
+    //         showPopup(ui_areaPopupCard, notify, TIME_POPUP);
+    //         Serial.println("Successfully add new card");
+    //         readCardFromEEPROM();
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         Serial.println("Failed to save a new card. Please try again!");
+    //         showPopup(ui_areaPopupCard, "Failed to add new card", TIME_POPUP);
+    //         // behavior for fail
+    //         return false;
+    //     }
+    // }
+    // else
+    // {
+    //     Serial.println("No card detected!");
+    //     showPopup(ui_areaPopupCard, "No card detected!", TIME_POPUP);
+    //     return false;
+    // }
     return true;
 }
 
