@@ -59,6 +59,7 @@ void setup()
     }
     history.loadHistory(); //load history in to buffer
     myFingerPrint.LoadFPFromMem(); //load Fp into buffer
+    myRFID.LoadCardFromMem(); //load card into buffer
 
     pinMode(CTRL_DOOR_PIN, OUTPUT);
     pinMode(CTRL_VOLUME, OUTPUT);
@@ -80,7 +81,7 @@ void setup()
                         "Task2",    /* Task name */
                         10000,      /* Stack size of task*/
                         NULL,       /* Parameter of the task*/
-                        0,          /* Priority of the task*/
+                        1,          /* Priority of the task*/
                         &Task2,     /* Task handler to keep track created task*/
                         1);         /* Pin task to core 0*/
 

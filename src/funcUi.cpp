@@ -109,22 +109,15 @@ void callFuncRestoreFP(lv_event_t *e)
 void callFuncAddCard(lv_event_t *e)
 {
     myRFID.enrollCard();
-    // lv_textarea_set_text(ui_areaEnterNameFP2, "");
     lv_refr_now(NULL);
 }
 
 void callFuncDeleteCard(lv_event_t *e)
 {
     const char *getDelete = lv_textarea_get_text(ui_areaEnterNameDeleteCard);
-    if (strcmp(getDelete, "") != 0)
-    {
-        myRFID.unenrollCard(getDelete);
-    }
-    else
-    {
-        showPopup(ui_areaNotyfyDeleteCard, "Please enter an ID.", TIME_POPUP);
-    }
-    lv_textarea_set_text(ui_areaEnterNameDeleteCard, "");
+    myRFID.unenrollCard(String(getDelete));
+    myRFID.storeCardToMem();
+    myRFID.LoadCardFromMem();
     lv_refr_now(NULL);
 }
 

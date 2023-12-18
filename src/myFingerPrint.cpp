@@ -81,7 +81,7 @@ void FingerPrint::scanFinger()
     Serial.println("Did not find a match");
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     // _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    criticalTaskHandler(ui_AreaPopup, "Unknown fingerprint!", 7000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
+    criticalTaskHandler(ui_AreaPopup, "Unknown", 5000, -1, false); //-1 value means do not consider for adminFP to enter setting mode
     invalidCount += 1;
     return;
   }
@@ -109,7 +109,7 @@ void FingerPrint::scanFinger()
     // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     _ui_flag_modify(ui_AreaPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
 
-    criticalTaskHandler(ui_AreaPopup, notify, 5000, finger.fingerID, true);
+    criticalTaskHandler(ui_AreaPopup, "Unlock", 5000, finger.fingerID, true);
     String log = removeSpaces(String(printName)) + "-" + "FP" + "-" + realtime.getTimeLog();
     // Serial.println(log);
     history.updateHistory(log);
@@ -352,7 +352,7 @@ bool FingerPrint::enroll()
     if (!storeFPToBuffer(name, id))
       return false;
   }
-  showPopup(ui_areaPopupFP, "Successfully", TIME_POPUP);
+  showPopup(ui_areaPopupFP, "Successful", TIME_POPUP);
   storeFPToMem();
   LoadFPFromMem();
   return true;
@@ -411,8 +411,8 @@ bool FingerPrint::unEnroll(int8_t DelID)
   Serial.print(DelID);
   Serial.println(" has been deleted");
   Serial.println(DelName);
-  const char *notify = createNotification("Deleted fingerprint ", DelName);
-  showPopup(ui_areaNotyfyDeleteFP, notify, TIME_POPUP);
+  String notify = "Deleted " + String(DelName) +"'s FP";
+  showPopup(ui_areaNotyfyDeleteFP, notify.c_str(), TIME_POPUP);
   lv_timer_handler();
   lv_refr_now(NULL);
   

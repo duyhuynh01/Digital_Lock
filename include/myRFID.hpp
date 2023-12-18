@@ -16,6 +16,28 @@
 #include "myFingerPrint.hpp"
 #include "gui.hpp"
 #include "utils.hpp"
+#include "vector"
+#include <FS.h>
+#include <SPIFFS.h>
+#include <string>
+#include <algorithm>
+#include "esp_task_wdt.h" 
+
+using namespace fs;
+
+
+struct CardData
+{
+    char id[9];
+    char name[8];
+};
+
+struct cardDataType
+{
+    int8_t id;
+    String cardUID;
+    String name;
+};
 class RFID
 {
 public:
@@ -23,25 +45,24 @@ public:
     void begin();
     void scanCard();
     void showList();
+    int8_t getID();
     bool enrollCard();
-    bool unenrollCard(const char* user);
-    bool restore();
+    bool storeCardToBuffer(int8_t id,String cardUID,String name);
+    void storeCardToMem();
+    void LoadCardFromMem();
+    void unenrollCard(String DelID);
+    void restore();
     bool saveCard();
     bool readCardFromEEPROM();
     bool deleteCardByName(const char *nameToDelete);
-    int8_t findCardByName(const char *name);
     ~RFID();
     
 private:
     MFRC522 mfrc522;
     uint8_t cardCount;
+    std::vector<cardDataType> cardBuffer;
 };
 
-struct CardData
-{
-    char id[9];
-    char name[8];
-};
 
 extern CardData cardRegisteredData[];
 
