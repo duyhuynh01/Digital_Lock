@@ -10,8 +10,6 @@ extern unsigned long lastTouchTime;
 extern uint8_t invalidCount;
 extern HistoryHandler history;
 extern realTime realtime;
-CardData cardRegisteredData[CARD_COUNT];
-int8_t nextCardId;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
 {
 }
@@ -41,52 +39,6 @@ void RFID::restore()
     Serial.println("Successfully delete all card");
 }
 
-/*----------------------Save Card-----------------*/
-bool RFID::saveCard()
-{
-    for (int i = CARD_START_ADDRESS; i <= CARD_END_ADDRESS; i += sizeof(CardData))
-    {
-        uint8_t index = (i - CARD_START_ADDRESS) / sizeof(CardData);
-        if (index < cardCount)
-        {
-            EEPROM.put(i, cardRegisteredData[index]);
-        }
-        else
-        {
-            CardData emptyCard;
-            strcpy(emptyCard.id, "xxx");
-            strcpy(emptyCard.name, "zzz");
-            EEPROM.put(i, emptyCard);
-        }
-    }
-    EEPROM.commit();
-    return true;
-}
-
-/*-----------------Read card from EEPROM------------*/
-
-bool RFID::readCardFromEEPROM()
-{
-    uint8_t countList = 0;
-    cardCount = 0;
-    for (int i = CARD_START_ADDRESS; i < CARD_END_ADDRESS; i += sizeof(CardData))
-    {
-        EEPROM.get(i, cardRegisteredData[countList]);
-        countList++;
-    }
-    for (int i = 0; i < CARD_COUNT; i++)
-    {
-        if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
-        {
-            cardCount++;
-        }
-    }
-    Serial.print("Card count: ");
-    Serial.println(cardCount);
-    return true;
-}
-
-/*----------------Check card is existed------------*/
 void RFID::scanCard()
 {
     const char *printName;
@@ -155,7 +107,7 @@ bool RFID::enrollCard()
     unsigned long timeStamp = 0;
     esp_task_wdt_init(10, true); // Set watchdog timeout to 10 seconds
     while (timeStamp <= cardTimeout)
-    {   
+    {
         resetOnScreenTimer();
         timeStamp = millis() - startTime;
         if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
@@ -336,32 +288,6 @@ void RFID::unenrollCard(String DelID)
         return;
     }
 }
-
-/*------------Print list card----------*/
-// void RFID::showList()
-// {
-//     readCardFromEEPROM();
-//     lv_textarea_set_text(ui_areaShowCard, "");
-//     lv_textarea_add_text(ui_areaShowCard, "Total card is ");
-//     convertNum(ui_areaShowCard, cardCount);
-//     lv_textarea_add_text(ui_areaShowCard, "\n\n");
-//     Serial.print("Registered Cards: ");
-//     Serial.println(cardCount);
-//     for (int i = 0; i < CARD_COUNT; i++)
-//     {
-//         if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
-//         {
-//             Serial.print(cardRegisteredData[i].id);
-//             Serial.print(" : ");
-//             Serial.println(cardRegisteredData[i].name);
-//             lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].id);
-//             lv_textarea_add_text(ui_areaShowCard, " : ");
-//             lv_textarea_add_text(ui_areaShowCard, cardRegisteredData[i].name);
-//             lv_textarea_add_text(ui_areaShowCard, "\n");
-//         }
-//     }
-// }
-
 void draw_part_event_RFID(lv_event_t *e)
 {
     lv_obj_t *obj = lv_event_get_target(e);
@@ -378,17 +304,13 @@ lv_obj_t *tableRFID;
 bool flagShowRFID = false;
 void RFID::showList()
 {
-    readCardFromEEPROM();
     tableRFID = lv_table_create(ui_panelShowCard);
     int8_t countRFID = 0;
-    for (int i = 0; i < CARD_COUNT; i++)
+    for (int i = 0; i < cardBuffer.size(); i++)
     {
-        if (strcmp(cardRegisteredData[i].id, "xxx") != 0 && strcmp(cardRegisteredData[i].id, "yyy") != 0)
-        {
-            lv_table_set_cell_value(tableRFID, countRFID, 0, cardRegisteredData[i].id);
-            lv_table_set_cell_value(tableRFID, countRFID, 1, cardRegisteredData[i].name);
-            countRFID++;
-        }
+        lv_table_set_cell_value(tableRFID, countRFID, 0, String(cardBuffer[i].id).c_str());
+        lv_table_set_cell_value(tableRFID, countRFID, 1, cardBuffer[i].name.c_str());
+        countRFID++;
     }
     lv_obj_set_style_text_font(tableRFID, &lv_font_montserrat_10, LV_PART_MAIN);
     lv_obj_set_style_text_color(tableRFID, lv_color_hex(0x000000), LV_PART_MAIN);

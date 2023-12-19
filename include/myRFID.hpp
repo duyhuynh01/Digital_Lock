@@ -24,14 +24,6 @@
 #include "esp_task_wdt.h" 
 
 using namespace fs;
-
-
-struct CardData
-{
-    char id[9];
-    char name[8];
-};
-
 struct cardDataType
 {
     int8_t id;
@@ -52,18 +44,11 @@ public:
     void LoadCardFromMem();
     void unenrollCard(String DelID);
     void restore();
-    bool saveCard();
-    bool readCardFromEEPROM();
-    bool deleteCardByName(const char *nameToDelete);
     ~RFID();
     
 private:
     MFRC522 mfrc522;
-    uint8_t cardCount;
     std::vector<cardDataType> cardBuffer;
 };
-
-
-extern CardData cardRegisteredData[];
 
 #endif  
