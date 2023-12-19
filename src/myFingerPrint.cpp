@@ -309,11 +309,11 @@ bool FingerPrint::enroll()
   status = finger.createModel();
   if (status == FINGERPRINT_ENROLLMISMATCH)
   {
-    Serial.println("Failed to add new finger because your two fingers do not match");
+    Serial.println("Failed to add new finger because your two fingers not match");
     // lv_textarea_set_text(ui_areaEnterNameFP, "Failed to add new fingerprint due to your two fingerprints do not match");
     // lv_refr_now(NULL);
     // delay(2000);
-    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to your two fingerprints do not match", TIME_POPUP);
+    showPopup(ui_areaPopupFP, "Failed to add new fingerprint due to your two fingerprints not match", TIME_POPUP);
     return false;
   }
   else if (status != FINGERPRINT_OK)
