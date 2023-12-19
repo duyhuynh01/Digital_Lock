@@ -195,6 +195,7 @@ bool FingerPrint::enroll()
   showPopup(ui_areaPopupFP, "Place your finger on sensor", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
+    resetOnScreenTimer();
     status = finger.getImage();
     if (status == FINGERPRINT_OK)
     {
@@ -259,6 +260,7 @@ bool FingerPrint::enroll()
   showPopup(ui_areaPopupFP, "Place your same finger on sensor again", TIME_POPUP);
   while (status != FINGERPRINT_OK && (millis() - startTime) < ScanTimeoutMillis)
   {
+    resetOnScreenTimer();
     status = finger.getImage();
     if (status == FINGERPRINT_OK)
     {

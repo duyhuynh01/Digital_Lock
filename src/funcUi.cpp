@@ -46,7 +46,7 @@ void callFuncCheckPW(lv_event_t *e)
     if (myPassword.checkAdminPassword() == true)
     {
         isSettingModeOn = true;
-        showPopup(ui_AreaPopup, "Unlock!", 5000);
+        showPopup(ui_AreaPopup, "Unlock", 5000);
         // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         // _ui_flag_modify(ui_KeyboardPWHome, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         hideKeyboard(ui_KeyboardPWHome, 5000);

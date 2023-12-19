@@ -155,7 +155,8 @@ bool RFID::enrollCard()
     unsigned long timeStamp = 0;
     esp_task_wdt_init(10, true); // Set watchdog timeout to 10 seconds
     while (timeStamp <= cardTimeout)
-    {
+    {   
+        resetOnScreenTimer();
         timeStamp = millis() - startTime;
         if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
         {
