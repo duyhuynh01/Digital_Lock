@@ -144,49 +144,22 @@ lv_obj_t *table;
 bool flagHistory = false;
 void HistoryHandler::showHistory()
 {
-    // Serial.print("Number of history: "); Serial.println(historyBuffer.size());
-    // for (int i = 0; i<historyBuffer.size(); i++){
-    //     Serial.println(historyBuffer[i]);
-    // }
-
-    
-
-    // // Tạo bảng và khởi tạo style
     table = lv_table_create(ui_panelHistory);
     int8_t sizeBuffer = historyBuffer.size();
     String Part1, Part2, Part3, Part4;
     // Thêm các dòng vào bảng
-    for (int i = 0; i < sizeBuffer; i++)
+    for (int i = 0; i < sizeBuffer ; i++)
     {
-        
+        // Serial.println(historyBuffer[i]);
         if (splitString(historyBuffer[i], '-', Part1, Part2, Part3, Part4))
         {
 
-    //         // if (i < historyBuffer.size())
-    //         // {
-        // Serial.print(Part1.c_str());Serial.print(";");
-        // Serial.print(Part2.c_str());Serial.print(";");
-        // Serial.print(Part3.c_str());Serial.print(";");
-        // Serial.print(Part4.c_str());Serial.println(";");
-            lv_table_set_cell_value(table, i, 0, Part1.c_str());
-            lv_table_set_cell_value(table, i, 1, Part2.c_str());
-            lv_table_set_cell_value(table, i, 2, Part3.c_str());
-            lv_table_set_cell_value(table, i, 3, Part4.c_str());
-
-    //         // Serial.println("-----------");
-    //         // Serial.print(Part1.c_str());
-    //         // Serial.print(Part2.c_str());
-    //         // Serial.print(Part3.c_str());
-    // //         // Serial.print(Part4.c_str());
-            // lv_table_set_cell_value(table, i, 0, "admin");
-            // lv_table_set_cell_value(table, i, 1, "RFID");
-            // lv_table_set_cell_value(table, i, 2, "22-11-2001");
-            // lv_table_set_cell_value(table, i, 3, "12-45");
-    //         // }
-    //         // Serial.println(historyBuffer[i]);
+            lv_table_set_cell_value(table, (sizeBuffer-1-i), 0, Part1.c_str());
+            lv_table_set_cell_value(table, (sizeBuffer-1-i), 1, Part2.c_str());
+            lv_table_set_cell_value(table, (sizeBuffer-1-i), 2, Part3.c_str());
+            lv_table_set_cell_value(table, (sizeBuffer-1-i), 3, Part4.c_str());
         }
     }
-
     lv_table_set_col_width(table, 0, 60);
     lv_table_set_col_width(table, 1, 50);
     lv_table_set_col_width(table, 2, 80);

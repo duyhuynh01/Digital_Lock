@@ -1,7 +1,7 @@
 #include <FS.h>
 #include <SPIFFS.h>
 #include <CircularBuffer.h>
-#define HISTORY_LENGTH 10
+#define HISTORY_LENGTH 20
 
 using namespace fs;
 
