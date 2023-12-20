@@ -66,7 +66,6 @@ lv_obj_set_y( ui_areaFPDeletePadding, -90 );
 lv_obj_set_align( ui_areaFPDeletePadding, LV_ALIGN_CENTER );
 lv_textarea_set_max_length(ui_areaFPDeletePadding,10);
 lv_textarea_set_one_line(ui_areaFPDeletePadding,true);
-lv_textarea_set_password_mode(ui_areaFPDeletePadding, true);
 lv_obj_add_flag( ui_areaFPDeletePadding, LV_OBJ_FLAG_HIDDEN );   /// Flags
 lv_obj_set_style_text_letter_space(ui_areaFPDeletePadding, 4, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_text_line_space(ui_areaFPDeletePadding, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
