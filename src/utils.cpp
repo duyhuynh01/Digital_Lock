@@ -58,6 +58,8 @@ void updateDoorStatusTimer()
         {
             endOpenDoorTimer = millis();
             digitalWrite(CTRL_DOOR_PIN, HIGH);
+            volumeStart = false;
+            volumeTime = 0;
             invalidCount = 0;
         }
         else
@@ -83,11 +85,13 @@ void checkInvalidCount()
     {
         tooManyInvalid = true;
         const char *mess = "Too many invalid";
+        volumeTime = 10000;
+        volumeStart = true;
         while (temp > 0)
         {
             criticalTaskHandler(ui_AreaPopup, mess, 7000, -1, false);
             temp--;
-        }
+        }   
     }
     else
     {
