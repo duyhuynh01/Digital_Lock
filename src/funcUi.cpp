@@ -65,6 +65,7 @@ void callFuncCheckPW(lv_event_t *e)
     else
     {
         showPopup(ui_AreaPopup, "Incorrect passcode", TIME_POPUP);
+        invalidCount += 1;
     }
     lv_textarea_set_text(ui_AreaPWHome, "");
 }
