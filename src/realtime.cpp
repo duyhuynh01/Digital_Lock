@@ -9,7 +9,9 @@ void realTime::begin()
     if (!rtc.lostPower())
     {
         Serial.println("RTC lost power, let's set the time!");
-        rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+        DateTime adjustedTime(__DATE__, "15:51:00");
+        rtc.adjust(adjustedTime);
+        // rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
 }
 
