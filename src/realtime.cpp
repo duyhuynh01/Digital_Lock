@@ -13,6 +13,8 @@ void realTime::begin()
         rtc.adjust(adjustedTime);
         // rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
+    DateTime adjustedTime(__DATE__, "15:51:00");
+    rtc.adjust(adjustedTime);
 }
 
 String realTime::getTimeLog()

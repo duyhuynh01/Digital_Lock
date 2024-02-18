@@ -10,6 +10,7 @@ extern unsigned long lastTouchTime;
 extern uint8_t invalidCount;
 extern HistoryHandler history;
 extern realTime realtime;
+unsigned int timeReadRFID = 1500;
 RFID::RFID() : mfrc522(SS_PIN_HSPI, RST_PIN_HSPI)
 {
 }
@@ -42,8 +43,15 @@ void RFID::restore()
 void RFID::scanCard()
 {
     const char *printName;
+    static unsigned long lastScanTime = 0; 
+
+    if (millis() - lastScanTime < timeReadRFID) {
+        
+        return;
+    }
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
     {
+        lastScanTime = millis();
         String cardUID;
         const char *cardID = NULL;
         for (byte i = 0; i < mfrc522.uid.size; i++)
